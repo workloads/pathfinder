@@ -47,7 +47,7 @@ const char index_html[] PROGMEM = R"rawliteral(
     .cc-btn:active svg, .cc-middle:hover{
         opacity: 0.5;
     }
-    .controlor-c > div{
+    .controller-c > div{
         width: 300px;
         height: 300px; 
         background-color: rgba(94,98,112,0.2);
@@ -55,7 +55,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         box-shadow: 10px 10px 10px rgba(0,0,0,0.05);
         margin: auto;
     }
-    .controlor-c > div > div{
+    .controller-c > div > div{
         display: flex;
     }
     main {
@@ -125,7 +125,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         line-height: 1em;
         margin: 0.5em 0;
     }
-    .controlor > div {margin: 80px 0;}
+    .controller > div {margin: 80px 0;}
     .json-cmd-info{
         display: flex;
         flex-wrap: wrap;
@@ -192,7 +192,7 @@ const char index_html[] PROGMEM = R"rawliteral(
     }
     .w-btn:hover{color: #2698EA;}
     .w-btn:active{color: #1b87d4;}
-    @media screen and (min-width: 768px) and (max-width: 1200px){
+    @media screen and (min-width: 768px) and (max-width: 1200px) {
         body{font-size: 16px;}
         main {
             width: 100%;
@@ -200,7 +200,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         .for-move {
             display: block;
         }
-        /* .controlor-c > div{width: 600px;height: 600px;}
+        /* .controller-c > div{width: 600px;height: 600px;}
         .cc-btn{width: 200px;height: 200px;} */
         .json-cmd-info{display: block;}
         .json-cmd-info p span{display: inline;}
@@ -214,7 +214,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         .control-speed > div{width: 600px;}
         section{margin: 20px 0;}
     }
-    @media screen and (min-width: 360px) and (max-width: 767px){
+    @media screen and (min-width: 360px) and (max-width: 767px) {
         main {
             width: 100%;
         }
@@ -234,7 +234,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         .info-box{margin: 10px auto;}
         .info-device-box .info-box{padding: 10px;}
         .num-box-mid div{margin: 10px 0;}
-        .controlor-c > div{
+        .controller-c > div{
             width: 270px;
             height: 270px;
         }
@@ -243,7 +243,7 @@ const char index_html[] PROGMEM = R"rawliteral(
             height: 90px;;
         }
         .big-num{font-size: 2em;}
-        .controlor > div{margin: 40px 0;}
+        .controller > div{margin: 40px 0;}
     }
     </style>
 </head>
@@ -308,8 +308,8 @@ const char index_html[] PROGMEM = R"rawliteral(
                         </div>
                     </div>
                 </div>
-                <div class="for-move-b controlor">
-                    <div class="controlor-c">
+                <div class="for-move-b controller">
+                    <div class="controller-c">
                         <div>
                             <div>
                                 <label><button class="cc-btn" onmousedown="movtionButton(0.3,0.5);" ontouchstart="movtionButton(0.3,0.5);" onmouseup="movtionButton(0,0);" ontouchend="movtionButton(0,0);"><svg fill="none" version="1.1" width="23" height="23" viewBox="0 0 23 23"><g style="mix-blend-mode:passthrough"><path d="M0,2L0,18.1716C0,19.9534,2.15428,20.8457,3.41421,19.5858L19.5858,3.41421C20.8457,2.15428,19.9534,0,18.1716,0L2,0C0.895431,0,0,0.895431,0,2Z" fill="#D8D8D8" fill-opacity="0.20000000298023224"/></g></svg></button></label>

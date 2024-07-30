@@ -517,7 +517,7 @@ void serialCtrl() {
   			}
         jsonCmdReceiveHandler();
       } else {
-        // Handle JSON parsing error here
+        // TODO: Handle JSON parsing error here
       }
       // Reset the receivedData for the next JSON string
       receivedData = "";

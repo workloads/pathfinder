@@ -137,8 +137,8 @@ void servoTorqueCtrl(byte servoID, u8 enableCMD){
 
 
 // set the current position as the middle position of the servo.
-// input the ID of the servo that you wannna set middle position. 
 void setMiddlePos(byte InputID){
+// input the ID of the servo that you want to set middle position.
   st.CalibrationOfs(InputID);
 }
 
@@ -547,7 +547,7 @@ void RoArmM2_computePosbyJointRad(double base_joint_rad, double shoulder_joint_r
 }
 
 
-// EEmode funcs change here.
+// EEmode functions change here.
 // get position by servo feedback.
 void RoArmM2_getPosByServoFeedback() {
   getFeedback(BASE_SERVO_ID, true);

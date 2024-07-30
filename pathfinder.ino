@@ -58,7 +58,7 @@ StaticJsonDocument<1024> jsonInfoHttp;
 // functions for esp-now.
 #include "esp_now_ctrl.h"
 
-// functions for uart json ctrl.
+// functions for UART json ctrl.
 #include "uart_ctrl.h"
 
 // functions for http & web server.
@@ -127,7 +127,7 @@ void setup() {
   if(InfoPrint == 1){Serial.println("Initialize LittleFS for Flash files ctrl.");}
   initFS();
 
-  // init the funcs in switch_module.h
+  // init the functions in switch_module.h
   screenLine_2 = screenLine_3;
   screenLine_3 = "Initialize 12V-switch ctrl";
   oled_update();

@@ -1,4 +1,4 @@
-// funcs for editing the files in flash.
+// functions for editing the files in flash.
 
 bool flashStatus = false;
 

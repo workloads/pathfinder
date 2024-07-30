@@ -401,7 +401,7 @@
 
 
 // insert a new step as the stepNum
-// using the json string input.
+// using the JSON string input.
 // {"T":225,"name":"mission_a","stepNum":3,"step":"{\"T\":104,\"x\":235,\"y\":0,\"z\":234,\"t\":3.14,\"spd\":0.25}"}
 // {"T":225,"name":"mission_a","stepNum":3,"step":"{\"T\":114,\"led\":255}"}
 #define CMD_INSERT_STEP_JSON 225
@@ -418,7 +418,7 @@
 
 
 // replace the cmd at stepNum
-// using json cmd input.
+// using JSON cmd input.
 // {"T":228,"name":"mission_a","stepNum":3,"step":"{\"T\":114,\"led\":255}"}
 #define CMD_REPLACE_STEP_JSON 228
 
@@ -583,7 +583,7 @@
 // {"T":603}
 #define CMD_RESET_BOOT_MISSION	603
 
-// if there is something wrong with wifi funcs, clear the nvs.
+// if there is something wrong with wifi functions, clear the nvs.
 // {"T":604}
 #define CMD_NVS_CLEAR	604
 

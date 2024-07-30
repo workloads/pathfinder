@@ -1,6 +1,4 @@
-// wifi ctrl functions.
-// you can refer to this website below to upload a config file to ESP32 Flash.
-// https://randomnerdtutorials.com/install-esp32-filesystem-uploader-arduino-ide/
+// Wi-Fi control functions.
 
 // libraries:
 // #include <LittleFS.h>
@@ -10,12 +8,12 @@
 // you need to init Serial.
 // bool InfoPrint = true;
 
-// wifi config
-// wifi mode on boot.
+// Wi-Fi config
+// Wi-Fi mode on boot.
 // 0: OFF (you need to use uart-command or upload a new wifiConfig.json to turn it on again)
 // 1: AP (default mode as a brand new product)
 // 2: STA
-// 3: AP+STA (default mode after first wifi connection succeed)
+// 3: AP+STA (default mode after first Wi-Fi connection succeed)
 byte WIFI_MODE_ON_BOOT = 1;
 const char* sta_ssid = "none";
 const char* sta_password = "none";
@@ -25,8 +23,8 @@ const char* ap_password = "12345678";
 // true: change the WIFI_MODE_ON_BOOT to 3 when first STA mode succeed.
 bool defaultModeToAPSTA = true;
 
-// wifiConfig.yaml example:
-// wifi_mode_on_boot:3
+// Wi-FiConfig.yaml example:
+// Wi-Fi_mode_on_boot:3
 // sta_ssid:"WIFI_NAME"
 // sta_ssid:"WIFI_PASSWORD"
 // ap_ssid:"WIFI_NAME"
@@ -42,8 +40,7 @@ IPAddress localIP;
 DynamicJsonDocument wifiDoc(256);
 bool wifiConfigFound = false;
 
-
-// update oled accroding to wifi settings.
+// update oled according to Wi-Fi settings.
 void updateOledWifiInfo() {
   switch(WIFI_CURRENT_MODE) {
   case 0: 

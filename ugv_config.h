@@ -1,4 +1,4 @@
-// the uart used to control servos.
+// the UART used to control servos.
 // GPIO 18 - S_RXD, GPIO 19 - S_TXD, as default.
 #define RoArmM2_Servo_RXD 18
 #define RoArmM2_Servo_TXD 19
@@ -17,8 +17,8 @@ byte espNowMode = 3;
 
 // set the broadcast ctrl mode.
 // broadcast mac address: FF:FF:FF:FF:FF:FF.
-// true  - [default]it can be controled by broadcast mac address.
-// false - it won't be controled by broadcast mac address.
+// true  - [default]it can be controlled by broadcast mac address.
+// false - it won't be controlled by broadcast mac address.
 bool ctrlByBroadcast = true;
 
 // you can define some whitelist mac addresses here.
@@ -29,7 +29,7 @@ uint8_t mac_whitelist_broadcast[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 // 1 - end servo as a joint moving in vertical plane.
 byte EEMode = 0;
 
-// run new json cmd
+// run new JSON cmd
 bool runNewJsonCmd = false;
 
 // 1: RaspRover
@@ -191,7 +191,7 @@ double radG;
 
 #define MAX_SERVO_ID 32 // MAX:253
 
-// the uart used to control servos.
+// the UART used to control servos.
 // GPIO 18 - S_RXD, GPIO 19 - S_TXD, as default.
 #define S_RXD 18
 #define S_TXD 19
