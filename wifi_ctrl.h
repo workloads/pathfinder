@@ -376,7 +376,7 @@ bool wifiModeAPSTA(const char* input_ap_ssid, const char* input_ap_password, con
 	return true;
 }
 
-// disconnect wifi.
+// disconnect Wi-Fi.
 void wifiStop() {
 	WiFi.disconnect();
 	WIFI_CURRENT_MODE = 0;

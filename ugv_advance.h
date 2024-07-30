@@ -495,7 +495,7 @@ void saveSpdRate() {
 }
 
 // check the main & module type.
-void saveMainTypeModuleTpye(byte inputMain, byte inputModule) {
+void saveMainTypeModuleType(byte inputMain, byte inputModule) {
 	int _LineNum = missionContent("boot");
 	bool sameAsSaved = false;
 	int mm_line_num = -1;
