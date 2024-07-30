@@ -220,12 +220,13 @@ bool RoArmM2_initCheckSucceed  = false;
 u8  servoID[5] = {11, 12, 13, 14, 15};
 s16 goalPos[5] = {2047, 2047, 2047, 2047, 2047};
 u16 moveSpd[5] = {0, 0, 0, 0, 0};
-u8  moveAcc[5] = {ARM_SERVO_INIT_ACC,
-			      ARM_SERVO_INIT_ACC,
-			      ARM_SERVO_INIT_ACC,
-			      ARM_SERVO_INIT_ACC,
-			      ARM_SERVO_INIT_ACC};
-
+u8  moveAcc[5] = {
+    ARM_SERVO_INIT_ACC,
+    ARM_SERVO_INIT_ACC,
+    ARM_SERVO_INIT_ACC,
+    ARM_SERVO_INIT_ACC,
+    ARM_SERVO_INIT_ACC
+};
 
 double ARM_BASE_LIMIT_MIN_RAD     = -M_PI/2;
 double ARM_BASE_LIMIT_MAX_RAD     =  M_PI/2;
@@ -345,7 +346,6 @@ int ONE_CIRCLE_PLUSES = 660;
 double TRACK_WIDTH = 0.172;
 bool SET_MOTOR_DIR = false;
 
-
 #define IO4_PIN 4
 #define IO5_PIN 5
 
@@ -364,7 +364,6 @@ bool uartCmdEcho = 0;
 
 int HEART_BEAT_DELAY = 3000;
 unsigned long lastCmdRecvTime = millis();
-
 
 // --- --- --- ugv imu --- --- ---
 double icm_pitch = 0;
@@ -408,17 +407,16 @@ float min_ax = 0;
 // int32_t biasCPassX, biasCPassY, biasCPassZ;
 
 // Define a storage struct for the biases. Include a non-zero header and a simple checksum
-struct biasStore
-{
-  int32_t biasGyroX = 0;
-  int32_t biasGyroY = 0;
-  int32_t biasGyroZ = 0;
-  int32_t biasAccelX = 0;
-  int32_t biasAccelY = 0;
-  int32_t biasAccelZ = 0;
-  int32_t biasCPassX = 0;
-  int32_t biasCPassY = 0;
-  int32_t biasCPassZ = 0;
+struct biasStore {
+    int32_t biasGyroX = 0;
+    int32_t biasGyroY = 0;
+    int32_t biasGyroZ = 0;
+    int32_t biasAccelX = 0;
+    int32_t biasAccelY = 0;
+    int32_t biasAccelZ = 0;
+    int32_t biasCPassX = 0;
+    int32_t biasCPassY = 0;
+    int32_t biasCPassZ = 0;
 };
 
 biasStore store;

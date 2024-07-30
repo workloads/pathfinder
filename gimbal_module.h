@@ -88,7 +88,7 @@ void getGimbalFeedback() {
     gimbalFeedback[0].mode = st.ReadMode(GIMBAL_PAN_ID);
   } else{
     servoFeedback[0].status = false;
-    if(InfoPrint == 1){
+    if(InfoPrint == 1) {
       jsonInfoHttp.clear();
       jsonInfoHttp["T"] = 1005;
       jsonInfoHttp["id"] = GIMBAL_PAN_ID;
@@ -110,7 +110,7 @@ void getGimbalFeedback() {
     gimbalFeedback[1].mode = st.ReadMode(GIMBAL_TILT_ID);
   } else{
     servoFeedback[1].status = false;
-    if(InfoPrint == 1){
+    if(InfoPrint == 1) {
       jsonInfoHttp.clear();
       jsonInfoHttp["T"] = 1005;
       jsonInfoHttp["id"] = GIMBAL_TILT_ID;
@@ -145,7 +145,7 @@ void gimbalUserCtrl(int inputX, int inputY, int inputSpd) {
   static float goalX = 0;
   static float goalY = 0;
 
-  if(inputX == -1 && inputY == 1){
+  if(inputX == -1 && inputY == 1) {
     goalX = -180;
     goalY = 90;
   }

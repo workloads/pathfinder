@@ -25,10 +25,11 @@ String customLine_3;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 // init oled ctrl functions.
-void init_oled(){
-  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+void init_oled() {
+  if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
   }
+
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
@@ -37,7 +38,7 @@ void init_oled(){
 }
 
 
-// Updata all data and flash the screen.
+// Update all data and flash the screen.
 void oled_update() {
   display.clearDisplay();
   display.setCursor(0,0);
@@ -53,12 +54,14 @@ void oled_update() {
 // dev info update on oled.
 void oledInfoUpdate() {
   currentTimeMillis = millis();
+
   if (currentTimeMillis - lastTimeMillis > 10000) {
     inaDataUpdate();
     lastTimeMillis = currentTimeMillis;
   } else {
     return;
   }
+
   if (!screenDefaultMode) {
     return;
   }
@@ -70,12 +73,25 @@ void oledInfoUpdate() {
 // oled ctrl.
 void oledCtrl(byte inputLineNum, String inputMegs) {
   screenDefaultMode = false;
+
   switch (inputLineNum) {
-  case 0: customLine_0 = inputMegs;break;
-  case 1: customLine_1 = inputMegs;break;
-  case 2: customLine_2 = inputMegs;break;
-  case 3: customLine_3 = inputMegs;break;
+      case 0:
+        customLine_0 = inputMegs;
+        break;
+
+      case 1:
+        customLine_1 = inputMegs;
+        break;
+
+      case 2:
+        customLine_2 = inputMegs;
+        break;
+
+      case 3:
+        customLine_3 = inputMegs;
+        break;
   }
+
   display.clearDisplay();
   display.setCursor(0,0);
 
@@ -88,10 +104,10 @@ void oledCtrl(byte inputLineNum, String inputMegs) {
 }
 
 // set oled as default.
-void setOledDefault(){
-  screenDefaultMode = true;
-  inaDataUpdate();
-  screenLine_3 = "V:"+String(loadVoltage_V);
-  oled_update();
-  lastTimeMillis = currentTimeMillis;
+void setOledDefault() {
+    screenDefaultMode = true;
+    inaDataUpdate();
+    screenLine_3 = "V:"+String(loadVoltage_V);
+    oled_update();
+    lastTimeMillis = currentTimeMillis;
 }

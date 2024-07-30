@@ -8,17 +8,18 @@ float current_mA = 0.0;
 float power_mW = 0.0; 
 bool ina219_overflow = false;
 
-void ina219_init(){
-  if(!ina219.init()){
+void ina219_init() {
+  if(!ina219.init()) {
     Serial.println("INA219 not connected!");
   }
+
   ina219.setADCMode(BIT_MODE_9);
   ina219.setPGain(PG_320);
   ina219.setBusRange(BRNG_16);
   ina219.setShuntSizeInOhms(0.01); // used in INA219.
 }
 
-void inaDataUpdate(){
+void inaDataUpdate() {
   shuntVoltage_mV = ina219.getShuntVoltage_mV();
   busVoltage_V = ina219.getBusVoltage_V();
   current_mA = ina219.getCurrent_mA();

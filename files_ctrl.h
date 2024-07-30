@@ -4,7 +4,7 @@ bool flashStatus = false;
 
 // initialize littleFS for flash file system ctrl.
 void initFS() {
-	if (!LittleFS.begin(true)){
+	if (!LittleFS.begin(true)) {
 		if (InfoPrint == 1) {Serial.println("LittleFS mount failed.");}
 		flashStatus = false;
 	}
@@ -16,7 +16,7 @@ void initFS() {
 
 
 // get the free space of flash.
-uint32_t freeFlashSpace(){
+uint32_t freeFlashSpace() {
   size_t total = LittleFS.totalBytes();
   size_t used = LittleFS.usedBytes();
   uint32_t freeSpace = total - used;
@@ -170,7 +170,7 @@ void appendLine(String fileName, String appendContent) {
 
 	File file = LittleFS.open("/" + fileName, "a");
 
-	if(!file){
+	if(!file) {
 	Serial.println("Error opening file for appending.");
 	return;
 	}
@@ -193,7 +193,7 @@ void insertLine(String filename, int lineNum, String newLineString) {
 	String lines[_LineNum+1];
 
 	File file = LittleFS.open("/" + filename, "r");
-	if(!file){
+	if(!file) {
 		Serial.println("Error opening file for writing.");
 		return;
 	}
@@ -210,7 +210,7 @@ void insertLine(String filename, int lineNum, String newLineString) {
 	file.close();
 
 	file = LittleFS.open("/" + filename, "w");
-	for(int j=0; j<i; j++){
+	for(int j=0; j<i; j++) {
 		file.println(lines[j]);
 	}
 	file.close();
@@ -230,7 +230,7 @@ void replaceLine(String filename, int lineNum, String newLineString) {
 	String lines[_LineNum]; 
 
 	File file = LittleFS.open("/" + filename, "r");
-	if(!file){
+	if(!file) {
 		Serial.println("Error opening file.");
 		return;
 	}  
@@ -245,7 +245,7 @@ void replaceLine(String filename, int lineNum, String newLineString) {
 	lines[lineNum-1] = newLineString;
 
 	file = LittleFS.open("/" + filename, "w");
-	for(int j=0; j<i; j++){
+	for(int j=0; j<i; j++) {
 		file.println(lines[j]);
 	}
 	file.close();
@@ -259,7 +259,7 @@ void replaceLine(String filename, int lineNum, String newLineString) {
 // read a single line from file.
 String readSingleLine(String filename, int lineNum) {
 	File file = LittleFS.open("/" + filename, "r");
-	if(!file){
+	if(!file) {
 		Serial.println("Error opening file.");
 		return "";
 	}  
@@ -287,11 +287,11 @@ String readSingleLine(String filename, int lineNum) {
 }
 
 
-void deleteSingleLine(String fileName, int lineNum){
+void deleteSingleLine(String fileName, int lineNum) {
   Serial.println("--- --- --- RAW FILE -- --- ---");
   File file = LittleFS.open("/" + fileName, "r+");
   readFile(fileName);
-  if(!file){
+  if(!file) {
     Serial.println("Error opening file for reading");
     return;
   }
@@ -299,9 +299,9 @@ void deleteSingleLine(String fileName, int lineNum){
   String contents = "";
   int i = 1;
 
-  while(file.available()){
+  while(file.available()) {
     String line = file.readStringUntil('\n');
-    if(i != lineNum){
+    if(i != lineNum) {
       contents += line + "\n";  
     }
     i++;

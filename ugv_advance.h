@@ -3,17 +3,16 @@
 void jsonCmdReceiveHandler();
 bool moveToStep(String inputName, int inputStepNum);
 
-
 // mission abort after serial received anything.
 bool serialMissionAbort() {
 	if (Serial.available()) {
 		if (InfoPrint == 1) {Serial.println("[missionPlay abort.]");}
+
 		return true;
 	} else {
 		return false;
 	}
 }
-
 
 // input the mission name and the intro to create a mission file.
 bool createMission(String inputName, String inputIntro) {
@@ -25,13 +24,14 @@ bool createMission(String inputName, String inputIntro) {
 	serializeJson(jsonInfoSend, contentBuffer);
 	
 	jsonInfoSend.clear();
+
 	return createFile(inputName + ".mission", contentBuffer);
 }
-
 
 // input the mission name and get the total content
 int missionContent(String inputName) {
 	File file = LittleFS.open("/" + inputName + ".mission", "r");
+
 	if (!file) {
 		Serial.println("file not found.");
 		return -1;
@@ -47,6 +47,7 @@ int missionContent(String inputName) {
 	jsonInfoHttp["first_line"] = mission_intro;
 
 	int _LineNum = 0;
+
 	while (file.available()) {
 		_LineNum++;
 		String line = file.readStringUntil('\n');
@@ -62,26 +63,28 @@ int missionContent(String inputName) {
 	return _LineNum;
 }
 
-
-
-
 // input the mission name and the step to append 
 // a new step at the end of the mission.
 // using inputStep(String)
 bool appendStepJson(String inputName, String inputStep) {
 	DeserializationError err = deserializeJson(jsonInfoSend, inputStep);
+
 	if (err == DeserializationError::Ok) {
 		if (InfoPrint == 1) {
 			Serial.println("[json parsing succeed.]");
 		}
+
 		appendLine(inputName + ".mission", inputStep);
 		jsonInfoSend.clear();
+
 		return true;
 	} else {
 		jsonInfoSend.clear();
+
 		if (InfoPrint == 1) {
 			Serial.println("[deserializeJson err]");
 		}
+
 		return false;
 	}
 }
@@ -113,25 +116,27 @@ void appendDelayCmd(String inputName, int delayTime) {
 	appendLine(inputName + ".mission", contentBuffer);
 }
 
-
-
-
 // insert a new step as the stepNum
 // using the json string input.
 bool insertStepJson(String inputName, int inputStepNum, String inputStep) {
 	DeserializationError err = deserializeJson(jsonInfoSend, inputStep);
+
 	if (err == DeserializationError::Ok) {
 		if (InfoPrint == 1) {
 			Serial.println("[json parsing succeed.]");
 		}
+
 		insertLine(inputName + ".mission", inputStepNum + 1, inputStep);
 		jsonInfoSend.clear();
+
 		return true;
 	} else {
 		jsonInfoSend.clear();
+
 		if (InfoPrint == 1) {
 			Serial.println("[deserializeJson err]");
 		}
+
 		return false;
 	}
 }
@@ -162,25 +167,27 @@ void insertDelayCmd(String inputName, int inputStepNum, int delayTime) {
 	insertLine(inputName + ".mission", inputStepNum + 1, contentBuffer);
 }
 
-
-
-
 // replace the cmd at stepNum.
 // using the step json string input.
 bool replaceStepJson(String inputName, int inputStepNum, String inputStep) {
 	DeserializationError err = deserializeJson(jsonInfoSend, inputStep);
+
 	if (err == DeserializationError::Ok) {
 		if (InfoPrint == 1) {
 			Serial.println("[json parsing succeed.]");
 		}
+
 		replaceLine(inputName + ".mission", inputStepNum + 1, inputStep);
 		jsonInfoSend.clear();
+
 		return true;
 	} else {
 		jsonInfoSend.clear();
+
 		if (InfoPrint == 1) {
 			Serial.println("[deserializeJson err]");
 		}
+
 		return false;
 	}
 }
@@ -211,18 +218,17 @@ void replaceDelayCmd(String inputName, int inputStepNum, int delayTime) {
 	replaceLine(inputName + ".mission", inputStepNum + 1, contentBuffer);
 }
 
-
 // delete a step
 void deleteStep(String inputName, int inputStepNum) {
 	deleteSingleLine(inputName + ".mission", inputStepNum + 1);
 }
-
 
 // input the mission name and the stepNum.
 // it will process the cmd.
 bool moveToStep(String inputName, int inputStepNum) {
 	String stepStringBuffer = readSingleLine(inputName + ".mission", inputStepNum + 1);
 	DeserializationError err = deserializeJson(jsonCmdReceive, stepStringBuffer);
+
 	if (err == DeserializationError::Ok) {
 		if (InfoPrint == 1) {
 			Serial.println("[json parsing succeed.]");
@@ -231,21 +237,26 @@ bool moveToStep(String inputName, int inputStepNum) {
 			Serial.print("[stepNum]: ");Serial.println(inputStepNum);
 			Serial.print("[cmd]: ");Serial.println(stepStringBuffer);
 		}
+
 		jsonCmdReceiveHandler();
+
 		if (InfoPrint == 1) {
 			Serial.println("[step finished]");
 		}
+
 		jsonInfoSend.clear();
-		return true;
+
+        return true;
 	} else {
 		jsonInfoSend.clear();
+
 		if (InfoPrint == 1) {
 			Serial.println("[deserializeJson err]");
 		}
+
 		return false;
 	}
 }
-
 
 // input the mission name and the repeat times.
 // when repeatTimes = -1, it will loop forever.
@@ -253,14 +264,21 @@ bool moveToStep(String inputName, int inputStepNum) {
 void missionPlay(String inputName, int repeatTimes) {
 	int _LineNum = missionContent(inputName);
 	int currentTimes = 0;
+
 	while (1) {
 		currentTimes++;
+
 		if (currentTimes > repeatTimes && repeatTimes != -1) {
-			if (InfoPrint == 1) {Serial.println("[missionPlay finished.]");}
-			return;
+			if (InfoPrint == 1) {
+                Serial.println("[missionPlay finished.]");
+            }
+
+            return;
 		}
+
 		if (InfoPrint == 1) {
-			Serial.print("---\n[currentTimes: ");Serial.print(currentTimes);
+			Serial.print("---\n[currentTimes: ");
+            Serial.print(currentTimes);
 			Serial.println(" ]");
 		}
 
@@ -268,16 +286,17 @@ void missionPlay(String inputName, int repeatTimes) {
 			if (serialMissionAbort()) {
 				return;
 			}
+
 			moveToStep(inputName, i);
 		}
 	}
 }
 
-
 // change EEmode.
 void configEEmodeType(byte inputMode) {
 	EEMode = inputMode;
-	if (inputMode == 0){
+
+	if (inputMode == 0) {
 		l3A = ARM_L3_LENGTH_MM_A_0;
 		l3B = ARM_L3_LENGTH_MM_B_0;
 		l3  = sqrt(l3A * l3A + l3B * l3B);
@@ -288,7 +307,8 @@ void configEEmodeType(byte inputMode) {
 		initZ = l2A - l3B;
 		initT = M_PI;
 	}
-	else if (inputMode == 1){
+
+	else if (inputMode == 1) {
 		l3A = ARM_L3_LENGTH_MM_A_1;
 		l3B = ARM_L3_LENGTH_MM_B_1;
 		l3  = sqrt(l3A * l3A + l3B * l3B);
@@ -308,6 +328,7 @@ void configEEmodeType(byte inputMode) {
 		initZ = l2A - l3B - l4B - EoAT_B;
 		initT = M_PI;
 	}
+
 	goalX = initX;
 	goalY = initY;
 	goalZ = initZ;
@@ -317,18 +338,29 @@ void configEEmodeType(byte inputMode) {
 	lastY = goalY;
 	lastZ = goalZ;
 	lastT = goalT;
+
 	RoArmM2_baseCoordinateCtrl(initX, initY, initZ, initT);
 	RoArmM2_goalPosMove();
 }
 
-
-// config the siza of EoAT.
+// config the size of EoAT.
 void configEoAT(byte mountPos, double inputEA, double inputEB) {
 	switch (mountPos) {
-	case 0: ARM_L4_LENGTH_MM_A = 67.85;break;
-	case 1: ARM_L4_LENGTH_MM_A = 64.16;break;
-	case 2: ARM_L4_LENGTH_MM_A = 59.07;break;
-	case 3: ARM_L4_LENGTH_MM_A = 51.07;break;
+        case 0:
+            ARM_L4_LENGTH_MM_A = 67.85;
+            break;
+
+        case 1:
+            ARM_L4_LENGTH_MM_A = 64.16;
+            break;
+
+        case 2:
+            ARM_L4_LENGTH_MM_A = 59.07;
+            break;
+
+        case 3:
+            ARM_L4_LENGTH_MM_A = 51.07;
+            break;
 	}
 
 	EoAT_A = inputEA;
@@ -347,19 +379,23 @@ void configEoAT(byte mountPos, double inputEA, double inputEB) {
 	initT = M_PI;
 }
 
-
 // set the InfoPrint.
 void configInfoPrint(byte inputCmd) {
 	switch (inputCmd) {
-	case 0: InfoPrint = 0;
-			break;
-	case 1: InfoPrint = 1;
-			break;
-	case 2: InfoPrint = 2;
-			break;
+
+	case 0:
+        InfoPrint = 0;
+        break;
+
+	case 1:
+        InfoPrint = 1;
+        break;
+
+	case 2:
+        InfoPrint = 2;
+        break;
 	}
 }
-
 
 // set the baseInfoFeedback.
 void setBaseInfoFeedbackMode(bool inputCmd) {
@@ -370,10 +406,10 @@ void setBaseInfoFeedbackMode(bool inputCmd) {
 	}
 }
 
-
 // baseInfoFeedback.
 void baseInfoFeedback() {
 	static unsigned long last_feedback_time;
+
 	if (millis() - last_feedback_time < feedbackFlowExtraDelay) {
 		return;
 	}
@@ -409,46 +445,44 @@ void baseInfoFeedback() {
 	jsonInfoHttp["v"] = loadVoltage_V;
 
 	switch(moduleType) {
-	case 1:
-		jsonInfoHttp["ax"] = lastX;
-		jsonInfoHttp["ay"] = lastY;
-		jsonInfoHttp["az"] = lastZ;
-		jsonInfoHttp["ab"] = radB;
-		jsonInfoHttp["as"] = radS;
-		jsonInfoHttp["ae"] = radE;
-		jsonInfoHttp["at"] = lastT;
-		jsonInfoHttp["torB"] = servoFeedback[BASE_SERVO_ID - 11].load;
-		jsonInfoHttp["torS"] = servoFeedback[SHOULDER_DRIVING_SERVO_ID - 11].load - servoFeedback[SHOULDER_DRIVEN_SERVO_ID - 11].load;
-		jsonInfoHttp["torE"] = servoFeedback[ELBOW_SERVO_ID - 11].load;
-		jsonInfoHttp["torH"] = servoFeedback[GRIPPER_SERVO_ID - 11].load;
-		break;
-	case 2:
-		jsonInfoHttp["pan"]  = panAngleCompute(gimbalFeedback[0].pos);
-		jsonInfoHttp["tilt"] = tiltAngleCompute(gimbalFeedback[1].pos);
-		break;
-	}
+
+        case 1:
+            jsonInfoHttp["ax"] = lastX;
+            jsonInfoHttp["ay"] = lastY;
+            jsonInfoHttp["az"] = lastZ;
+            jsonInfoHttp["ab"] = radB;
+            jsonInfoHttp["as"] = radS;
+            jsonInfoHttp["ae"] = radE;
+            jsonInfoHttp["at"] = lastT;
+            jsonInfoHttp["torB"] = servoFeedback[BASE_SERVO_ID - 11].load;
+            jsonInfoHttp["torS"] = servoFeedback[SHOULDER_DRIVING_SERVO_ID - 11].load - servoFeedback[SHOULDER_DRIVEN_SERVO_ID - 11].load;
+            jsonInfoHttp["torE"] = servoFeedback[ELBOW_SERVO_ID - 11].load;
+            jsonInfoHttp["torH"] = servoFeedback[GRIPPER_SERVO_ID - 11].load;
+            break;
+
+        case 2:
+            jsonInfoHttp["pan"]  = panAngleCompute(gimbalFeedback[0].pos);
+            jsonInfoHttp["tilt"] = tiltAngleCompute(gimbalFeedback[1].pos);
+            break;
+        }
 
 	String getInfoJsonString;
 	serializeJson(jsonInfoHttp, getInfoJsonString);
 	Serial.println(getInfoJsonString);
 }
 
-
 // change module type.
 void changeModuleType(byte inputCmd) {
 	moduleType = inputCmd;
 }
 
-
 void setFeedbackFlowInterval(int inputCmd) {
 	feedbackFlowExtraDelay = abs(inputCmd);
 }
 
-
 void setCmdEcho(bool inputCmd) {
 	uartCmdEcho = inputCmd;
 }
-
 
 void saveSpdRate() {
 	jsonInfoHttp.clear();
@@ -460,28 +494,32 @@ void saveSpdRate() {
 	appendStepJson("boot", getInfoJsonString);
 }
 
-
 // check the main & module type.
 void saveMainTypeModuleTpye(byte inputMain, byte inputModule) {
 	int _LineNum = missionContent("boot");
 	bool sameAsSaved = false;
 	int mm_line_num = -1;
 	String stepStringBuffer;
-	for (int i = 1; i<=_LineNum+1; i++) {
+
+    for (int i = 1; i<=_LineNum+1; i++) {
 		stepStringBuffer = readSingleLine("boot.mission", i);
 		DeserializationError err = deserializeJson(jsonCmdReceive, stepStringBuffer);
+
 		if (err == DeserializationError::Ok) {
 			int cmdType = jsonCmdReceive["T"].as<int>();
+
 			if (cmdType == CMD_MM_TYPE_SET) {
 				mm_line_num = i;
 				int jsonMain = jsonCmdReceive["main"];
 				int jsonModule = jsonCmdReceive["module"];
+
 				if (inputMain == jsonMain && inputModule == jsonModule) {
 					sameAsSaved = true;
 				}
 			}
 		}
 	}
+
 	if (!sameAsSaved) {
 		jsonInfoSend.clear();
 		jsonInfoSend["T"] = CMD_MM_TYPE_SET;
@@ -489,6 +527,7 @@ void saveMainTypeModuleTpye(byte inputMain, byte inputModule) {
 		jsonInfoSend["module"] = inputModule;
 		String contentBuffer;
 		serializeJson(jsonInfoSend, contentBuffer);
+
 		if (mm_line_num == -1) {
 			appendStepJson("boot", contentBuffer);
 			Serial.println("new mm_json appended.");

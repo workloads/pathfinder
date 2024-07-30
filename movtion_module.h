@@ -6,7 +6,7 @@ float spd_rate_A = 1.0;
 float spd_rate_B = 1.0;
 bool heartbeatStopFlag = false;
 
-void movtionPinInit(){
+void movtionPinInit() {
   pinMode(AIN1, OUTPUT);
   pinMode(AIN2, OUTPUT);
   pinMode(PWMA, OUTPUT);
@@ -27,7 +27,7 @@ void movtionPinInit(){
 }
 
 
-void switchEmergencyStop(){
+void switchEmergencyStop() {
   digitalWrite(AIN1, LOW);
   digitalWrite(AIN2, LOW);
 
@@ -36,15 +36,15 @@ void switchEmergencyStop(){
 }
 
 
-void switchPortCtrlA(float pwmInputA){
+void switchPortCtrlA(float pwmInputA) {
   int pwmIntA = round(pwmInputA * spd_rate_A);
-  if(abs(pwmIntA) < 1e-6){
+  if(abs(pwmIntA) < 1e-6) {
     digitalWrite(AIN1, LOW);
     digitalWrite(AIN2, LOW);
     return;
   }
 
-  if(pwmIntA > 0){
+  if(pwmIntA > 0) {
     digitalWrite(AIN1, LOW);
     digitalWrite(AIN2, HIGH);
     ledcWrite(channel_A, pwmIntA);
@@ -57,15 +57,15 @@ void switchPortCtrlA(float pwmInputA){
 }
 
 
-void switchPortCtrlB(float pwmInputB){
+void switchPortCtrlB(float pwmInputB) {
   int pwmIntB = round(pwmInputB * spd_rate_B);
-  if(abs(pwmIntB) < 1e-6){
+  if(abs(pwmIntB) < 1e-6) {
     digitalWrite(BIN1, LOW);
     digitalWrite(BIN2, LOW);
     return;
   }
 
-  if(pwmIntB > 0){
+  if(pwmIntB > 0) {
     digitalWrite(BIN1, LOW);
     digitalWrite(BIN2, HIGH);
     ledcWrite(channel_B, pwmIntB);
@@ -209,10 +209,10 @@ void pidControllerInit() {
   pidB.SetMode(PID::Automatic);
 }
 
-void leftCtrl(float pwmInputA){
+void leftCtrl(float pwmInputA) {
   int pwmIntA = round(pwmInputA);
-  if(SET_MOTOR_DIR){
-    if(pwmIntA < 0){
+  if(SET_MOTOR_DIR) {
+    if(pwmIntA < 0) {
       digitalWrite(AIN1, HIGH);
       digitalWrite(AIN2, LOW);
       ledcWrite(channel_A, abs(pwmIntA));
@@ -223,7 +223,7 @@ void leftCtrl(float pwmInputA){
       ledcWrite(channel_A, abs(pwmIntA));
     }
   }else{
-    if(pwmIntA < 0){
+    if(pwmIntA < 0) {
       digitalWrite(AIN1, LOW);
       digitalWrite(AIN2, HIGH);
       ledcWrite(channel_A, abs(pwmIntA));
@@ -236,10 +236,10 @@ void leftCtrl(float pwmInputA){
   }
 }
 
-void rightCtrl(float pwmInputB){
+void rightCtrl(float pwmInputB) {
   int pwmIntB = round(pwmInputB);
-  if(SET_MOTOR_DIR){
-    if(pwmIntB < 0){
+  if(SET_MOTOR_DIR) {
+    if(pwmIntB < 0) {
       digitalWrite(BIN1, HIGH);
       digitalWrite(BIN2, LOW);
       ledcWrite(channel_B, abs(pwmIntB));
@@ -250,7 +250,7 @@ void rightCtrl(float pwmInputB){
       ledcWrite(channel_B, abs(pwmIntB));
     }
   }else{
-    if(pwmIntB < 0){
+    if(pwmIntB < 0) {
       digitalWrite(BIN1, LOW);
       digitalWrite(BIN2, HIGH);
       ledcWrite(channel_B, abs(pwmIntB));
@@ -266,11 +266,11 @@ void rightCtrl(float pwmInputB){
 void setGoalSpeed(float inputLeft, float inputRight) {
   usePIDCompute = true;
 
-  if(inputLeft < -2.0 || inputLeft > 2.0){
+  if(inputLeft < -2.0 || inputLeft > 2.0) {
     return;
   }
 
-  if(inputRight < -2.0 || inputRight > 2.0){
+  if(inputRight < -2.0 || inputRight > 2.0) {
     return;
   }
   

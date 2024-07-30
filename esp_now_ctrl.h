@@ -114,7 +114,7 @@ void macStringToByteArray(const String& macString, uint8_t* byteArray) {
 
 
 void OnDataRecv(const unsigned char* mac, const unsigned char* incomingData, int len) {
-  if (espNowMode != 3){
+  if (espNowMode != 3) {
     return;
   }
 
@@ -283,7 +283,7 @@ void espNowGroupSend(byte devCodeIn, float bIn, float sIn, float eIn, float hIn,
 }
 
 
-void espNowSingleDevSend(String inputMac, byte devCodeIn, float bIn, float sIn, float eIn, float hIn, byte cmdIn, String messageIn){
+void espNowSingleDevSend(String inputMac, byte devCodeIn, float bIn, float sIn, float eIn, float hIn, byte cmdIn, String messageIn) {
   if (inputMac.length() != 17) {
     jsonInfoHttp.clear();
     jsonInfoHttp["T"] = CMD_ESP_NOW_SEND;

@@ -4,7 +4,6 @@ const char index_html[] PROGMEM = R"rawliteral(
 <head>
     <title>UGV01_BASE_WEB</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <!-- <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script> -->
     <style type="text/css">
     html {
         display: inline-block;
@@ -699,7 +698,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                 if (jsonResponse.V<11.06) {
                     document.getElementById("V").classList.remove("num-color");
                     document.getElementById("V").classList.add("num-color-red");
-                }else{
+                } else{
                     document.getElementById("V").classList.remove("num-color-red");
                     document.getElementById("V").classList.add("num-color");
                 }
@@ -761,7 +760,7 @@ const char index_html[] PROGMEM = R"rawliteral(
             xhr.send();
         }
     }
-    function movtionButton(spdL, spdR){
+    function movtionButton(spdL, spdR) {
         left_speed  = spdL;
         right_speed = spdR;
         send_heartbeat = 1;
@@ -775,7 +774,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         xhr.open("GET", "js?json=" + jsonString, true);
         xhr.send();
     }
-    function ledCtrl(inputCmd){
+    function ledCtrl(inputCmd) {
         if (inputCmd == 0) {
             io4_status = 0;
             io5_status = 0;
@@ -806,7 +805,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         xhr.open("GET", "js?json=" + jsonString, true);
         xhr.send();
     }
-    function gimbalSteady(inputS,inputY){
+    function gimbalSteady(inputS,inputY) {
         steady_status = inputS;
         steady_bias = inputY;
         var jsonCmd = {
@@ -819,10 +818,10 @@ const char index_html[] PROGMEM = R"rawliteral(
         xhr.open("GET", "js?json=" + jsonString, true);
         xhr.send();
     }
-    function gimbalCtrl(inputCmd){
+    function gimbalCtrl(inputCmd) {
         if (inputCmd == 0) {
             gimbal_T = 135;
-        }else if (inputCmd == 1) {
+        } else if (inputCmd == 1) {
             gimbal_T = 134;
             gimbal_X = read_X;
             gimbal_Y = 90;
@@ -832,7 +831,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                     steady_bias = 90;
                 }
             }
-        }else if (inputCmd == 2) {
+        } else if (inputCmd == 2) {
             gimbal_T = 134;
             gimbal_X = read_X;
             gimbal_Y = -45;
@@ -842,15 +841,15 @@ const char index_html[] PROGMEM = R"rawliteral(
                     steady_bias = 45;
                 }
             }
-        }else if (inputCmd == 3) {
+        } else if (inputCmd == 3) {
             gimbal_T = 134;
             gimbal_X = -180;
             gimbal_Y = read_Y;
-        }else if (inputCmd == 4) {
+        } else if (inputCmd == 4) {
             gimbal_T = 134;
             gimbal_X = 180;
             gimbal_Y = read_Y;
-        }else if (inputCmd == 5) {
+        } else if (inputCmd == 5) {
             gimbal_T = 134;
             gimbal_X = 0;
             gimbal_Y = 0;
@@ -871,67 +870,67 @@ const char index_html[] PROGMEM = R"rawliteral(
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "js?json=" + jsonString, true);
             xhr.send();
-        }else if (steady_status == 1) {
+        } else if (steady_status == 1) {
             gimbalSteady(1,steady_bias);
         }
     }
 
-    function cmdProcess(){
+    function cmdProcess() {
         if (forwardButton == 0 && backwardButton == 0 && leftButton == 0 && rightButton == 0) {
             movtionButton(0, 0);
         }
-        else if (forwardButton == 1 && backwardButton == 0 && leftButton == 0 && rightButton == 0){
+        else if (forwardButton == 1 && backwardButton == 0 && leftButton == 0 && rightButton == 0) {
             movtionButton(0.5, 0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 0 && rightButton == 0){
+        } else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 0 && rightButton == 0) {
             movtionButton(0.5, 0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 0 && rightButton == 0){
+        } else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 0 && rightButton == 0) {
             movtionButton(-0.5, -0.5);
-        }else if (forwardButton == 0 && backwardButton == 1 && leftButton == 0 && rightButton == 0){
+        } else if (forwardButton == 0 && backwardButton == 1 && leftButton == 0 && rightButton == 0) {
             movtionButton(-0.5, -0.5);
         }
-        else if (forwardButton == 0 && backwardButton == 0 && leftButton == 1 && rightButton == 0){
+        else if (forwardButton == 0 && backwardButton == 0 && leftButton == 1 && rightButton == 0) {
             movtionButton(-0.5, 0.5);
-        }else if (forwardButton == 0 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 1){
+        } else if (forwardButton == 0 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 1) {
             movtionButton(-0.5, 0.5);
-        }else if (forwardButton == 0 && backwardButton == 0 && leftButton == 0 && rightButton == 1){
+        } else if (forwardButton == 0 && backwardButton == 0 && leftButton == 0 && rightButton == 1) {
             movtionButton(0.5, -0.5);
-        }else if (forwardButton == 0 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 2){
+        } else if (forwardButton == 0 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 2) {
             movtionButton(0.5, -0.5);
         }
-        else if (forwardButton == 1 && backwardButton == 0 && leftButton == 1 && rightButton == 0){
+        else if (forwardButton == 1 && backwardButton == 0 && leftButton == 1 && rightButton == 0) {
             movtionButton(0.3, 0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 1 && rightButton == 0){
+        } else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 1 && rightButton == 0) {
             movtionButton(0.3, 0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 1){
+        } else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 1) {
             movtionButton(0.3, 0.5);
-        }else if (forwardButton == 1 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 1){
+        } else if (forwardButton == 1 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 1) {
             movtionButton(0.3, 0.5);
         }
-        else if (forwardButton == 1 && backwardButton == 0 && leftButton == 0 && rightButton == 1){
+        else if (forwardButton == 1 && backwardButton == 0 && leftButton == 0 && rightButton == 1) {
             movtionButton(0.5, 0.3);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 0 && rightButton == 1){
+        } else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 0 && rightButton == 1) {
             movtionButton(0.5, 0.3);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 2){
+        } else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 2) {
             movtionButton(0.5, 0.3);
-        }else if (forwardButton == 1 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 2){
+        } else if (forwardButton == 1 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 2) {
             movtionButton(0.5, 0.3);
         }
-        else if (forwardButton == 0 && backwardButton == 1 && leftButton == 1 && rightButton == 0){
+        else if (forwardButton == 0 && backwardButton == 1 && leftButton == 1 && rightButton == 0) {
             movtionButton(-0.3, -0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 1 && rightButton == 0){
+        } else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 1 && rightButton == 0) {
             movtionButton(-0.3, -0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 1 && rightButton == 1 && lrNewer == 1){
+        } else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 1 && rightButton == 1 && lrNewer == 1) {
             movtionButton(-0.3, -0.5);
-        }else if (forwardButton == 0 && backwardButton == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 1){
+        } else if (forwardButton == 0 && backwardButton == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 1) {
             movtionButton(-0.3, -0.5);
         }
-        else if (forwardButton == 0 && backwardButton == 1 && leftButton == 0 && rightButton == 1){
+        else if (forwardButton == 0 && backwardButton == 1 && leftButton == 0 && rightButton == 1) {
             movtionButton(-0.5, -0.3);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 0 && rightButton == 1){
+        } else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 0 && rightButton == 1) {
             movtionButton(-0.5, -0.3);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 1 && rightButton == 1 && lrNewer == 2){
+        } else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 1 && rightButton == 1 && lrNewer == 2) {
             movtionButton(-0.5, -0.3);
-        }else if (forwardButton == 0 && backwardButton == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 2){
+        } else if (forwardButton == 0 && backwardButton == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 2) {
             movtionButton(-0.5, -0.3);
         }
     }
@@ -942,15 +941,15 @@ const char index_html[] PROGMEM = R"rawliteral(
             // alert ("A down");
             leftButton = 1;
             lrNewer = 1;
-        }else if (e && e.keyCode == 87) {
+        } else if (e && e.keyCode == 87) {
             // alert ("W down");
             forwardButton = 1;
             fbNewer = 1;
-        }else if (e && e.keyCode == 83) {
+        } else if (e && e.keyCode == 83) {
             // alert ("S down");
             backwardButton = 1;
             fbNewer = 2;
-        }else if (e && e.keyCode == 68) {
+        } else if (e && e.keyCode == 68) {
             // alert ("D down");
             rightButton = 1;
             lrNewer = 2;
@@ -963,15 +962,15 @@ const char index_html[] PROGMEM = R"rawliteral(
             // alert ("left down");
             leftButton = 1;
             lrNewer = 1;
-        }else if (e && e.keyCode == 38) {
+        } else if (e && e.keyCode == 38) {
             // alert ("up down");
             forwardButton = 1;
             fbNewer = 1;
-        }else if (e && e.keyCode == 40) {
+        } else if (e && e.keyCode == 40) {
             // alert ("down down");
             backwardButton = 1;
             fbNewer = 2;
-        }else if (e && e.keyCode == 39) {
+        } else if (e && e.keyCode == 39) {
             // alert ("right down");
             rightButton = 1;
             lrNewer = 2;
@@ -994,26 +993,26 @@ const char index_html[] PROGMEM = R"rawliteral(
         if (e && e.keyCode == 65) {
             // alert ("A up");
             leftButton = 0;
-        }else if (e && e.keyCode == 87) {
+        } else if (e && e.keyCode == 87) {
             // alert ("W up");
             forwardButton = 0;
-        }else if (e && e.keyCode == 83) {
+        } else if (e && e.keyCode == 83) {
             // alert ("S up");
             backwardButton = 0;
-        }else if (e && e.keyCode == 68) {
+        } else if (e && e.keyCode == 68) {
             // alert ("D up");
             rightButton = 0;
         }
         else if (e && e.keyCode == 37) {
             // alert ("left up");
             leftButton = 0;
-        }else if (e && e.keyCode == 38) {
+        } else if (e && e.keyCode == 38) {
             // alert ("up up");
             forwardButton = 0;
-        }else if (e && e.keyCode == 40) {
+        } else if (e && e.keyCode == 40) {
             // alert ("down up");
             backwardButton = 0;
-        }else if (e && e.keyCode == 39) {
+        } else if (e && e.keyCode == 39) {
             // alert ("right up");
             rightButton = 0;
         }
