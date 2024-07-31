@@ -33,7 +33,7 @@ StaticJsonDocument<512> jsonInfoHttp;
 #include <Adafruit_Sensor.h>
 
 // functions for battery info.
-#include "src/battery_ctrl.h"
+#include "src/Battery.h"
 
 // config for ugv.
 #include "src/ugv_config.h"
@@ -240,7 +240,7 @@ void setup() {
       Serial.println("http & web init.");
   }
 
-  initHttpWebServer();
+  httpServerInit();
 
   screenLine_3 = "ESP-NOW init";
   oled_update();

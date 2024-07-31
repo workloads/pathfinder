@@ -6,12 +6,12 @@
 // Create AsyncWebServer object on port 80
 WebServer server(80);
 
-void handleRoot() {
+void httpServerHandleRoot() {
   server.send(200, "text/html", index_html);  // Send web page
 }
 
-void webCtrlServer() {
-  server.on("/", handleRoot);
+void httpServerController() {
+  server.on("/", httpServerHandleRoot);
 
   server.on("/js", []() {
     String jsonCmdWebString = server.arg(0);
@@ -29,8 +29,8 @@ void webCtrlServer() {
   Serial.println("Server Starts.");
 }
 
-void initHttpWebServer() {
-  webCtrlServer();
+void httpServerInit() {
+  httpServerController();
 }
 
 #endif  // HTTPSERVER_H_
