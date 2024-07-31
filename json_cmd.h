@@ -28,11 +28,6 @@
 // {"T":1005,"id":1,"status":1}
 #define CMD_BUS_SERVO_ERROR 1005
 
-
-
-
-
-
 // emergency stop.
 // {"T":0}
 #define CMD_EMERGENCY_STOP 0
@@ -40,8 +35,6 @@
 // reset emergency flag.
 // {"T":999}
 #define CMD_RESET_EMERGENCY 999
-
-
 
 // ---===< EoAT type settings. >===---
 
@@ -72,8 +65,6 @@
 // unit:mm
 // {"T":125,"pos":3,"ea":0,"eb":20}
 #define CMD_CONFIG_EOAT	125
-
-
 
 // ---===< UGV ctrl. >===---
 // SPEED_INPUT
@@ -108,7 +99,6 @@
 // {"T":4,"cmd":0}
 #define CMD_MODULE_TYPE	4
 
-
 // {"T":126}
 #define CMD_GET_IMU_DATA	126
 
@@ -140,8 +130,6 @@
 // 1: on
 // {"T":143,"cmd":0}
 #define CMD_UART_ECHO_MODE	143
-
-
 
 // LIGHT/GIMBAL/MOVTION CTRL
 // {"T":132,"IO4":255,"IO5":255}
@@ -188,7 +176,6 @@
 //  2,2: middle
 #define CMD_GIMBAL_USER_CTRL	141
 
-
 // ---===< Arm ctrl. >===---
 
 // it moves to goal position directly.
@@ -223,7 +210,6 @@
 
 // {"T":1041,"x":235,"y":0,"z":234,"t":3.14}
 #define CMD_XYZT_DIRECT_CTRL 1041
-
 
 // {"T":105}
 // x: real x position.
@@ -364,13 +350,10 @@
 // {"T":208,"name":"file.txt","lineNum":3}
 #define CMD_DELETE_LINE 208
 
-
 // torque-lock ctrl.
 // off: {"T":210,"cmd":0}
 //  on: {"T":210,"cmd":1}
 #define CMD_TORQUE_CTRL 210
-
-
 
 // === === === mission & steps edit. === === ===
 
@@ -385,7 +368,6 @@
 // {"T":144,"E":100,"Z":0,"R":0}
 #define CMD_ARM_CTRL_UI 144
 
-
 // append a new step at the end of the mission, using the step input.
 // {"T":222,"name":"mission_a","step":"{\"T\":104,\"x\":235,\"y\":0,\"z\":234,\"t\":3.14,\"spd\":0.25}"}
 #define CMD_APPEND_STEP_JSON 222
@@ -397,8 +379,6 @@
 // append a new delay(ms) at the end of the mission.
 // {"T":224,"name":"mission_a","delay":3000}
 #define CMD_APPEND_DELAY 224
-
-
 
 // insert a new step as the stepNum
 // using the JSON string input.
@@ -415,8 +395,6 @@
 // {"T":227,"stepNum":3,"delay":3000}
 #define CMD_INSERT_DELAY 227
 
-
-
 // replace the cmd at stepNum
 // using JSON cmd input.
 // {"T":228,"name":"mission_a","stepNum":3,"step":"{\"T\":114,\"led\":255}"}
@@ -431,11 +409,9 @@
 // {"T":230,"name":"mission_a","stepNum":3,"delay":3000}
 #define CMD_REPLACE_DELAY 230
 
-
 // delete a step
 // {"T":231,"name":"mission_a","stepNum":3}
 #define CMD_DELETE_STEP 231
-
 
 // input the mission name and a stepNum, it will move to the step.
 // {"T":241,"name":"mission_a","stepNum":3}
@@ -445,8 +421,6 @@
 // if repeatTimes = -1, it will loop forever.
 // {"T":242,"name":"mission_a","times":3}
 #define CMD_MISSION_PLAY 242
-
-
 
 // === === === ESP-NOW settings. === === ===
 
@@ -499,8 +473,6 @@
 // {"T":306,"mac":"CC:DB:A7:5C:E5:FC","dev":0,"b":0,"s":0,"e":1.57,"h":1.57,"cmd":0,"megs":"hello!"}
 #define CMD_ESP_NOW_SINGLE 306
 
-
-
 // === === === wifi settings. === === ===
 
 // config the Wi-Fi mode on boot.
@@ -541,8 +513,6 @@
 // {"T":408}
 #define CMD_WIFI_STOP 408
 
-
-
 // === === === servo settings. === === ===
 
 // change a servo's ID.
@@ -561,8 +531,6 @@
 // set the P/PID of a single servo.
 // {"T":503,"id":14,"p":16}
 #define CMD_SET_SERVO_PID   503
-
-
 
 // === === === esp32 settings. === === ===
 
@@ -592,8 +560,6 @@
 // 0: don't print debug info in serial.
 // {"T":605,"cmd":1}
 #define CMD_INFO_PRINT	605
-
-
 
 // === === === mainType & moduleType settings. === === ===
 // set mainType & moduleType.

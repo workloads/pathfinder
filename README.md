@@ -1,62 +1,122 @@
-![GitHub top language](https://img.shields.io/github/languages/top/effectsmachine/ugv_base_ros) ![GitHub language count](https://img.shields.io/github/languages/count/effectsmachine/ugv_base_ros)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/effectsmachine/ugv_base_ros)
-![GitHub repo size](https://img.shields.io/github/repo-size/effectsmachine/ugv_base_ros) ![GitHub](https://img.shields.io/github/license/effectsmachine/ugv_base_ros) ![GitHub last commit](https://img.shields.io/github/last-commit/effectsmachine/ugv_base_ros)
+# Pathfinder
 
-# Waveshare UGV Robots
-This is a lower computer example for the [Waveshare](https://www.waveshare.com/) UGV robots with ROS Driver: **UGV Rover**, **UGV Beast**, **RaspRover**, **UGV02**\*.
+> ESP32-based mobile edge computing device based on the Waveshare UGV platform
 
-\*The old version of UGV02 is driven by General Driver.
+## Table of Contents
 
-![](./README_footage/UGV-Rover-details-23.jpg)
+<!-- TOC -->
+* [Pathfinder](#pathfinder)
+  * [Table of Contents](#table-of-contents)
+  * [Requirements](#requirements)
+    * [Hardware](#hardware)
+      * [Mobility Platform](#mobility-platform)
+      * [Compute Environment](#compute-environment)
+      * [Camera Platform](#camera-platform)
+    * [Software](#software)
+      * [Development](#development)
+  * [Usage](#usage)
+  * [Notes](#notes)
+  * [Contributors](#contributors)
+  * [License](#license)
+<!-- TOC -->
 
-## Basic Description
-The Waveshare UGV robots utilize both an upper computer and a lower computer. This repository contains the program running on the lower computer, which is typically a ESP32 on **ROS Driver for Robots**.  
+## Requirements
 
-The program running on the lower computer is either named [ugv_base_ros](https://github.com/effectsmachine/ugv_base_ros.git) or [ugv_base_general](https://github.com/effectsmachine/ugv_base_general.git) depending on the type of robot driver being used.  
+### Hardware
 
-The upper computer communicates with the lower computer (the robot's driver based on ESP32) by sending JSON commands via GPIO UART. The host controller, which employs a [Jetson Orin](https://github.com/waveshareteam/ugv_jetson) or a [Raspberry Pi](https://github.com/waveshareteam/ugv_rpi) based on the type of upper computer being used, handles AI vision and strategy planning, while the sub-controller, utilizing an ESP32, manages motion control and sensor data processing. This setup ensures efficient collaboration and enhanced performance.
+A _Pathfinder_ unit consists of three distinct groups of hardware components:
 
-## Features
-- Closed-loop Speed Control with PID
-- Web App Based on ESP32
-- IMU
-- OLED Screen
-- LED Lights(12V switches) Control
-- Control via JSON Commands
-- Supports Camera PT
-- Supports RoArm-M2
-- Control and Communicate via ESP-NOW
+- Mobility Platform 
+- compute environment
+- camera platform
 
-## Configure the compilation environment
-You need to install **[Arduino IDE](https://www.arduino.cc/en/software)** and **[ESP32 Board](https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/)** first.
+#### Mobility Platform
 
-### Install libraries
-Copy `SCServo` folder into `C:\Users\[username]\AppData\Local\Arduino15\libraries\`
+> The _Mobility Platform_ (`MP`) provides non-tethered movement and power-supply capabilities for the _Pathfinder_ unit. 
 
-Install libraries with **`Library Manager`**: ArduinoJson, LittleFS, Adafruit_SSD1306, INA219_WE, ESP32Encoder, PID_v2, SimpleKalmanFilter, Adafruit_ICM20X, Adafruit_ICM20948, Adafruit_Sensor
+This group consists of:
 
-### Basic Use
-You can send JSON command to robot via UART/USB@115200 or Http Request/Web App.
+- 1 x Waveshare [WAVE ROVER](https://www.waveshare.com/wave-rover.htm)
+- 1 x TODO Antenna
+- 3 x 18650 Lithium batteries (min. 3000mAh capacity)
 
-To ensure compatibility with various types of robots. You can configure the robot by entering the following command:
+#### Compute Environment
 
-    {"T":900,"main":2,"module":2}
+> The _Compute Environment_ (`CE`) provides processing and networking capabilities for the _Pathfinder_ unit.
 
-In this command, the s directive denotes a robot-type setting. The first digit, `2`, signifies that the main type of robot is a `UGV Rover`, with `1` representing `RaspRover` and `3` indicating `UGV Beast`. The second digit, `2`, specifies the module as `Camera PT`, where `0` denotes `Nothing` and `1` signifies `RoArm-M2`.
+This group consists of:
 
-# License
-ugv_base_ros for the Waveshare UGV Robots: an open source robotics platform for the Robots based on **ROS Driver**.
-Copyright (C) 2024 [Waveshare](https://www.waveshare.com/)
+- 1 x [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/) (8GB memory, SKU `RP-5B-8GB`)
+- 1 x [Raspberry Pi Active Cooler](https://www.raspberrypi.com/products/active-cooler/)
+- 1 x [Raspberry Pi AI Kit](https://www.raspberrypi.com/products/ai-kit/)
+- 1 x microSD card (minimum 64GB capacity)
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+#### Camera Platform
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+The _Camera Platform_ (`CP`) provides visual detection capabilities for the _Pathfinder_ unit.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
+This group consists of:
+
+- 1 x Waveshare [2-axis Pan-Tilt Camera Module](https://www.waveshare.com/2-axis-pan-tilt-camera-module.htm)
+- 1 x youyeetoo [FHL-LD19P](https://wiki.youyeetoo.com/en/Lidar/D300) Lidar device (or compatible)
+
+### Software
+
+- [Arduino IDE](https://www.arduino.cc/en/software)
+- Arduino Libraries
+  - Adafruit_ICM20X
+  - Adafruit_ICM20948
+  - Adafruit_Sensor
+  - Adafruit_SSD1306
+  - ArduinoJson
+  - ESP32Encoder
+  - INA219_WE
+  - LittleFS
+  - PID_v2
+  - SCServo
+  - SimpleKalmanFilter
+
+#### Development
+
+For development and testing of this repository:
+
+* Arduino CLI `1.0.0` or [newer](https://arduino.github.io/arduino-cli/)
+* `arduino-lint` `1.2.0` or [newer](https://arduino.github.io/arduino-lint/)
+* `cpplint` `1.6.0` or [newer](https://github.com/cpplint/cpplint)
+* `clang-format` `18.1.0` or [newer](https://clang.llvm.org/docs/ClangFormat.html)
+* ESP32 Toolchain `5.2.0` or [newer](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html#installation)
+
+## Usage
+
+This repository provides a [Makefile](./Makefile)-based workflow.
+
+Running `make` without commands will print out the following help information:
+
+```text
+🔘 NOMAD SMART DIAL
+
+Target          Description                                     Usage
+lint            lint C++ code using cpplint and clang-format    `make lint`
+lint-arduino    lint Arduino code using Arduino Lint            `make lint-arduino`
+libs            install Arduino libraries using arduino-cli     `make libs`
+vault           start HashiCorp Vault in development mode       `make vault`
+help            display a list of Make Targets                  `make help`
+_listincludes   list all included Makefiles and *.mk files      `make _listincludes`
+_selfcheck      lint Makefile                                   `make _selfcheck`
+```
+
+## Notes
+
+TODO
+
+## Contributors
+
+For a list of current (and past) contributors to this repository, see [GitHub](https://github.com/workloads/pathfinder/graphs/contributors).
+
+## License
+
+Licensed under the General Public License, Version 3.0 (the "License").
+
+You may download a copy of the License at [gnu.org/licenses/gpl-3.0.txt](https://www.gnu.org/licenses/gpl-3.0.txt).
+
+See the License for the specific language governing permissions and limitations under the License.
