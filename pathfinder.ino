@@ -42,7 +42,7 @@ StaticJsonDocument<512> jsonInfoHttp;
 #include "src/oled_ctrl.h"
 
 // functions for the LEDs of UGV.
-#include "src/ugv_led_ctrl.h"
+#include "src/PinController.h"
 
 // functions for RoArm-M2 ctrl.
 #include "src/RoArm-M2_module.h"
@@ -138,7 +138,7 @@ void setup() {
   imu_init();
 
   // functions for the LEDs on ugv.
-  led_pin_init();
+  PinControllerInit();
 
   // init the littleFS functions in files_ctrl.h
   screenLine_2 = screenLine_3;
