@@ -1,7 +1,9 @@
 #include <ArduinoJson.h>
 StaticJsonDocument<256> jsonCmdReceive;
 StaticJsonDocument<256> jsonInfoSend;
-StaticJsonDocument<1024> jsonInfoHttp;
+StaticJsonDocument<512> jsonInfoHttp;
+
+// TaskHandle_t Pid_ctrl;
 
 #include <SCServo.h>
 #include <nvs_flash.h>
@@ -17,7 +19,9 @@ StaticJsonDocument<1024> jsonInfoHttp;
 #include <PID_v2.h>
 #include <SimpleKalmanFilter.h>
 #include <math.h>
-#include "ICM_20948.h"
+#include <Adafruit_ICM20X.h>
+#include <Adafruit_ICM20948.h>
+#include <Adafruit_Sensor.h>
 
 // functions for battery info.
 #include "battery_ctrl.h"
@@ -101,13 +105,20 @@ void setup() {
   inaDataUpdate();
 
   // set mainType & moduleType.
-  // mainType: 1.RaspRover, 2.UGV Rover, 3.UGV Beast
+  // mainType: 1.WAVE ROVER, 2.UGV02, 3.UGV01
   // moduleType: 0.Null, 1.RoArm, 2.PT
   mm_settings(mainType, moduleType);
 
   init_oled();
-  screenLine_0 = "ugv_base_ros.git";
-  screenLine_1 = "version: 0.93";
+  if (mainType == 1) {
+    screenLine_0 = "WAVE ROVER";
+  } else if (mainType == 2) {
+    screenLine_0 = "UGV";
+  } else if (mainType == 3) {
+    screenLine_0 = "UGV";
+  } 
+  
+  screenLine_1 = "version: 0.95";
   screenLine_2 = "starting...";
   screenLine_3 = "";
   oled_update();
