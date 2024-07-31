@@ -30,13 +30,11 @@
     THE SOFTWARE.
 */
 
-
 #include "AK09918.h"
 
 AK09918::AK09918() {
     _addr = AK09918_I2C_ADDR;
 }
-
 
 AK09918_err_type_t AK09918::initialize(AK09918_mode_type_t mode) {
     if (mode == AK09918_SELF_TEST) {
@@ -77,9 +75,9 @@ AK09918_err_type_t AK09918::isDataSkip() {
 
 AK09918_err_type_t AK09918::getData(int16_t* axis_x, int16_t* axis_y, int16_t* axis_z) {
     AK09918_err_type_t err = AK09918::getRawData(axis_x, axis_y, axis_z);
-    (*axis_x) = (*axis_x) * 15 / 100;
-    (*axis_y) = (*axis_y) * 15 / 100;
-    (*axis_z) = (*axis_z) * 15 / 100;
+    (*axis_x)              = (*axis_x) * 15 / 100;
+    (*axis_y)              = (*axis_y) * 15 / 100;
+    (*axis_z)              = (*axis_z) * 15 / 100;
 
     return err;
 }
@@ -88,7 +86,7 @@ AK09918_err_type_t AK09918::getRawData(int16_t* axis_x, int16_t* axis_y, int16_t
     if (_mode == AK09918_NORMAL) {
         AK09918::switchMode(AK09918_NORMAL);
         bool is_end = false;
-        int count = 0;
+        int  count  = 0;
         while (!is_end) {
             if (AK09918::_getRawMode() == 0x00) {
                 is_end = true;
@@ -96,11 +94,10 @@ AK09918_err_type_t AK09918::getRawData(int16_t* axis_x, int16_t* axis_y, int16_t
             if (count >= 15) {
                 return AK09918_ERR_TIMEOUT;
             }
-            count ++;
+            count++;
             delay(1);
         }
     }
-
 
     if (!AK09918::readBytes(_addr, AK09918_HXL, 8, _buffer)) {
         return AK09918_ERR_READ_FAILED;
@@ -135,8 +132,8 @@ AK09918_err_type_t AK09918::switchMode(AK09918_mode_type_t mode) {
 // 3.Check Data Ready or not by polling DRDY bit of ST1 register.
 // 4.When Data Ready, proceed to the next step. Read measurement data. (HXL to HZH)
 AK09918_err_type_t AK09918::selfTest() {
-    int32_t axis_x, axis_y, axis_z;
-    bool is_end = false;
+    int32_t            axis_x, axis_y, axis_z;
+    bool               is_end = false;
     AK09918_err_type_t err;
     if (!AK09918::writeByte(_addr, AK09918_CNTL2, AK09918_POWER_DOWN)) {
         return AK09918_ERR_WRITE_FAILED;
@@ -164,13 +161,11 @@ AK09918_err_type_t AK09918::selfTest() {
         axis_y = (int32_t)((((int16_t)_buffer[3]) << 8) | _buffer[2]);
         axis_z = (int32_t)((((int16_t)_buffer[5]) << 8) | _buffer[4]);
 
-        if ((axis_x >= -200) && (axis_x <= 200) && (axis_y >= -200) && (axis_y <= 200) && \
-                (axis_z >= -1000) && (axis_z <= -150)) {
+        if ((axis_x >= -200) && (axis_x <= 200) && (axis_y >= -200) && (axis_y <= 200) && (axis_z >= -1000) && (axis_z <= -150)) {
             return AK09918_ERR_OK;
         } else {
             return AK09918_ERR_SELFTEST_FAILED;
         }
-
     }
 }
 
@@ -236,37 +231,32 @@ uint8_t AK09918::_getRawMode() {
     }
 }
 
-bool AK09918::readBytes(uint8_t addr,uint8_t reg,uint8_t num,uint8_t *buf)
-{
-  Wire.beginTransmission(addr);
-  Wire.write(reg);
-  Wire.endTransmission();
+bool AK09918::readBytes(uint8_t addr, uint8_t reg, uint8_t num, uint8_t* buf) {
+    Wire.beginTransmission(addr);
+    Wire.write(reg);
+    Wire.endTransmission();
 
-  Wire.requestFrom(static_cast<uint8_t>(addr), static_cast<uint8_t>(num));
-  for (int i = 0; i < num; i++)
-  {
-    buf[i] = Wire.read();
-  }
-  return true;
+    Wire.requestFrom(static_cast<uint8_t>(addr), static_cast<uint8_t>(num));
+    for (int i = 0; i < num; i++) {
+        buf[i] = Wire.read();
+    }
+    return true;
 }
 
-bool AK09918::readByte(uint8_t addr,uint8_t reg ,uint8_t *buf)
-{
-  Wire.beginTransmission(addr);
-  Wire.write(reg);
-  Wire.endTransmission();
+bool AK09918::readByte(uint8_t addr, uint8_t reg, uint8_t* buf) {
+    Wire.beginTransmission(addr);
+    Wire.write(reg);
+    Wire.endTransmission();
 
-  Wire.requestFrom(static_cast<uint8_t>(addr), static_cast<uint8_t>(1));
-  buf[0] = Wire.read();
-  return true;
+    Wire.requestFrom(static_cast<uint8_t>(addr), static_cast<uint8_t>(1));
+    buf[0] = Wire.read();
+    return true;
 }
 
-bool AK09918::writeByte(uint8_t addr,uint8_t reg ,uint8_t Value)
-{
-  Wire.beginTransmission(addr);
-  Wire.write(reg);
-  Wire.write(Value);
-  Wire.endTransmission();
-  return true;
+bool AK09918::writeByte(uint8_t addr, uint8_t reg, uint8_t Value) {
+    Wire.beginTransmission(addr);
+    Wire.write(reg);
+    Wire.write(Value);
+    Wire.endTransmission();
+    return true;
 }
-
