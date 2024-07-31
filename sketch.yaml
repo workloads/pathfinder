@@ -1,0 +1,4 @@
+default_fqbn: esp32:esp32:esp32
+default_programmer: esptool
+default_port: /dev/cu.usbserial-1210
+
