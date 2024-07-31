@@ -277,8 +277,8 @@ const char index_html[] PROGMEM = R"rawliteral(
                                 <span id="pn">PITCH</span>
                             </div>
                             <div>
-                                <span class="num-color mid-num" id="y">-1.01</span>
-                                <span id="yn">YAW</span>
+                                <span class="num-color mid-num" id="temp">-1.01</span>
+                                <span id="yn">TEMP</span>
                             </div>
                             <div>
                                 <span class="num-color mid-num" id="mX">-1.01</span>
@@ -358,8 +358,8 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <br>
                         <div>
                             <div id="device-speed-btn">
-                                <label><button name="speedbtn" class="small-btn" onclick="changeSpeed(0.3);">SLOW</button></label>
-                                <label><button name="speedbtn" class="small-btn" onclick="changeSpeed(0.6);">MIDDLE</button></label>
+                                <label><button name="speedbtn" class="small-btn" onclick="changeSpeed(0.5);">SLOW</button></label>
+                                <label><button name="speedbtn" class="small-btn" onclick="changeSpeed(0.8);">MIDDLE</button></label>
                                 <label><button name="speedbtn" class="small-btn" onclick="changeSpeed(1.0);">FAST</button></label>
                             </div>
                         </div>
@@ -423,34 +423,22 @@ const char index_html[] PROGMEM = R"rawliteral(
                 </div>
                 <div class="info-box json-cmd-info">
                     <div>
-                        <p>CMD_MODULE_TYPE: <span id="cmd4" class="cmd-value">{"T":4,"cmd":1}</span></p>
+                        <p>CMD_MODULE_TYPE: <span id="cmd4" class="cmd-value">{"T":4,"cmd":0}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd4');">INPUT</button>
                     </div>
                     <div>
-                        <p>CMD_EOAT_TYPE: <span id="cmd-124" class="cmd-value">{"T":124,"mode":0}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd-124');">INPUT</button>
+                        <p>CMD_EOAT_TYPE: <span id="cmd124" class="cmd-value">{"T":124,"mode":0}</span></p>
+                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd124');">INPUT</button>
                     </div>
                     <div>
-                        <p>CMD_CONFIG_EOAT: <span id="cmd-125" class="cmd-value">{"T":125,"pos":3,"ea":0,"eb":20}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd-125');">INPUT</button>
+                        <p>CMD_CONFIG_EOAT: <span id="cmd125" class="cmd-value">{"T":125,"pos":3,"ea":0,"eb":20}</span></p>
+                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd125');">INPUT</button>
                     </div>
                 </div>
                 <div class="info-box json-cmd-info">
                     <div>
                         <p>CMD_GET_IMU_DATA: <span id="cmd126" class="cmd-value">{"T":126}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd126');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_CALI_IMU_STEP: <span id="cmd127" class="cmd-value">{"T":127,"step":0}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd127');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_GET_IMU_OFFSET: <span id="cmd128" class="cmd-value">{"T":128}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd128');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_SET_IMU_OFFSET: <span id="cmd129" class="cmd-value">{"T":129,"x":-12,"y":0,"z":0}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd129');">INPUT</button>
                     </div>
                 </div>
                 <div class="info-box json-cmd-info">
@@ -461,6 +449,18 @@ const char index_html[] PROGMEM = R"rawliteral(
                     <div>
                         <p>CMD_BASE_FEEDBACK_FLOW: <span id="cmd131" class="cmd-value">{"T":131,"cmd":0}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd131');">INPUT</button>
+                    </div>
+                    <div>
+                        <p>FEEDBACK_FLOW_INTERVAL: <span id="cmd142" class="cmd-value">{"T":142,"cmd":0}</span></p>
+                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd142');">INPUT</button>
+                    </div>
+                    <div>
+                        <p>CMD_UART_ECHO_MODE: <span id="cmd143" class="cmd-value">{"T":143,"cmd":0}</span></p>
+                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd143');">INPUT</button>
+                    </div>
+                    <div>
+                        <p>CMD_HEART_BEAT_SET: <span id="cmd136" class="cmd-value">{"T":136,"cmd":0}</span></p>
+                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd136');">INPUT</button>
                     </div>
                 </div>
                 <div class="info-box json-cmd-info">
@@ -484,11 +484,9 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <p>CMD_GIMBAL_STEADY: <span id="cmd137" class="cmd-value">{"T":137,"s":1,"y":0}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd137');">INPUT</button>
                     </div>
-                </div>
-                <div class="info-box json-cmd-info">
                     <div>
-                        <p>CMD_HEART_BEAT_SET: <span id="cmd136" class="cmd-value">{"T":136,"cmd":3000}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd136');">INPUT</button>
+                        <p>CMD_GIMBAL_USER_CTRL: <span id="cmd141" class="cmd-value">{"T":141,"s":1,"y":0}</span></p>
+                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd141');">INPUT</button>
                     </div>
                 </div>
                 <div class="info-box json-cmd-info">
@@ -551,7 +549,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd401');">INPUT</button>
                     </div>
                     <div>
-                        <p>CMD_SET_AP: <span id="cmd402" class="cmd-value">{"T":402,"ssid":"RoArm-M2","password":"12345678"}</span></p>
+                        <p>CMD_SET_AP: <span id="cmd402" class="cmd-value">{"T":402,"ssid":"UGV","password":"12345678"}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd402');">INPUT</button>
                     </div>
                     <div>
@@ -559,7 +557,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd403');">INPUT</button>
                     </div>
                     <div>
-                        <p>CMD_WIFI_APSTA: <span id="cmd404" class="cmd-value">{"T":404,"ap_ssid":"RoArm-M2","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}</span></p>
+                        <p>CMD_WIFI_APSTA: <span id="cmd404" class="cmd-value">{"T":404,"ap_ssid":"UGV","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd404');">INPUT</button>
                     </div>
                     <div>
@@ -571,8 +569,12 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd406');">INPUT</button>
                     </div>
                     <div>
-                        <p>CMD_WIFI_CONFIG_CREATE_BY_INPUT: <span id="cmd406" class="cmd-value">{"T":407,"mode":3,"ap_ssid":"RoArm-M2","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}</span></p>
+                        <p>CMD_WIFI_CONFIG_CREATE_BY_INPUT: <span id="cmd406" class="cmd-value">{"T":407,"mode":3,"ap_ssid":"UGV","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd406');">INPUT</button>
+                    </div>
+                    <div>
+                        <p>CMD_WIFI_STOP: <span id="cmd408" class="cmd-value">{"T":408}</span></p>
+                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd408');">INPUT</button>
                     </div>
                 </div>
                 <div class="info-box json-cmd-info">
@@ -613,6 +615,12 @@ const char index_html[] PROGMEM = R"rawliteral(
                     <div>
                         <p>CMD_INFO_PRINT: <span id="cmd605" class="cmd-value">{"T":605,"cmd":1}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd605');">INPUT</button>
+                    </div>
+                </div>
+                <div class="info-box json-cmd-info">
+                    <div>
+                        <p>CMD_MM_TYPE_SET: <span id="cmd900" class="cmd-value">{"T":900,"main":1,"module":0}</span></p>
+                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd900');">INPUT</button>
                     </div>
                 </div>
             </div>
@@ -703,14 +711,14 @@ const char index_html[] PROGMEM = R"rawliteral(
                     document.getElementById("V").classList.add("num-color");
                 }
 
-                document.getElementById("r").innerHTML = jsonResponse.r.toFixed(2);
-                document.getElementById("p").innerHTML = jsonResponse.p.toFixed(2);
-                document.getElementById("y").innerHTML = jsonResponse.y.toFixed(2);
+                document.getElementById("r").innerHTML = jsonResponse.r?.toFixed(2);
+                document.getElementById("p").innerHTML = jsonResponse.p?.toFixed(2);
+                document.getElementById("temp").innerHTML = jsonResponse.temp?.toFixed(2);
                 document.getElementById("mZ").innerHTML = speed_rate;
 
                 if (jsonResponse.hasOwnProperty('pan')) {
-                    document.getElementById("mX").innerHTML = jsonResponse.pan.toFixed(2);
-                    document.getElementById("mY").innerHTML = jsonResponse.tilt.toFixed(2);
+                    document.getElementById("mX").innerHTML = jsonResponse.pan?.toFixed(2);
+                    document.getElementById("mY").innerHTML = jsonResponse.tilt?.toFixed(2);
 
                     read_X = jsonResponse.pan;
                     read_Y = jsonResponse.tilt;
@@ -751,8 +759,8 @@ const char index_html[] PROGMEM = R"rawliteral(
         if (send_heartbeat == 1) {
             var jsonCmd = {
                 "T":1,
-                "L":left_speed*speed_rate,
-                "R":right_speed*speed_rate
+                "L":left_speed,
+                "R":right_speed
             }
             var jsonString = JSON.stringify(jsonCmd);
             var xhr = new XMLHttpRequest();
@@ -760,14 +768,14 @@ const char index_html[] PROGMEM = R"rawliteral(
             xhr.send();
         }
     }
-    function movtionButton(spdL, spdR) {
-        left_speed  = spdL;
-        right_speed = spdR;
+    function movtionButton(spdL, spdR){
+        left_speed  = spdL*speed_rate;
+        right_speed = spdR*speed_rate;
         send_heartbeat = 1;
         var jsonCmd = {
             "T":1,
-            "L":spdL*speed_rate,
-            "R":spdR*speed_rate
+            "L":left_speed,
+            "R":right_speed
         }
         var jsonString = JSON.stringify(jsonCmd);
         var xhr = new XMLHttpRequest();

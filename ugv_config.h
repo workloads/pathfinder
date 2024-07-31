@@ -32,10 +32,10 @@ byte EEMode = 0;
 // run new JSON cmd
 bool runNewJsonCmd = false;
 
-// 1: RaspRover
-// 2: UGV Rover
-// 3: UGV Beast
-byte mainType = 2;
+// 1: WAVE ROVER
+// 2: UGV02(UGV)
+// 3: UGV01(UGV)
+byte mainType = 1;
 
 // 0: [Base default] without RoArm-M2 and gimbal.
 // 1: [RoArm default] RoArm-M2 mounted on the UGV.
@@ -48,7 +48,7 @@ bool steadyMode = false;
 
 // 0: turn off base info feedback flow.
 // 1: [default] turn on base info feedback flow.
-bool baseFeedbackFlow = 1;
+bool baseFeedbackFlow = 0;
 
 String thisMacStr;
 
@@ -191,7 +191,7 @@ double radG;
 
 #define MAX_SERVO_ID 32 // MAX:253
 
-// the UART used to control servos.
+// the uart used to control servos.
 // GPIO 18 - S_RXD, GPIO 19 - S_TXD, as default.
 #define S_RXD 18
 #define S_TXD 19
@@ -210,11 +210,13 @@ double EOAT_JOINT_ANG  = 180.0;
 // true: torqueLock ON, servo produces torque.
 // false: torqueLock OFF, servo release torque.
 bool RoArmM2_torqueLock = true;
+bool emergencyStopFlag = false;
 bool newCmdReceived = false;
 
 bool nanIK;
 
 bool RoArmM2_initCheckSucceed  = false;
+// bool RoArmM2_initCheckSucceed   = true;
 
 // // // args for syncWritePos.
 u8  servoID[5] = {11, 12, 13, 14, 15};
@@ -331,7 +333,7 @@ float windup_limits = 255;
 
 // mainType:02 UGV Rover
 // #define WHEEL_D 0.0800
-// #define ONE_CIRCLE_PLUSES	660
+// #define ONE_CIRCLE_PLUSES	1650
 // #define TRACK_WIDTH	0.172
 // #define SET_MOTOR_DIR false
 
@@ -342,9 +344,10 @@ float windup_limits = 255;
 // #define SET_MOTOR_DIR true
 
 double WHEEL_D = 0.0800;
-int ONE_CIRCLE_PLUSES = 660;
+int ONE_CIRCLE_PLUSES = 1650;
 double TRACK_WIDTH = 0.172;
 bool SET_MOTOR_DIR = false;
+
 
 #define IO4_PIN 4
 #define IO5_PIN 5
@@ -355,7 +358,7 @@ int IO5_CH = 8;
 const uint16_t FREQ = 200;
 
 int feedbackFlowExtraDelay = 0;
-bool uartCmdEcho = 0;
+bool uartCmdEcho = 1;
 
 #define GIMBAL_PAN_ID  2
 #define GIMBAL_TILT_ID 1
@@ -365,58 +368,12 @@ bool uartCmdEcho = 0;
 int HEART_BEAT_DELAY = 3000;
 unsigned long lastCmdRecvTime = millis();
 
-// --- --- --- ugv imu --- --- ---
-double icm_pitch = 0;
-double icm_roll = 0;
-double icm_yaw = 0;
 
-float icm_temp;
+// --- --- --- ugv imu --- --- ---
+double icm_pitch, icm_roll, icm_yaw, icm_temp;
 unsigned long last_imu_update = 0;
 
+double qw, qx, qy, qz;
 double ax, ay, az;
 double mx, my, mz;
 double gx, gy, gz;
-
-double en_odom_l, en_odom_r;
-
-unsigned long imu_last_time = micros();
-
-int sample_count = 240;
-
-double gx_offset = 0;
-double gy_offset = 0;
-double gz_offset = 0;
-double gyro_h = 0.04;
-
-float kf_accel_q = 1.0;
-float kf_accel_r = 0.1;
-float kf_accel_p = 0.1;
-
-double ax_offset = 0;
-double ay_offset = 0;
-double az_offset = 0;
-double accel_h = 0.01;
-
-double q0, q1, q2, q3, q2sqr, t0, t1, t2, t3, t4;
-
-float max_ax = 0;
-float min_ax = 0;
-
-// int32_t biasGyroX, biasGyroY, biasGyroZ;
-// int32_t biasAccelX, biasAccelY, biasAccelZ;
-// int32_t biasCPassX, biasCPassY, biasCPassZ;
-
-// Define a storage struct for the biases. Include a non-zero header and a simple checksum
-struct biasStore {
-    int32_t biasGyroX = 0;
-    int32_t biasGyroY = 0;
-    int32_t biasGyroZ = 0;
-    int32_t biasAccelX = 0;
-    int32_t biasAccelY = 0;
-    int32_t biasAccelZ = 0;
-    int32_t biasCPassX = 0;
-    int32_t biasCPassY = 0;
-    int32_t biasCPassZ = 0;
-};
-
-biasStore store;
