@@ -33,49 +33,49 @@ StaticJsonDocument<512> jsonInfoHttp;
 #include <Adafruit_Sensor.h>
 
 // functions for battery info.
-#include "battery_ctrl.h"
+#include "src/battery_ctrl.h"
 
 // config for ugv.
-#include "ugv_config.h"
+#include "src/ugv_config.h"
 
 // functions for oled.
-#include "oled_ctrl.h"
+#include "src/oled_ctrl.h"
 
 // functions for the LEDs of UGV.
-#include "ugv_led_ctrl.h"
+#include "src/ugv_led_ctrl.h"
 
 // functions for RoArm-M2 ctrl.
-#include "RoArm-M2_module.h"
+#include "src/RoArm-M2_module.h"
 
 // functions for gimbal ctrl.
-#include "gimbal_module.h"
+#include "src/gimbal_module.h"
 
 // define json cmd.
-#include "json_cmd.h"
+#include "src/json_cmd.h"
 
 // functions for IMU ctrl.
-#include "IMU_ctrl.h"
+#include "src/IMU_ctrl.h"
 
 // functions for movtion ctrl. 
-#include "movtion_module.h"
+#include "src/movtion_module.h"
 
 // functions for editing the files in flash.
-#include "files_ctrl.h"
+#include "src/files_ctrl.h"
 
 // advance functions for ugv ctrl.
-#include "ugv_advance.h"
+#include "src/ugv_advance.h"
 
 // functions for Wi-Fi ctrl.
-#include "wifi_ctrl.h"
+#include "src/wifi_ctrl.h"
 
 // functions for esp-now.
-#include "esp_now_ctrl.h"
+#include "src/esp_now_ctrl.h"
 
 // functions for UART json ctrl.
-#include "uart_ctrl.h"
+#include "src/uart_ctrl.h"
 
 // functions for http & web server.
-#include "http_server.h"
+#include "src/http_server.h"
 
 
 void moduleType_RoArmM2() {
