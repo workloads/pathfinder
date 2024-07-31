@@ -1,33 +1,22 @@
-/*
- * @Description: QMI8658
- * @Author: zjw
- * @Date: 2022-10-24
- * @LastEditTime: 2022-10-24
- * @LastEditors: zjw
- */
-
 #ifndef _QMI8658_H_
 #define _QMI8658_H_
 
 #include <Arduino.h>
 #include "QMI8658reg.h"
 
-typedef struct
-{
+typedef struct {
 	float roll;
   float pitch;
   float yaw ;
 } EulerAngles;
 
-typedef struct
-{
+typedef struct {
   float X_Off_Err;
   float Y_Off_Err;
   float Z_Off_Err;
-}QMI8658_TypeDef_Off;
+} QMI8658_TypeDef_Off;
 
-class QMI8658
-{
+class QMI8658 {
   uint8_t last_status; // status of last I2C transmission
   uint8_t read_reg(uint8_t reg);
 

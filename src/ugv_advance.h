@@ -1,5 +1,4 @@
 // advance functions for RoArm-M2 ctrl
-// placeholder.
 void jsonCmdReceiveHandler();
 bool moveToStep(String inputName, int inputStepNum);
 

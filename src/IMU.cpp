@@ -151,7 +151,7 @@ void imuAHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, f
   ey = (az * vx - ax * vz) + (mz * wx - mx * wz);
   ez = (ax * vy - ay * vx) + (mx * wy - my * wx);
 
-  if(ex != 0.0f && ey != 0.0f && ez != 0.0f)
+  if (ex != 0.0f && ey != 0.0f && ez != 0.0f)
   {
     exInt = exInt + ex * Ki * halfT;
     eyInt = eyInt + ey * Ki * halfT;  

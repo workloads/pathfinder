@@ -155,13 +155,13 @@ void QMI8658::axis_convert(float data_a[3], float data_g[3], int layout)
 	raw_g[1] = data_g[1];
 	//raw_g[2] = data_g[2];
 
-	if(layout >=4 && layout <= 7)
+	if (layout >=4 && layout <= 7)
 	{
 		data_a[2] = -data_a[2];
 		data_g[2] = -data_g[2];
 	}
 
-	if(layout%2)
+	if (layout%2)
 	{
 		data_a[0] = raw[1];
 		data_a[1] = raw[0];
@@ -178,12 +178,12 @@ void QMI8658::axis_convert(float data_a[3], float data_g[3], int layout)
 		data_g[1] = raw_g[1];
 	}
 
-	if((layout==1)||(layout==2)||(layout==4)||(layout==7))
+	if ((layout==1)||(layout==2)||(layout==4)||(layout==7))
 	{
 		data_a[0] = -data_a[0];
 		data_g[0] = -data_g[0];
 	}
-	if((layout==2)||(layout==3)||(layout==6)||(layout==7))
+	if ((layout==2)||(layout==3)||(layout==6)||(layout==7))
 	{
 		data_a[1] = -data_a[1];
 		data_g[1] = -data_g[1];
@@ -199,19 +199,19 @@ void QMI8658::read_xyz(float acc[3], float gyro[3])
 
 #if defined(QMI8658_SYNC_SAMPLE_MODE)
 	qmi8658_read_reg(Qmi8658Register_StatusInt, &status, 1);
-	if(status&0x01)
+	if (status&0x01)
 	{
 		data_ready = 1;
 		qmi8658_delay_us(6);	// delay 6us
 	}
 #else
 	status = read_reg(Qmi8658Register_Status0);
-	if(status&0x03)
+	if (status&0x03)
 	{
 		data_ready = 1;
 	}
 #endif
-	if(data_ready)
+	if (data_ready)
 	{
 		// read_sensor_data(acc, gyro);
 		axis_convert(acc, gyro, 0);
@@ -262,7 +262,7 @@ void QMI8658::config_acc(enum qmi8658_AccRange range, enum qmi8658_AccOdr odr, e
 			range = Qmi8658AccRange_8g;
 			g_imu.ssvt_a = (1<<12);
 	}
-	if(stEnable == Qmi8658St_Enable)
+	if (stEnable == Qmi8658St_Enable)
 		ctl_dada = (unsigned char)range|(unsigned char)odr|0x80;
 	else
 		ctl_dada = (unsigned char)range|(unsigned char)odr;
@@ -271,7 +271,7 @@ void QMI8658::config_acc(enum qmi8658_AccRange range, enum qmi8658_AccOdr odr, e
 // set LPF & HPF
 	ctl_dada = read_reg(Qmi8658Register_Ctrl5);
 	ctl_dada &= 0xf0;
-	if(lpfEnable == Qmi8658Lpf_Enable)
+	if (lpfEnable == Qmi8658Lpf_Enable)
 	{
 		ctl_dada |= A_LSP_MODE_3;
 		ctl_dada |= 0x01;
@@ -326,7 +326,7 @@ void QMI8658::config_gyro(enum qmi8658_GyrRange range, enum qmi8658_GyrOdr odr, 
 			break;
 	}
 
-	if(stEnable == Qmi8658St_Enable)
+	if (stEnable == Qmi8658St_Enable)
 		ctl_dada = (unsigned char)range|(unsigned char)odr|0x80;
 	else
 		ctl_dada = (unsigned char)range | (unsigned char)odr;
@@ -336,7 +336,7 @@ void QMI8658::config_gyro(enum qmi8658_GyrRange range, enum qmi8658_GyrOdr odr, 
 // set LPF & HPF
 	ctl_dada = read_reg(Qmi8658Register_Ctrl5);
 	ctl_dada &= 0x0f;
-	if(lpfEnable == Qmi8658Lpf_Enable)
+	if (lpfEnable == Qmi8658Lpf_Enable)
 	{
 		ctl_dada |= G_LSP_MODE_3;
 		ctl_dada |= 0x10;
@@ -368,7 +368,7 @@ void QMI8658::enableSensors(unsigned char enableFlags)
 void QMI8658::config_reg(unsigned char low_power)
 {
 	enableSensors(QMI8658_DISABLE_ALL);
-	if(low_power)
+	if (low_power)
 	{
 		g_imu.cfg.enSensors = QMI8658_ACC_ENABLE;
 		g_imu.cfg.accRange = Qmi8658AccRange_8g;
@@ -385,11 +385,11 @@ void QMI8658::config_reg(unsigned char low_power)
 		g_imu.cfg.gyrOdr = Qmi8658GyrOdr_1000Hz;
 	}
 
-	if(g_imu.cfg.enSensors & QMI8658_ACC_ENABLE)
+	if (g_imu.cfg.enSensors & QMI8658_ACC_ENABLE)
 	{
 		config_acc(g_imu.cfg.accRange, g_imu.cfg.accOdr, Qmi8658Lpf_Disable, Qmi8658St_Disable);
 	}
-	if(g_imu.cfg.enSensors & QMI8658_GYR_ENABLE)
+	if (g_imu.cfg.enSensors & QMI8658_GYR_ENABLE)
 	{
 		config_gyro(g_imu.cfg.gyrRange, g_imu.cfg.gyrOdr, Qmi8658Lpf_Disable, Qmi8658St_Disable);
 	}
@@ -415,7 +415,7 @@ unsigned char QMI8658::get_id(void)
 			qmi8658_chip_id = read_reg(Qmi8658Register_WhoAmI);
 			Serial.printf("Qmi8658Register_WhoAmI = 0x%x\n", qmi8658_chip_id);
 		}
-		if(qmi8658_chip_id == 0x05)
+		if (qmi8658_chip_id == 0x05)
 		{
 			qmi8658_on_demand_cali();
 
@@ -455,7 +455,7 @@ void QMI8658::qmi8658_on_demand_cali(void)
 
 unsigned char QMI8658::begin(void)
 {
-	if(get_id() == 0x05)
+	if (get_id() == 0x05)
 	{
 #if defined(QMI8658_USE_AMD)
 		qmi8658_config_amd();

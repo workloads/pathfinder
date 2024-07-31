@@ -44,9 +44,6 @@ StaticJsonDocument<512> jsonInfoHttp;
 // functions for the LEDs of UGV.
 #include "src/PinController.h"
 
-// functions for RoArm-M2 ctrl.
-#include "src/RoArm-M2_module.h"
-
 // functions for gimbal ctrl.
 #include "src/gimbal_module.h"
 
@@ -57,7 +54,7 @@ StaticJsonDocument<512> jsonInfoHttp;
 #include "src/IMU_ctrl.h"
 
 // functions for movtion ctrl. 
-#include "src/movtion_module.h"
+#include "src/Movement.h"
 
 // functions for editing the files in flash.
 #include "src/files_ctrl.h"

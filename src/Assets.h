@@ -709,7 +709,7 @@ const char assetWebserverIndex[] PROGMEM = R"rawliteral(
                 if (jsonResponse.V<11.06) {
                     document.getElementById("V").classList.remove("num-color");
                     document.getElementById("V").classList.add("num-color-red");
-                } else{
+                } else {
                     document.getElementById("V").classList.remove("num-color-red");
                     document.getElementById("V").classList.add("num-color");
                 }
@@ -725,7 +725,7 @@ const char assetWebserverIndex[] PROGMEM = R"rawliteral(
 
                     read_X = jsonResponse.pan;
                     read_Y = jsonResponse.tilt;
-                } else{
+                } else {
                     document.getElementById("mX").innerHTML = "null";
                     document.getElementById("mY").innerHTML = "null";
 
@@ -987,7 +987,7 @@ const char assetWebserverIndex[] PROGMEM = R"rawliteral(
             lrNewer = 2;
         }
 
-        if(forwardButton != last_forwardButton || backwardButton != last_backwardButton || fbNewer != last_fbNewer || leftButton != last_leftButton || last_rightButton != rightButton || lrNewer != last_fbNewer) {
+        if (forwardButton != last_forwardButton || backwardButton != last_backwardButton || fbNewer != last_fbNewer || leftButton != last_leftButton || last_rightButton != rightButton || lrNewer != last_fbNewer) {
             cmdProcess();
             last_forwardButton = forwardButton;
             last_backwardButton = backwardButton;
