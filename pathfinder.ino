@@ -75,7 +75,7 @@ StaticJsonDocument<512> jsonInfoHttp;
 #include "src/uart_ctrl.h"
 
 // functions for http & web server.
-#include "src/http_server.h"
+#include "src/HttpServer.h"
 
 
 void moduleType_RoArmM2() {

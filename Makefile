@@ -67,7 +67,8 @@ board: # install Arduino Board Core using arduino-cli [Usage: `make board`]
 	$(BINARY_ARDUINO_CLI) \
 		core \
 			install \
-				$(ARDUINO_CORE)
+				$(ARDUINO_CORE) \
+	;
 
 .SILENT .PHONY: libs
 libs: # install Arduino libraries using arduino-cli [Usage: `make libs`]
@@ -75,7 +76,8 @@ libs: # install Arduino libraries using arduino-cli [Usage: `make libs`]
 	$(BINARY_ARDUINO_CLI) \
 		lib \
 			install \
-				$(ARDUINO_LIBRARIES_UPSTREAM)
+				$(ARDUINO_LIBRARIES_UPSTREAM) \
+	;
 
 	echo
 

@@ -1,10 +1,13 @@
-#include "web_page.h"
+#ifndef HTTPSERVER_H_
+#define HTTPSERVER_H_
+
+#include "./web_page.h"
 
 // Create AsyncWebServer object on port 80
 WebServer server(80);
 
 void handleRoot() {
-  server.send(200, "text/html", index_html); //Send web page
+  server.send(200, "text/html", index_html);  // Send web page
 }
 
 void webCtrlServer() {
@@ -15,7 +18,7 @@ void webCtrlServer() {
     deserializeJson(jsonCmdReceive, jsonCmdWebString);
     jsonCmdReceiveHandler();
     serializeJson(jsonInfoHttp, jsonFeedbackWeb);
-    server.send(200, "text/plane", jsonFeedbackWeb);
+    server.send(200, "text/json", jsonFeedbackWeb);
     jsonFeedbackWeb = "";
     jsonInfoHttp.clear();
     jsonCmdReceive.clear();
@@ -29,3 +32,5 @@ void webCtrlServer() {
 void initHttpWebServer() {
   webCtrlServer();
 }
+
+#endif  // HTTPSERVER_H_
