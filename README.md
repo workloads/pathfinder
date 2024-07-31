@@ -62,25 +62,18 @@ This group consists of:
 
 ### Software
 
+- a copy of [@workloads/tooling](https://github.com/workloads/tooling)
 - [Arduino IDE](https://www.arduino.cc/en/software)
+- Arduino CLI `1.0.0` or [newer](https://arduino.github.io/arduino-cli/)
+- Arduino Board Core for ESP32 `v2.x.x`
 - Arduino Libraries
-  - Adafruit_ICM20X
-  - Adafruit_ICM20948
-  - Adafruit_Sensor
-  - Adafruit_SSD1306
-  - ArduinoJson
-  - ESP32Encoder
-  - INA219_WE
-  - LittleFS
-  - PID_v2
-  - SCServo
-  - SimpleKalmanFilter
+  
+For an exhaustive list of Core and Library versions, see [./config.mk](./config.mk).
 
 #### Development
 
 For development and testing of this repository:
 
-* Arduino CLI `1.0.0` or [newer](https://arduino.github.io/arduino-cli/)
 * `arduino-lint` `1.2.0` or [newer](https://arduino.github.io/arduino-lint/)
 * `cpplint` `1.6.0` or [newer](https://github.com/cpplint/cpplint)
 * `clang-format` `18.1.0` or [newer](https://clang.llvm.org/docs/ClangFormat.html)
@@ -93,16 +86,17 @@ This repository provides a [Makefile](./Makefile)-based workflow.
 Running `make` without commands will print out the following help information:
 
 ```text
-🔘 NOMAD SMART DIAL
+🧭 PATHFINDER
 
-Target          Description                                     Usage
-lint            lint C++ code using cpplint and clang-format    `make lint`
-lint-arduino    lint Arduino code using Arduino Lint            `make lint-arduino`
-libs            install Arduino libraries using arduino-cli     `make libs`
-vault           start HashiCorp Vault in development mode       `make vault`
-help            display a list of Make Targets                  `make help`
-_listincludes   list all included Makefiles and *.mk files      `make _listincludes`
-_selfcheck      lint Makefile                                   `make _selfcheck`
+Target               Description                                                       Usage
+lint                 lint C++ code using cpplint and clang-format                      `make lint`
+lint-arduino         lint Arduino code using arduino-lint                              `make lint-arduino`
+board                install Arduino Board Core using arduino-cli                      `make board`
+libs                 install Arduino libraries using arduino-cli                       `make libs`
+libs-enable-unsafe   enable installation of unsafe libraries when using Arduino CLI    `make libs-enable-unsafe`
+help                 display a list of Make Targets                                    `make help`
+_listincludes        list all included Makefiles and *.mk files                        `make _listincludes`
+_selfcheck           lint Makefile                                                     `make _selfcheck`
 ```
 
 ## Notes
