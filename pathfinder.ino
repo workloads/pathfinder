@@ -1,3 +1,12 @@
+/**
+ *
+ * @file pathfinder.ino
+ * @brief ESP32-based mobile edge computing platform
+ * @url https://go.workloads.io/pathfinder
+ * @version 0.9.5
+ *
+*/
+
 #include <ArduinoJson.h>
 StaticJsonDocument<256> jsonCmdReceive;
 StaticJsonDocument<256> jsonInfoSend;
