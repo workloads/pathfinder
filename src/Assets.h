@@ -1,4 +1,7 @@
-const char index_html[] PROGMEM = R"rawliteral(
+#ifndef ASSETS_H_
+#define ASSETS_H_
+
+const char assetWebserverIndex[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html>
 <head>
@@ -1039,3 +1042,5 @@ const char index_html[] PROGMEM = R"rawliteral(
 </body>
 </html>
 )rawliteral";
+
+#endif  // ASSETS_H_

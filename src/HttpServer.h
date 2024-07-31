@@ -1,13 +1,13 @@
 #ifndef HTTPSERVER_H_
 #define HTTPSERVER_H_
 
-#include "./web_page.h"
+#include "./Assets.h"
 
 // Create AsyncWebServer object on port 80
 WebServer server(80);
 
 void httpServerHandleRoot() {
-  server.send(200, "text/html", index_html);  // Send web page
+  server.send(200, "text/html", assetWebserverIndex);  // Send web page
 }
 
 void httpServerController() {
