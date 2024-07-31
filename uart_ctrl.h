@@ -282,7 +282,7 @@ void jsonCmdReceiveHandler() {
 												jsonCmdReceive["h"]
 												);
                                                 break;
-	// this two funcs are NOT for UGV.
+	// these two funcs are NOT for UGV.
 	// case CMD_SWITCH_CTRL: switchCtrl(
 	// 											jsonCmdReceive["pwm_a"],
 	// 											jsonCmdReceive["pwm_b"]
@@ -546,7 +546,7 @@ void jsonCmdReceiveHandler() {
 
 
 
-	// wifi settings.
+	// Wi-Fi settings.
 	case CMD_WIFI_ON_BOOT: 
 												configWifiModeOnBoot(
 												jsonCmdReceive["cmd"]

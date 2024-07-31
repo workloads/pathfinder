@@ -114,7 +114,7 @@
 
 // the robot need to be put on a ground and kept still
 // getting the imu offset and set as default
-// this gonna take a while (5s)
+// this is going to take a while (5s)
 // {"T":127}
 #define CMD_CALI_IMU_STEP	127
 
@@ -135,7 +135,7 @@
 // {"T":142,"cmd":0}
 #define CMD_FEEDBACK_FLOW_INTERVAL	142	// dev
 
-// set the echo mode of recving new cmd.
+// set the echo mode of receiving new cmd.
 // 0: [default]off
 // 1: on
 // {"T":143,"cmd":0}
@@ -450,10 +450,10 @@
 
 // === === === ESP-NOW settings. === === ===
 
-// note: wifi must be running under STA(AP+STA) mode.
-// it will be controled by broadcast mac address.
+// note: Wi-Fi must be running under STA(AP+STA) mode.
+// it will be controlled by broadcast mac address.
 // {"T":300,"mode":1} [default]
-// it won't be controled by broadcast mac address, and add one mac to whitelist.
+// it won't be controlled by broadcast mac address, and add one mac to whitelist.
 // if there is no leader you can just fill 00:00:00:00:00:00 in it.
 // {"T":300,"mode":0,"mac":"CC:DB:A7:5B:E4:1C"}
 #define CMD_BROADCAST_FOLLOWER 300
@@ -503,7 +503,7 @@
 
 // === === === wifi settings. === === ===
 
-// config the wifi mode on boot.
+// config the Wi-Fi mode on boot.
 // 0 - off
 // 1 - ap
 // 2 - sta
@@ -523,7 +523,7 @@
 // {"T":404,"ap_ssid":"RoArm-M2","ap_password":"12345678","sta_ssid":"JSBZY-2.4G","sta_password":"waveshare0755"}
 #define CMD_WIFI_APSTA   404
 
-// get wifi info.
+// get Wi-Fi info.
 // {"T":405}
 #define CMD_WIFI_INFO    405
 
@@ -537,7 +537,7 @@
 // {"T":407,"mode":3,"ap_ssid":"RoArm-M2","ap_password":"12345678","sta_ssid":"JSBZY-2.4G","sta_password":"waveshare0755"}
 #define CMD_WIFI_CONFIG_CREATE_BY_INPUT 407
 
-// disconnect wifi.
+// disconnect Wi-Fi.
 // {"T":408}
 #define CMD_WIFI_STOP 408
 
@@ -583,7 +583,7 @@
 // {"T":603}
 #define CMD_RESET_BOOT_MISSION	603
 
-// if there is something wrong with wifi functions, clear the nvs.
+// if there is something wrong with Wi-Fi functions, clear the nvs.
 // {"T":604}
 #define CMD_NVS_CLEAR	604
 

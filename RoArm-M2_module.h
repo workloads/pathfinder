@@ -243,7 +243,7 @@ void RoArmM2_moveInit() {
   if(InfoPrint == 1) {Serial.println("Moving SHOULDER_JOINT to initPos.");}
   st.WritePosEx(SHOULDER_DRIVING_SERVO_ID, ARM_SERVO_MIDDLE_POS, ARM_SERVO_INIT_SPEED, ARM_SERVO_INIT_ACC);
 
-  // check SHOULDER_DRIVEING_SERVO position.
+  // check SHOULDER_DRIVING_SERVO position.
   if(InfoPrint == 1) {Serial.println("...");}
   waitMove2Goal(SHOULDER_DRIVING_SERVO_ID, ARM_SERVO_MIDDLE_POS, 30);
 
@@ -293,7 +293,7 @@ int RoArmM2_baseJointCtrlRad(byte returnType, double radInput, u16 speedInput, u
 }
 
 
-// use this function to compute the servo position to ctrl shoudlder joint.
+// use this function to compute the servo position to ctrl shoulder joint.
 // returnType 0: only returns the shoulder joint servo position and save it to goalPos[1] and goalPos[2],
 //               servo will NOT move.
 //            1: returns the shoulder joint servo position and save it to goalPos[1] and goalPos[2],
@@ -511,7 +511,7 @@ void cartesian_to_polar(double x, double y, double* r, double* theta) {
 // AI prompt:
 // *** this function is written with AI. ***
 // use this two functions to compute the position of coordinate point
-// by inputing the jointRad.
+// by inputting the jointRad.
 void polarToCartesian(double r, double theta, double &x, double &y) {
   x = r * cos(theta);
   y = r * sin(theta);
@@ -520,7 +520,7 @@ void polarToCartesian(double r, double theta, double &x, double &y) {
 
 // this function is used to compute the position of the end point.
 // input the angle of every joint in radius.
-// compute the positon and save it to lastXYZ by default.
+// compute the position and save it to lastXYZ by default.
 void RoArmM2_computePosbyJointRad(double base_joint_rad, double shoulder_joint_rad, double elbow_joint_rad, double hand_joint_rad) {
   if (EEMode == 0) {
     // the end of the arm.
@@ -635,10 +635,10 @@ void movePoint(double xA, double yA, double s, double *xB, double *yB) {
 }
 
 
-// ---===< Muti-assembly IK config here >===---
+// ---===< Multi-assembly IK config here >===---
 // change this func and goalPosMove()
 // Coordinate Ctrl: input the coordinate point of the goal position to compute
-// the goalPos of every joints.
+// the goalPos of every joint.
 void RoArmM2_baseCoordinateCtrl(double inputX, double inputY, double inputZ, double inputT) {
   if (EEMode == 0) {
     cartesian_to_polar(inputX, inputY, &base_r, &BASE_JOINT_RAD);
@@ -666,7 +666,7 @@ void RoArmM2_lastPosUpdate() {
 
 // use jointCtrlRad functions to compute goalPos for every servo,
 // then use this function to move the servos.
-// cuz the functions like baseCoordinateCtrl is not gonna make servos move.
+// cuz the functions like baseCoordinateCtrl is not going to make servos move.
 void RoArmM2_goalPosMove() {
   RoArmM2_baseJointCtrlRad(0, BASE_JOINT_RAD, 0, 0);
   RoArmM2_shoulderJointCtrlRad(0, SHOULDER_JOINT_RAD, 0, 0);

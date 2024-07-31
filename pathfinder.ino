@@ -19,7 +19,7 @@ StaticJsonDocument<1024> jsonInfoHttp;
 #include <math.h>
 #include "ICM_20948.h"
 
-// functions for barrery info.
+// functions for battery info.
 #include "battery_ctrl.h"
 
 // config for ugv.
@@ -28,7 +28,7 @@ StaticJsonDocument<1024> jsonInfoHttp;
 // functions for oled.
 #include "oled_ctrl.h"
 
-// functions for the leds of UGV.
+// functions for the LEDs of UGV.
 #include "ugv_led_ctrl.h"
 
 // functions for RoArm-M2 ctrl.
@@ -52,7 +52,7 @@ StaticJsonDocument<1024> jsonInfoHttp;
 // advance functions for ugv ctrl.
 #include "ugv_advance.h"
 
-// functions for wifi ctrl.
+// functions for Wi-Fi ctrl.
 #include "wifi_ctrl.h"
 
 // functions for esp-now.
@@ -117,7 +117,7 @@ void setup() {
   // functions for IMU.
   imu_init();
 
-  // functions for the leds on ugv.
+  // functions for the LEDs on ugv.
   led_pin_init();
 
   // init the littleFS functions in files_ctrl.h
