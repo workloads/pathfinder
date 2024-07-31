@@ -1,0 +1,6 @@
+### C++ ###
+build
+cmake-build-debug
+
+### Arduino ###
+.theia
