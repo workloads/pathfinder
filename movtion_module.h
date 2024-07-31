@@ -1,7 +1,7 @@
 // switch parts
 int switch_pwm_A = 0;
 int switch_pwm_B = 0;
-bool usePIDCompute = true;
+bool usePIDCompute = false;
 float spd_rate_A = 1.0;
 float spd_rate_B = 1.0;
 bool heartbeatStopFlag = false;
@@ -139,10 +139,32 @@ double plusesRate = 3.14159265359 * WHEEL_D / ONE_CIRCLE_PLUSES;
 
 
 void initEncoders() {
+  // if(SET_MOTOR_DIR){
+  //   encoderA.attachHalfQuad(AENCB, AENCA);
+  //   encoderB.attachHalfQuad(BENCB, BENCA);
+  // }else{
   encoderA.attachHalfQuad(AENCA, AENCB);
   encoderB.attachHalfQuad(BENCA, BENCB);
+  // }
   encoderA.setCount(0);
   encoderB.setCount(0);
+}
+
+void getWheelSpeed() {
+  unsigned long currentTime = micros();
+  long encoderPulsesA = encoderA.getCount();
+  long encoderPulsesB = encoderB.getCount();
+
+  if (!SET_MOTOR_DIR) {
+    speedGetA = (plusesRate * (encoderPulsesA - lastEncoderA)) / ((double)(currentTime - lastTime) / 1000000);
+    speedGetB = (plusesRate * (encoderPulsesB - lastEncoderB)) / ((double)(currentTime - lastTime) / 1000000);
+  } else {
+    speedGetA = (plusesRate * (lastEncoderA - encoderPulsesA)) / ((double)(currentTime - lastTime) / 1000000);
+    speedGetB = (plusesRate * (lastEncoderB - encoderPulsesB)) / ((double)(currentTime - lastTime) / 1000000);
+  }
+  lastEncoderA = encoderPulsesA;
+  lastEncoderB = encoderPulsesB;
+  lastTime = currentTime;
 }
 
 void getLeftSpeed() {
@@ -150,10 +172,8 @@ void getLeftSpeed() {
   long encoderPulsesA = encoderA.getCount();
   if (!SET_MOTOR_DIR) {
     speedGetA = (plusesRate * (encoderPulsesA - lastEncoderA)) / ((double)(currentTime - lastLeftSpdTime) / 1000000);
-    en_odom_l = ((float)encoderPulsesA / ONE_CIRCLE_PLUSES) * WHEEL_D * 3.14159265359;
   } else {
     speedGetA = (plusesRate * (lastEncoderA - encoderPulsesA)) / ((double)(currentTime - lastLeftSpdTime) / 1000000);
-    en_odom_l = - ((float)encoderPulsesA / ONE_CIRCLE_PLUSES) * WHEEL_D * 3.14159265359;
   }
   lastEncoderA = encoderPulsesA;
   lastLeftSpdTime = currentTime;
@@ -164,10 +184,8 @@ void getRightSpeed() {
   long encoderPulsesB = encoderB.getCount();
   if (!SET_MOTOR_DIR) {
     speedGetB = (plusesRate * (encoderPulsesB - lastEncoderB)) / ((double)(currentTime - lastRightSpdTime) / 1000000);
-    en_odom_r = ((float)encoderPulsesB / ONE_CIRCLE_PLUSES) * WHEEL_D * 3.14159265359;
   } else {
     speedGetB = (plusesRate * (lastEncoderB - encoderPulsesB)) / ((double)(currentTime - lastRightSpdTime) / 1000000);
-    en_odom_r = - ((float)encoderPulsesB / ONE_CIRCLE_PLUSES) * WHEEL_D * 3.14159265359;
   }
   lastEncoderB = encoderPulsesB;
   lastRightSpdTime = currentTime;
@@ -211,8 +229,11 @@ void pidControllerInit() {
 
 void leftCtrl(float pwmInputA) {
   int pwmIntA = round(pwmInputA);
-  if(SET_MOTOR_DIR) {
-    if(pwmIntA < 0) {
+  if (mainType != 3) {
+    speedGetA = pwmIntA;
+  }
+  if(SET_MOTOR_DIR){
+    if(pwmIntA < 0){
       digitalWrite(AIN1, HIGH);
       digitalWrite(AIN2, LOW);
       ledcWrite(channel_A, abs(pwmIntA));
@@ -238,8 +259,11 @@ void leftCtrl(float pwmInputA) {
 
 void rightCtrl(float pwmInputB) {
   int pwmIntB = round(pwmInputB);
-  if(SET_MOTOR_DIR) {
-    if(pwmIntB < 0) {
+  if (mainType != 3) {
+    speedGetB = pwmIntB;
+  }
+  if(SET_MOTOR_DIR){
+    if(pwmIntB < 0){
       digitalWrite(BIN1, HIGH);
       digitalWrite(BIN2, LOW);
       ledcWrite(channel_B, abs(pwmIntB));
@@ -281,11 +305,10 @@ void setGoalSpeed(float inputLeft, float inputRight) {
     pidA.Setpoint(setpointA);
     setpointA_buffer = inputLeft;
   }
-  
-  if (setpointB != setpointB_buffer) {
-    pidB.Setpoint(setpointB);
-    setpointB_buffer = inputRight;
+  if (setpointB == 0 && speedGetB == 0) {
+    outputB = 0;
   }
+  rightCtrl(outputB);
 }
 
 void LeftPidControllerCompute() {
@@ -338,6 +361,8 @@ void heartBeatCtrl() {
     if (!heartbeatStopFlag) {
       heartbeatStopFlag = true;
       setGoalSpeed(0, 0);
+      // leftCtrl(0);
+      // rightCtrl(0);
     }
   }
 }
@@ -349,48 +374,35 @@ void changeHeartBeatDelay(int inputCmd) {
 void mm_settings(byte inputMain, byte inputModule) {
   mainType = inputMain;
   moduleType = inputModule;
-  // mainType:01 RaspRover
-  // #define WHEEL_D 0.0800
-  // #define ONE_CIRCLE_PLUSES  2100
-  // #define TRACK_WIDTH  0.125
-  // #define SET_MOTOR_DIR false
-
-  // mainType:02 UGV Rover
-  // #define WHEEL_D 0.0800
-  // #define ONE_CIRCLE_PLUSES  1650(v=0.90) -> 660(v>=0.93)
-  // #define TRACK_WIDTH  0.172
-  // #define SET_MOTOR_DIR false
-
-  // mainType:03 UGV Beast
-  // #define WHEEL_D  0.0523
-  // #define ONE_CIRCLE_PLUSES  1092
-  // #define TRACK_WIDTH  0.141
-  // #define SET_MOTOR_DIR true
 
   if (mainType == 1) {
     WHEEL_D = 0.0800;
     ONE_CIRCLE_PLUSES = 2100;
     TRACK_WIDTH = 0.125;
-    SET_MOTOR_DIR = false;
+    SET_MOTOR_DIR = false; // checked
+    usePIDCompute = false;
   } else if (mainType == 2) {
     WHEEL_D = 0.0800;
-    ONE_CIRCLE_PLUSES = 660;
+    ONE_CIRCLE_PLUSES = 1650;
     TRACK_WIDTH = 0.172;
-    SET_MOTOR_DIR = false;
+    SET_MOTOR_DIR = true; // checked
+    usePIDCompute = false;
   } else if (mainType == 3) {
     WHEEL_D = 0.0523;
     ONE_CIRCLE_PLUSES = 1092;
     TRACK_WIDTH = 0.141;
-    SET_MOTOR_DIR = true;
+    SET_MOTOR_DIR = true; // checked
+    usePIDCompute = true;
   }
   plusesRate = 3.14159265359 * WHEEL_D / ONE_CIRCLE_PLUSES;
+  // initEncoders();
 
   if (mainType == 1) {
     screenLine_2 = "RaspRover";
   } else if (mainType == 2) {
-    screenLine_2 = "UGV Rover";
+    screenLine_2 = "UGV02";
   } else if (mainType == 3) {
-    screenLine_2 = "UGV Beast";
+    screenLine_2 = "UGV01";
   } 
 
   if (moduleType == 0) {

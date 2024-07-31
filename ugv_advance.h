@@ -343,7 +343,6 @@ void configEEmodeType(byte inputMode) {
 	RoArmM2_goalPosMove();
 }
 
-// config the size of EoAT.
 void configEoAT(byte mountPos, double inputEA, double inputEB) {
 	switch (mountPos) {
         case 0:
