@@ -1,66 +1,15 @@
-#define AD0_VAL 0
-ICM_20948_I2C myICM;
-icm_20948_DMP_data_t data;
+#include"IMU.h"
 
-SimpleKalmanFilter  kf_ax(kf_accel_q, kf_accel_r, kf_accel_p);
-SimpleKalmanFilter  kf_ay(kf_accel_q, kf_accel_r, kf_accel_p);
-SimpleKalmanFilter  kf_az(kf_accel_q, kf_accel_r, kf_accel_p);
+// define GPIOs for IIC.
+EulerAngles stAngles;
+IMU_ST_SENSOR_DATA_FLOAT stGyroRawData;
+IMU_ST_SENSOR_DATA_FLOAT stAccelRawData;
+IMU_ST_SENSOR_DATA stMagnRawData;
+float temp;
 
-SimpleKalmanFilter  kf_gx(kf_accel_q, kf_accel_r, kf_accel_p);
-SimpleKalmanFilter  kf_gy(kf_accel_q, kf_accel_r, kf_accel_p);
-SimpleKalmanFilter  kf_gz(kf_accel_q, kf_accel_r, kf_accel_p);
 
 void imu_init() {
-  bool initialized = false;
-  while (!initialized) {
-    myICM.begin(Wire, AD0_VAL);
-    Serial.println("Initialization of the sensor returned: ");
-    Serial.println(myICM.statusString());
-    if (myICM.status != ICM_20948_Stat_Ok) {
-      Serial.println(F("Trying again..."));
-      delay(500);
-    }
-    else {
-      initialized = true;
-    }
-  }
-  Serial.println(F("Device connected!"));
-  bool success = true;
-  success &= (myICM.initializeDMP() == ICM_20948_Stat_Ok);
-
-  success &= (myICM.enableDMPSensor(INV_ICM20948_SENSOR_GAME_ROTATION_VECTOR) == ICM_20948_Stat_Ok);
-  success &= (myICM.enableDMPSensor(INV_ICM20948_SENSOR_RAW_GYROSCOPE) == ICM_20948_Stat_Ok);
-  success &= (myICM.enableDMPSensor(INV_ICM20948_SENSOR_RAW_ACCELEROMETER) == ICM_20948_Stat_Ok);
-  success &= (myICM.enableDMPSensor(INV_ICM20948_SENSOR_MAGNETIC_FIELD_UNCALIBRATED) == ICM_20948_Stat_Ok);
-
-  success &= (myICM.setDMPODRrate(DMP_ODR_Reg_Quat6, 3) == ICM_20948_Stat_Ok);
-  myICM.setSampleMode((ICM_20948_Internal_Acc | ICM_20948_Internal_Gyr), ICM_20948_Sample_Mode_Continuous);
-  delay(2);
-  ICM_20948_fss_t myFSS;
-  // myFSS.a = gpm4;
-  // myFSS.g = dps2000;
-  myFSS.a = gpm16;   // (ICM_20948_ACCEL_CONFIG_FS_SEL_e)
-  myFSS.g = dps2000; // (ICM_20948_GYRO_CONFIG_1_FS_SEL_e)
-  myICM.setFullScale((ICM_20948_Internal_Acc | ICM_20948_Internal_Gyr), myFSS);
-
-  myICM.lowPower(false);
-
-  success &= (myICM.setDMPODRrate(DMP_ODR_Reg_Accel, 3) == ICM_20948_Stat_Ok);
-  success &= (myICM.setDMPODRrate(DMP_ODR_Reg_Gyro, 3) == ICM_20948_Stat_Ok);
-  success &= (myICM.setDMPODRrate(DMP_ODR_Reg_Gyro_Calibr, 3) == ICM_20948_Stat_Ok);
-  success &= (myICM.setDMPODRrate(DMP_ODR_Reg_Cpass, 3) == ICM_20948_Stat_Ok);
-  success &= (myICM.setDMPODRrate(DMP_ODR_Reg_Cpass_Calibr, 3) == ICM_20948_Stat_Ok);
-
-  success &= (myICM.enableFIFO() == ICM_20948_Stat_Ok);
-  success &= (myICM.enableDMP() == ICM_20948_Stat_Ok);
-  success &= (myICM.resetDMP() == ICM_20948_Stat_Ok);
-  success &= (myICM.resetFIFO() == ICM_20948_Stat_Ok);
-  if (success) {
-    Serial.println(F("DMP enabled!"));
-  } else {
-    Serial.println(F("Enable DMP failed!"));
-    Serial.println(F("Please check that you have uncommented line 29 (#define ICM_20948_USE_DMP) in ICM_20948_C.h..."));
-  }
+	imuInit();
 }
 
 

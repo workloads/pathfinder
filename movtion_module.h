@@ -288,22 +288,54 @@ void rightCtrl(float pwmInputB) {
 }
 
 void setGoalSpeed(float inputLeft, float inputRight) {
-  usePIDCompute = true;
+  // setpoint_cmd_recv = millis();
+  if (mainType == 3) {
+    usePIDCompute = true;
 
-  if(inputLeft < -2.0 || inputLeft > 2.0) {
+    if(inputLeft < -2.0 || inputLeft > 2.0){
+      return;
+    }
+
+    if(inputRight < -2.0 || inputRight > 2.0){
+      return;
+    }
+    
+    setpointA = inputLeft*spd_rate_A;
+    setpointB = inputRight*spd_rate_B;
+
+    if (setpointA != setpointA_buffer) {
+      pidA.Setpoint(setpointA);
+      setpointA_buffer = inputLeft;
+    }
+    
+    if (setpointB != setpointB_buffer) {
+      pidB.Setpoint(setpointB);
+      setpointB_buffer = inputRight;
+    }
+  } else {
+    usePIDCompute = false;
+    leftCtrl(inputLeft * 512 * spd_rate_A);
+    rightCtrl(inputRight * 512 * spd_rate_B);
+  }
+}
+
+void pidControllerCompute() {
+  if (!usePIDCompute) {
     return;
   }
 
-  if(inputRight < -2.0 || inputRight > 2.0) {
-    return;
+  outputA = pidA.Run(speedGetA);
+  if (abs(outputA)<THRESHOLD_PWM) {
+    outputA = 0;
   }
-  
-  setpointA = inputLeft*spd_rate_A;
-  setpointB = inputRight*spd_rate_B;
+  if (setpointA == 0 && speedGetA == 0) {
+    outputA = 0;
+  }
+  leftCtrl(outputA);
 
-  if (setpointA != setpointA_buffer) {
-    pidA.Setpoint(setpointA);
-    setpointA_buffer = inputLeft;
+  outputB = pidB.Run(speedGetB);
+  if (abs(outputB)<THRESHOLD_PWM) {
+    outputB = 0;
   }
   if (setpointB == 0 && speedGetB == 0) {
     outputB = 0;

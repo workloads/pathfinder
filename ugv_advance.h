@@ -343,23 +343,14 @@ void configEEmodeType(byte inputMode) {
 	RoArmM2_goalPosMove();
 }
 
+
+// config the siza of EoAT.
 void configEoAT(byte mountPos, double inputEA, double inputEB) {
 	switch (mountPos) {
-        case 0:
-            ARM_L4_LENGTH_MM_A = 67.85;
-            break;
-
-        case 1:
-            ARM_L4_LENGTH_MM_A = 64.16;
-            break;
-
-        case 2:
-            ARM_L4_LENGTH_MM_A = 59.07;
-            break;
-
-        case 3:
-            ARM_L4_LENGTH_MM_A = 51.07;
-            break;
+	case 0: ARM_L4_LENGTH_MM_A = 67.85;break;
+	case 1: ARM_L4_LENGTH_MM_A = 64.16;break;
+	case 2: ARM_L4_LENGTH_MM_A = 59.07;break;
+	case 3: ARM_L4_LENGTH_MM_A = 51.07;break;
 	}
 
 	EoAT_A = inputEA;
@@ -381,18 +372,12 @@ void configEoAT(byte mountPos, double inputEA, double inputEB) {
 // set the InfoPrint.
 void configInfoPrint(byte inputCmd) {
 	switch (inputCmd) {
-
-	case 0:
-        InfoPrint = 0;
-        break;
-
-	case 1:
-        InfoPrint = 1;
-        break;
-
-	case 2:
-        InfoPrint = 2;
-        break;
+	case 0: InfoPrint = 0;
+			break;
+	case 1: InfoPrint = 1;
+			break;
+	case 2: InfoPrint = 2;
+			break;
 	}
 }
 
@@ -424,46 +409,36 @@ void baseInfoFeedback() {
 	jsonInfoHttp["r"] = icm_roll;
 	jsonInfoHttp["p"] = icm_pitch;
 	jsonInfoHttp["y"] = icm_yaw;
+	// jsonInfoHttp["y"] = "null";
 
-	jsonInfoHttp["q0"] = q0;
-	jsonInfoHttp["q1"] = q1;
-	jsonInfoHttp["q2"] = q2;
-	jsonInfoHttp["q3"] = q3;
+	// jsonInfoHttp["q0"] = qw;
+	// jsonInfoHttp["q1"] = qx;
+	// jsonInfoHttp["q2"] = qy;
+	// jsonInfoHttp["q3"] = qz;
 
-	jsonInfoHttp["ax"] = ax;
-	jsonInfoHttp["ay"] = ay;
-	jsonInfoHttp["az"] = az;
-
-	jsonInfoHttp["gx"] = gx;
-	jsonInfoHttp["gy"] = gy;
-	jsonInfoHttp["gz"] = gz;
-
-	jsonInfoHttp["odl"] = en_odom_l;
-	jsonInfoHttp["odr"] = en_odom_r;
+	jsonInfoHttp["temp"] = temp;
 
 	jsonInfoHttp["v"] = loadVoltage_V;
 
 	switch(moduleType) {
-
-        case 1:
-            jsonInfoHttp["ax"] = lastX;
-            jsonInfoHttp["ay"] = lastY;
-            jsonInfoHttp["az"] = lastZ;
-            jsonInfoHttp["ab"] = radB;
-            jsonInfoHttp["as"] = radS;
-            jsonInfoHttp["ae"] = radE;
-            jsonInfoHttp["at"] = lastT;
-            jsonInfoHttp["torB"] = servoFeedback[BASE_SERVO_ID - 11].load;
-            jsonInfoHttp["torS"] = servoFeedback[SHOULDER_DRIVING_SERVO_ID - 11].load - servoFeedback[SHOULDER_DRIVEN_SERVO_ID - 11].load;
-            jsonInfoHttp["torE"] = servoFeedback[ELBOW_SERVO_ID - 11].load;
-            jsonInfoHttp["torH"] = servoFeedback[GRIPPER_SERVO_ID - 11].load;
-            break;
-
-        case 2:
-            jsonInfoHttp["pan"]  = panAngleCompute(gimbalFeedback[0].pos);
-            jsonInfoHttp["tilt"] = tiltAngleCompute(gimbalFeedback[1].pos);
-            break;
-        }
+	case 1:
+		jsonInfoHttp["x"] = lastX;
+		jsonInfoHttp["y"] = lastY;
+		jsonInfoHttp["z"] = lastZ;
+		jsonInfoHttp["b"] = radB;
+		jsonInfoHttp["s"] = radS;
+		jsonInfoHttp["e"] = radE;
+		jsonInfoHttp["t"] = lastT;
+		jsonInfoHttp["torB"] = servoFeedback[BASE_SERVO_ID - 11].load;
+		jsonInfoHttp["torS"] = servoFeedback[SHOULDER_DRIVING_SERVO_ID - 11].load - servoFeedback[SHOULDER_DRIVEN_SERVO_ID - 11].load;
+		jsonInfoHttp["torE"] = servoFeedback[ELBOW_SERVO_ID - 11].load;
+		jsonInfoHttp["torH"] = servoFeedback[GRIPPER_SERVO_ID - 11].load;
+		break;
+	case 2:
+		jsonInfoHttp["pan"]  = panAngleCompute(gimbalFeedback[0].pos);
+		jsonInfoHttp["tilt"] = tiltAngleCompute(gimbalFeedback[1].pos);
+		break;
+	}
 
 	String getInfoJsonString;
 	serializeJson(jsonInfoHttp, getInfoJsonString);
@@ -491,50 +466,4 @@ void saveSpdRate() {
 	String getInfoJsonString;
 	serializeJson(jsonInfoHttp, getInfoJsonString);
 	appendStepJson("boot", getInfoJsonString);
-}
-
-// check the main & module type.
-void saveMainTypeModuleType(byte inputMain, byte inputModule) {
-	int _LineNum = missionContent("boot");
-	bool sameAsSaved = false;
-	int mm_line_num = -1;
-	String stepStringBuffer;
-
-    for (int i = 1; i<=_LineNum+1; i++) {
-		stepStringBuffer = readSingleLine("boot.mission", i);
-		DeserializationError err = deserializeJson(jsonCmdReceive, stepStringBuffer);
-
-		if (err == DeserializationError::Ok) {
-			int cmdType = jsonCmdReceive["T"].as<int>();
-
-			if (cmdType == CMD_MM_TYPE_SET) {
-				mm_line_num = i;
-				int jsonMain = jsonCmdReceive["main"];
-				int jsonModule = jsonCmdReceive["module"];
-
-				if (inputMain == jsonMain && inputModule == jsonModule) {
-					sameAsSaved = true;
-				}
-			}
-		}
-	}
-
-	if (!sameAsSaved) {
-		jsonInfoSend.clear();
-		jsonInfoSend["T"] = CMD_MM_TYPE_SET;
-		jsonInfoSend["main"] = inputMain;
-		jsonInfoSend["module"] = inputModule;
-		String contentBuffer;
-		serializeJson(jsonInfoSend, contentBuffer);
-
-		if (mm_line_num == -1) {
-			appendStepJson("boot", contentBuffer);
-			Serial.println("new mm_json appended.");
-		} else {
-			replaceStepJson("boot", mm_line_num-1, contentBuffer);
-			Serial.println("new mm_json replaced.");
-		}
-	} else {
-		Serial.println("same mm_json already saved.");
-	}
 }

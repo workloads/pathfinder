@@ -1,20 +1,8 @@
-// ---===< Feedback Info >===---
-// base info feedback.
-// {"T":1001,"L":0,"R":0,"gx":0,"gy":0,"gz":0,"ax":0,"ay":0,"az":0,"mx":0,"my":0,"mz":0,"odl":0,"odr":0,"v":11.0}
 #define FEEDBACK_BASE_INFO  1001
-
-// imu info feedback.
-// {"T":1002,"gx":0,"gy":0,"gz":0,"ax":0,"ay":0,"az":0,"mx":0,"my":0,"mz":0}
 #define FEEDBACK_IMU_DATA   1002
-
 // esp-now recv.
 // {"T":1003,"mac":"FF:FF:FF:FF:FF:FF","megs":"hello!"}
 #define CMD_ESP_NOW_RECV 1003
-
-// get imu bias
-// {"T":129,"gx":0,"gy":0,"gz":0,"ax":0,"ay":0,"az":0,"cx":0,"cy":0,"cz":0}
-#define FEEDBACK_IMU_OFFSET 129
-
 // esp-now send status
 // 0:failed   1:succeed   2:Error initializing ESP-NOW
 // 3:invalid MAC address format.
@@ -28,13 +16,7 @@
 // {"T":1005,"id":1,"status":1}
 #define CMD_BUS_SERVO_ERROR 1005
 
-// emergency stop.
-// {"T":0}
-#define CMD_EMERGENCY_STOP 0
 
-// reset emergency flag.
-// {"T":999}
-#define CMD_RESET_EMERGENCY 999
 
 // ---===< EoAT type settings. >===---
 
@@ -74,7 +56,7 @@
 // {"T":11,"L":164,"R":164} (input PWM +-255)
 #define CMD_PWM_INPUT	11
 
-// {"T":13,"X":0.1,"Z":0.3} (m/s,rad/s)
+// {"T":13,"X":0.1,"Z":0.3} (m/s,rad/s)(Not for the products without encoders)
 #define CMD_ROS_CTRL	13
 
 // MOTOR PID & WINDUP LIMITS
@@ -111,14 +93,14 @@
 // {"T":128}
 #define CMD_GET_IMU_OFFSET	128
 
-// {"T":129,"gx":0,"gy":0,"gz":0,"ax":0,"ay":0,"az":0,"cx":0,"cy":0,"cz":0}
+// {"T":129,"x":-12,"y":0,"z":0}
 #define CMD_SET_IMU_OFFSET	129
 
 // {"T":130}
 #define CMD_BASE_FEEDBACK 	130
 
-// off: {"T":131,"cmd":0}
-// 	on: {"T":131,"cmd":1} [default]
+// off: {"T":131,"cmd":0} [default]
+// 	on: {"T":131,"cmd":1}
 #define CMD_BASE_FEEDBACK_FLOW   131
 
 // set the extra delay time(ms) for feedback info
@@ -484,15 +466,15 @@
 #define CMD_WIFI_ON_BOOT 401
 
 // config ap mode.
-// {"T":402,"ssid":"RoArm-M2","password":"12345678"}
+// {"T":402,"ssid":"UGV","password":"12345678"}
 #define CMD_SET_AP  402
 
 // config sta mode.
-// {"T":403,"ssid":"JSBZY-2.4G","password":"waveshare0755"}
+// {"T":403,"ssid":"na","password":"ps"}
 #define CMD_SET_STA 403
 
 // config ap/sta mode.
-// {"T":404,"ap_ssid":"RoArm-M2","ap_password":"12345678","sta_ssid":"JSBZY-2.4G","sta_password":"waveshare0755"}
+// {"T":404,"ap_ssid":"UGV","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}
 #define CMD_WIFI_APSTA   404
 
 // get Wi-Fi info.
@@ -506,7 +488,7 @@
 
 // create a wifiConfig.json file
 // from the args input.
-// {"T":407,"mode":3,"ap_ssid":"RoArm-M2","ap_password":"12345678","sta_ssid":"JSBZY-2.4G","sta_password":"waveshare0755"}
+// {"T":407,"mode":3,"ap_ssid":"UGV","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}
 #define CMD_WIFI_CONFIG_CREATE_BY_INPUT 407
 
 // disconnect Wi-Fi.
@@ -562,8 +544,7 @@
 #define CMD_INFO_PRINT	605
 
 // === === === mainType & moduleType settings. === === ===
-// set mainType & moduleType.
 // mainType: 1.RaspRover, 2.UGV Rover, 3.UGV Beast
-// moduleType: 0.Null, 1.RoArm, 2.PT
 // {"T":900,"main":1,"module":0}
+// main_type: 1-WAVE ROVER, 2-UGV02, 3-UGV01
 #define CMD_MM_TYPE_SET 900
