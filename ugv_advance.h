@@ -344,7 +344,7 @@ void configEEmodeType(byte inputMode) {
 }
 
 
-// config the siza of EoAT.
+// config the size of EoAT.
 void configEoAT(byte mountPos, double inputEA, double inputEB) {
 	switch (mountPos) {
 	case 0: ARM_L4_LENGTH_MM_A = 67.85;break;

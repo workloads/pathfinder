@@ -12,7 +12,7 @@ byte InfoPrint = 1;
 // espNowMode: 0 - none
 //             1 - flow-leader(group): sending cmds
 //             2 - flow-leader(single): sending cmds to a single follower
-//             3 - [default]follower: recv cmds
+//             3 - [default]follower: receive cmds
 byte espNowMode = 3;
 
 // set the broadcast ctrl mode.

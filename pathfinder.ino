@@ -303,7 +303,7 @@ void loop() {
         break;
   }
 
-  // recv esp-now json cmd.
+  // receive esp-now json cmd.
   if (runNewJsonCmd) {
     jsonCmdReceiveHandler();
     jsonCmdReceive.clear();

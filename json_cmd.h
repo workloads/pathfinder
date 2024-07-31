@@ -1,6 +1,6 @@
 #define FEEDBACK_BASE_INFO  1001
 #define FEEDBACK_IMU_DATA   1002
-// esp-now recv.
+// esp-now receive.
 // {"T":1003,"mac":"FF:FF:FF:FF:FF:FF","megs":"hello!"}
 #define CMD_ESP_NOW_RECV 1003
 // esp-now send status
@@ -418,7 +418,7 @@
 // espNowMode: 0 - none
 //             1 - flow-leader(group): sending cmds
 //             2 - flow-leader(single): sending cmds to a single follower
-//             3 - [default]follower: recv cmds
+//             3 - [default]follower: receive cmds
 // flow-leader - use cmd=0, ctrl servos in real time.
 //               leader uses the servos feedback pos to ctrl followers.
 // {"T":301,"mode":3}

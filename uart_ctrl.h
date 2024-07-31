@@ -410,7 +410,7 @@ void jsonCmdReceiveHandler() {
 
 
 
-	// wifi settings.
+	// Wi-Fi settings.
 	case CMD_WIFI_ON_BOOT: 
 												configWifiModeOnBoot(
 												jsonCmdReceive["cmd"]
