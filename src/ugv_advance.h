@@ -1,3 +1,6 @@
+#ifndef UGV_ADVANCE_H_
+#define UGV_ADVANCE_H_
+
 // advance functions for RoArm-M2 ctrl
 void jsonCmdReceiveHandler();
 bool moveToStep(String inputName, int inputStepNum);
@@ -484,3 +487,5 @@ void saveSpdRate() {
     serializeJson(jsonInfoHttp, getInfoJsonString);
     appendStepJson("boot", getInfoJsonString);
 }
+
+#endif  // UGV_ADVANCE_H_

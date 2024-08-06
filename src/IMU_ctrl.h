@@ -1,3 +1,6 @@
+#ifndef IMU_CTRL_H_
+#define IMU_CTRL_H_
+
 #include "IMU.h"
 
 // define GPIOs for IIC.
@@ -68,3 +71,5 @@ void getIMUOffset() {
 
 void setIMUOffset(int16_t inputX, int16_t inputY, int16_t inputZ) {
 }
+
+#endif  // IMU_CTRL_H_

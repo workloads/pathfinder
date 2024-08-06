@@ -1,3 +1,6 @@
+#ifndef OLED_CTRL_H_
+#define OLED_CTRL_H_
+
 // <<<<<<<<<<=== === ===SSD1306: 0x3C=== === ===>>>>>>>>>>
 // 0.91inch OLED
 bool screenDefaultMode = true;
@@ -110,3 +113,5 @@ void setOledDefault() {
     oled_update();
     lastTimeMillis = currentTimeMillis;
 }
+
+#endif  // OLED_CTRL_H_

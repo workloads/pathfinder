@@ -1,6 +1,6 @@
 
-#ifndef _QMI8658REG_H_
-#define _QMI8658REG_H_
+#ifndef QMI8658REG_H_
+#define QMI8658REG_H_
 
 // #define QMI8658_USE_SPI
 //#define QMI8658_SYNC_SAMPLE_MODE
@@ -226,4 +226,4 @@ typedef struct {
     float          imu[6];
 } qmi8658_state;
 
-#endif
+#endif  // QMI8658REG_H_

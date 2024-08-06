@@ -1,3 +1,6 @@
+#ifndef ESP_NOW_CTRL_H_
+#define ESP_NOW_CTRL_H_
+
 const int MAX_FOLLOWERS = 10;  // Maximum number of follower devices
 
 typedef struct struct_message {
@@ -416,3 +419,5 @@ void changeBroadcastMode(bool inputMode, String inputMac) {
         }
     }
 }
+
+#endif  // ESP_NOW_CTRL_H_

@@ -1,3 +1,6 @@
+#ifndef JSON_CMD_H_
+#define JSON_CMD_H_
+
 #define FEEDBACK_BASE_INFO 1001
 #define FEEDBACK_IMU_DATA  1002
 // esp-now receive.
@@ -545,3 +548,5 @@
 // {"T":900,"main":1,"module":0}
 // main_type: 1-WAVE ROVER, 2-UGV02, 3-UGV01
 #define CMD_MM_TYPE_SET 900
+
+#endif  // JSON_CMD_H_

@@ -1,5 +1,5 @@
-#ifndef _IMU_H_
-#define _IMU_H_
+#ifndef IMU_H_
+#define IMU_H_
 
 #include <math.h>
 #include <stdio.h>
@@ -25,4 +25,4 @@ void imuDataGet(EulerAngles *pstAngles, IMU_ST_SENSOR_DATA_FLOAT *pstGyroRawData
 void  imuAHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz);
 float invSqrt(float x);
 
-#endif
+#endif  // IMU_H_

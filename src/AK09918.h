@@ -30,8 +30,8 @@
     THE SOFTWARE.
 */
 
-#ifndef __IMU_9DOF_AK09918_H__
-#define __IMU_9DOF_AK09918_H__
+#ifndef AK09918_H_
+#define AK09918_H_
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -137,4 +137,4 @@ class AK09918 {
     uint8_t             _buffer[16];
 };
 
-#endif  // __IMU_9DOF_AK09918_H__
+#endif  // AK09918_H_

@@ -1,3 +1,6 @@
+#ifndef GIMBAL_MODULE_H_
+#define GIMBAL_MODULE_H_
+
 u8 gimbalID[2] = {GIMBAL_PAN_ID, GIMBAL_TILT_ID};
 
 s16 gimbalPos[2];
@@ -58,7 +61,7 @@ void gimbalCtrlMove(float Xinput, float Yinput, float spdInputX, float spdInputY
     st.SyncWritePosEx(gimbalID, 2, gimbalPos, gimbalSpd, gimbalAcc);
 }
 
-//mapFloat(float value, float fromLow, float fromHigh, float toLow, float toHigh)
+// mapFloat(float value, float fromLow, float fromHigh, float toLow, float toHigh)
 float panAngleCompute(int inputPos) {
     return mapFloat((inputPos - 2047), 0, 4095, 0, 360);
 }
@@ -184,3 +187,5 @@ void gimbalUserCtrl(int inputX, int inputY, int inputSpd) {
         }
     }
 }
+
+#endif  // GIMBAL_MODULE_H_

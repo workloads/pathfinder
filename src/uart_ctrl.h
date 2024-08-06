@@ -1,3 +1,6 @@
+#ifndef UART_CTRL_H_
+#define UART_CTRL_H_
+
 void jsonCmdReceiveHandler() {
     int cmdType = jsonCmdReceive["T"].as<int>();
     switch (cmdType) {
@@ -378,3 +381,5 @@ void serialCtrl() {
         }
     }
 }
+
+#endif  // UART_CTRL_H_

@@ -1,5 +1,5 @@
-#ifndef _QMI8658_H_
-#define _QMI8658_H_
+#ifndef QMI8658_H_
+#define QMI8658_H_
 
 #include <Arduino.h>
 
@@ -85,5 +85,6 @@ class QMI8658 {
 #define GyrZ_L 0x3F
 #define GyrZ_H 0x40
 // int16_t QMI8658C_readBytes(unsigned char tmp);
-//extern QMI8658C _QMI8658C;
-#endif
+// extern QMI8658C _QMI8658C;
+
+#endif  // QMI8658_H_

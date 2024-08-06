@@ -1,3 +1,6 @@
+#ifndef FILES_CTRL_H_
+#define FILES_CTRL_H_
+
 // functions for editing the files in flash.
 
 bool flashStatus = false;
@@ -334,3 +337,5 @@ void deleteSingleLine(String fileName, int lineNum) {
     jsonInfoHttp.clear();
     readFile(fileName);
 }
+
+#endif  // FILES_CTRL_H_

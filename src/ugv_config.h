@@ -1,3 +1,6 @@
+#ifndef UGV_CONFIG_H_
+#define UGV_CONFIG_H_
+
 // the UART used to control servos.
 // GPIO 18 - S_RXD, GPIO 19 - S_TXD, as default.
 #define RoArmM2_Servo_RXD 18
@@ -361,3 +364,5 @@ double qw, qx, qy, qz;
 double ax, ay, az;
 double mx, my, mz;
 double gx, gy, gz;
+
+#endif  // UGV_CONFIG_H_
