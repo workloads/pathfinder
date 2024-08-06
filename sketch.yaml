@@ -1,4 +1,28 @@
+---
+
 default_fqbn: esp32:esp32:esp32
 default_programmer: esptool
 default_port: /dev/cu.usbserial-1210
 
+default_profile: default
+
+profiles:
+  # see https://arduino.github.io/arduino-cli/0.34/sketch-project-file/#build-profiles
+  default:
+    notes: default build profile for Pathfinder
+
+    # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
+    # and https://arduino.github.io/arduino-cli/latest/commands/arduino-cli-board-list/
+    fqbn: "esp32:esp32:esp32"
+
+    # see https://arduino.github.io/arduino-cli/1.0/library-specification/
+    # `libraries` are defined in `config.mk` to allow for better reuse
+
+    # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
+    platforms:
+      -
+        # see https://github.com/espressif/arduino-esp32
+        # ⚠️ Pathfinder currently depends on `v2` of the ESP32 core, which is not the latest version.
+        # ⚠️ If this value is updated here, it MUST also be updated in `config.mk`
+        platform: "esp32:esp32 (2.0.17)"
+        platform_index_url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
