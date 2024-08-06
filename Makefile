@@ -43,7 +43,6 @@ lint: # lint C++ code using cpplint and clang-format [Usage: `make lint`]
 	echo
 
 	$(call print_reference,$(BINARY_CLANG_FORMAT))
-
 	$(BINARY_CLANG_FORMAT) \
 		-i \
 		$(TARGET_FILES) \
@@ -63,7 +62,6 @@ lint-arduino: # lint Arduino code using arduino-lint [Usage: `make lint-arduino`
 .SILENT .PHONY: board
 board: # install Arduino Board Core using arduino-cli [Usage: `make board`]
 	$(call print_reference,"$(ARDUINO_CORE)")
-
 	$(BINARY_ARDUINO_CLI) \
 		core \
 			install \
