@@ -1,3 +1,6 @@
+#ifndef WIFI_CTRL_H_
+#define WIFI_CTRL_H_
+
 // Wi-Fi control functions.
 
 // libraries:
@@ -467,3 +470,5 @@ void initWifi() {
     loadWifiConfig();
     wifiModeOnBoot();
 }
+
+#endif  // WIFI_CTRL_H_
