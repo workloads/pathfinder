@@ -1,5 +1,7 @@
 ---
 
+# see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/
+
 default_fqbn: esp32:esp32:esp32
 default_programmer: esptool
 default_port: /dev/cu.usbserial-1210
@@ -7,12 +9,12 @@ default_port: /dev/cu.usbserial-1210
 default_profile: default
 
 profiles:
-  # see https://arduino.github.io/arduino-cli/0.34/sketch-project-file/#build-profiles
+  # see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#build-profiles
   default:
     notes: default build profile for Pathfinder
 
     # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
-    # and https://arduino.github.io/arduino-cli/latest/commands/arduino-cli-board-list/
+    # and https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli-board-list/
     fqbn: "esp32:esp32:esp32"
 
     # see https://arduino.github.io/arduino-cli/1.0/library-specification/

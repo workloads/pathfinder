@@ -24,7 +24,7 @@ clean: # clean Arduino cache using arduino-cli [Usage: `make clean`]
 	$(BINARY_ARDUINO_CLI) \
 		cache \
 			clean \
-				--config-file="$(ARDUINO_SKETCH_CONFIG)" \
+				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 	;
 
 
@@ -32,16 +32,14 @@ clean: # clean Arduino cache using arduino-cli [Usage: `make clean`]
 compile: # compile Arduino Sketch using arduino-cli [Usage: `make compile`]
 	$(call print_reference,"$(ARDUINO_SKETCH_FILE)")
 
-	echo
-
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_compile/
 	$(BINARY_ARDUINO_CLI) \
 		compile \
 			--clean \
-			--config-file="$(ARDUINO_SKETCH_CONFIG)" \
+			--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
 			--export-binaries \
-			--jobs="$(ARDUINO_CLI_COMPILE_JOBS)" \
+			--jobs "$(ARDUINO_CLI_COMPILE_JOBS)" \
 			--output-dir "$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)" \
 			--profile "$(ARDUINO_SKETCH_PROFILE)" \
 			--protocol "$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
@@ -62,11 +60,11 @@ upload: # upload binary artifact using arduino-cli [Usage: `make upload`]
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_compile/
 	$(BINARY_ARDUINO_CLI) \
 		upload \
-			--config-file="$(ARDUINO_SKETCH_CONFIG)" \
+			--config-fil "$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
 			--input-dir "$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)" \
 			--profile "$(ARDUINO_SKETCH_PROFILE)" \
-			--protocol="$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
+			--protocol "$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
 			--verify
 	;
 
@@ -81,7 +79,7 @@ monitor: # monitor binary output using arduino-cli [Usage: `make monitor`]
 	$(BINARY_ARDUINO_CLI) \
 		monitor \
 			--config "$(ARDUINO_CLI_MONITOR_BAUDRATE)" \
-			--config-file="$(ARDUINO_SKETCH_CONFIG)" \
+			--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
 			--timestamp \
 	;
@@ -95,6 +93,7 @@ install-core: # install Arduino Board Core using arduino-cli [Usage: `make insta
 	$(BINARY_ARDUINO_CLI) \
 		core \
 			install \
+				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 				$(ARDUINO_CORE) \
 	;
 
@@ -107,6 +106,7 @@ install-libs: # install Arduino libraries using arduino-cli [Usage: `make instal
 	$(BINARY_ARDUINO_CLI) \
 		lib \
 			install \
+				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 				$(ARDUINO_LIBRARIES_UPSTREAM) \
 	;
 
