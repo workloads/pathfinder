@@ -91,7 +91,7 @@ String thisMacStr;
 #define ARM_L3_LENGTH_MM_A_0 280.15
 #define ARM_L3_LENGTH_MM_B_0 1.73
 
-// 	  TYPE:0
+//        TYPE:0
 //    -------L3A-----------O==L2B===
 //    |                    ^       ||
 //   L3B                   |       ||
@@ -122,13 +122,13 @@ double t3rad = atan2(l3B, l3A);
 double ARM_L4_LENGTH_MM_A = 67.85;
 
 // D-3.2
-// double ARM_L4_LENGTH_MM_A =	64.16;
+// double ARM_L4_LENGTH_MM_A   64.16;
 
 // D-4.2
-// double ARM_L4_LENGTH_MM_A =	59.07;
+// double ARM_L4_LENGTH_MM_A =  59.07;
 
 // D-10.2
-// double ARM_L4_LENGTH_MM_A =	51.07;
+// double ARM_L4_LENGTH_MM_A =  51.07;
 
 #define ARM_L4_LENGTH_MM_B 5.98
 
@@ -146,12 +146,12 @@ double ARM_L4_LENGTH_MM_A = 67.85;
 //    EB                                          L1
 //     |                                         [||]
 //    --------                      BASE_JOINT -> XX
-
-// 		\  T:210°
-// 		 \
-//  	  EB
-//   	   \
-// 		-----------
+//
+//              \  T:210°
+//               \
+//        EB
+//          \
+//              -----------
 
 double EoAT_A = 0;
 double EoAT_B = 0;
@@ -316,21 +316,21 @@ float windup_limits = 255;
 
 // mainType:01 RaspRover
 // #define WHEEL_D 0.0800
-// #define ONE_CIRCLE_PLUSES	2100
-// #define TRACK_WIDTH	0.125
-// #define SET_MOTOR_DIR false
+// #define ONE_CIRCLE_PLUSES 2100
+// #define TRACK_WIDTH       0.125
+// #define SET_MOTOR_DIR     false
 
 // mainType:02 UGV Rover
 // #define WHEEL_D 0.0800
-// #define ONE_CIRCLE_PLUSES	1650
-// #define TRACK_WIDTH	0.172
-// #define SET_MOTOR_DIR false
+// #define ONE_CIRCLE_PLUSES  1650
+// #define TRACK_WIDTH        0.172
+// #define SET_MOTOR_DIR      false
 
 // mainType:03 UGV Beast
-// #define WHEEL_D	0.0523
-// #define ONE_CIRCLE_PLUSES	1092
-// #define TRACK_WIDTH	0.141
-// #define SET_MOTOR_DIR true
+// #define WHEEL_D            0.0523
+// #define ONE_CIRCLE_PLUSES  1092
+// #define TRACK_WIDTH        0.141
+// #define SET_MOTOR_DIR      true
 
 double WHEEL_D           = 0.0800;
 int    ONE_CIRCLE_PLUSES = 1650;

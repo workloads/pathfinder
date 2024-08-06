@@ -90,7 +90,6 @@ enum AK09918_err_type_t {
     AK09918_ERR_OVERFLOW        = 5,  // sensor overflow, means |x|+|y|+|z| >= 4912uT
     AK09918_ERR_WRITE_FAILED    = 6,  // fail to write
     AK09918_ERR_READ_FAILED     = 7,  // fail to read
-
 };
 
 typedef struct imu_st_sensor_data_tag {

@@ -29,6 +29,7 @@ class QMI8658 {
     // bool GetEulerAngles(float *pitch,float *roll, float *yaw,float acc[3],float gyro[3]);
 
     void config_acc(enum qmi8658_AccRange range, enum qmi8658_AccOdr odr, enum qmi8658_LpfConfig lpfEnable, enum qmi8658_StConfig stEnable);
+
     void config_gyro(enum qmi8658_GyrRange range, enum qmi8658_GyrOdr odr, enum qmi8658_LpfConfig lpfEnable, enum qmi8658_StConfig stEnable);
 
     void          read_sensor_data(float acc[3], float gyro[3]);
@@ -58,18 +59,18 @@ class QMI8658 {
 /*----------------------------------------------------------------------------------------------
   QMI8658C UI Sensor Configuration Settings and Output Data
 */
-///<Configuration Registers>
-#define QMI8658_ADDR 0X6B  //device address
-#define WHO_AM_I     0X00  //Device identifier
-#define CTRL1        0x02  //Serial Interface and Sensor Enable
-#define CTRL2        0x03  //Accelerometer Settings
-#define CTRL3        0x04  //Gyroscope Settings
-#define CTRL4        0X05  //Magnetometer Settings
-#define CTRL5        0X06  //Sensor Data Processing Settings
-#define CTRL7        0x08  //Enable Sensors and Configure Data Reads
-#define CTRL8        0X09  //Reserved – Special Settings
+// <Configuration Registers>
+#define QMI8658_ADDR 0X6B  // device address
+#define WHO_AM_I     0X00  // Device identifier
+#define CTRL1        0x02  // Serial Interface and Sensor Enable
+#define CTRL2        0x03  // Accelerometer Settings
+#define CTRL3        0x04  // Gyroscope Settings
+#define CTRL4        0X05  // Magnetometer Settings
+#define CTRL5        0X06  // Sensor Data Processing Settings
+#define CTRL7        0x08  // Enable Sensors and Configure Data Reads
+#define CTRL8        0X09  // Reserved – Special Settings
 
-///<Sensor Data Output Registers>
+// <Sensor Data Output Registers>
 #define AccX_L 0x35
 #define AccX_H 0x36
 #define AccY_L 0x37

@@ -155,20 +155,25 @@ void OnDataRecv(const unsigned char *mac, const unsigned char *incomingData, int
     switch (espNowMegsRecv.cmd) {
         case 0: {
             RoArmM2_allJointAbsCtrl(espNowMegsRecv.base, espNowMegsRecv.shoulder, espNowMegsRecv.elbow, espNowMegsRecv.hand, 0, 0);
-            break;
+
+            break
         }
+
         case 1: {
             DeserializationError err = deserializeJson(jsonCmdReceive, espNowMegsRecv.message);
             if (err == DeserializationError::Ok) {
                 jsonCmdReceiveHandler();
-            };
+            }
+
             break;
         }
+
         case 2: {
             DeserializationError err = deserializeJson(jsonCmdReceive, espNowMegsRecv.message);
             if (err == DeserializationError::Ok) {
                 runNewJsonCmd = true;
-            };
+            }
+
             break;
         }
     }

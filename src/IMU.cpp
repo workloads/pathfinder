@@ -166,10 +166,10 @@ float invSqrt(float x) {
     float halfx = 0.5f * x;
     float y     = x;
 
-    long i = *(long *)&y;                   //get bits for floating value
-    i      = 0x5f3759df - (i >> 1);         //gives initial guss you
-    y      = *(float *)&i;                  //convert bits back to float
-    y      = y * (1.5f - (halfx * y * y));  //newtop step, repeating increases accuracy
+    long i = *(long *)&y;                   // get bits for floating value
+    i      = 0x5f3759df - (i >> 1);         // gives initial guss you
+    y      = *(float *)&i;                  // convert bits back to float
+    y      = y * (1.5f - (halfx * y * y));  // newtop step, repeating increases accuracy
 
     return y;
 }

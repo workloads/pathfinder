@@ -315,10 +315,7 @@ void configEEmodeType(byte inputMode) {
         initY = 0;
         initZ = l2A - l3B;
         initT = M_PI;
-    }
-
-    else if (inputMode == 1)
-    {
+    } else if (inputMode == 1) {
         l3A   = ARM_L3_LENGTH_MM_A_1;
         l3B   = ARM_L3_LENGTH_MM_B_1;
         l3    = sqrt(l3A * l3A + l3B * l3B);

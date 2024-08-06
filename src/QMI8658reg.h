@@ -2,14 +2,14 @@
 #ifndef QMI8658REG_H_
 #define QMI8658REG_H_
 
-// #define QMI8658_USE_SPI
-//#define QMI8658_SYNC_SAMPLE_MODE
-//#define QMI8658_SOFT_SELFTEST
-//#define QMI8658_USE_CALI
+//  #define QMI8658_USE_SPI
+// #define QMI8658_SYNC_SAMPLE_MODE
+// #define QMI8658_SOFT_SELFTEST
+// #define QMI8658_USE_CALI
 
 #define QMI8658_USE_FIFO
-//#define QMI8658_USE_AMD
-//#define QMI8658_USE_PEDOMETER
+// #define QMI8658_USE_AMD
+// #define QMI8658_USE_PEDOMETER
 
 #define QMI8658_SLAVE_ADDR_L 0x6a
 #define QMI8658_SLAVE_ADDR_H 0x6b
@@ -200,8 +200,8 @@ typedef struct qmi8658_cali {
     unsigned char  gyr_cali_flag;
     unsigned short acc_cali_num;
     unsigned short gyr_cali_num;
-    //    unsigned char	acc_avg_num;
-    //    unsigned char	gyr_avg_num;
+    // unsigned char acc_avg_num;
+    // unsigned char gyr_avg_num;
 } qmi8658_cali;
 
 typedef struct {

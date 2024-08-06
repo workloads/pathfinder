@@ -13,6 +13,7 @@ void jsonCmdReceiveHandler() {
                 }
             }
             break;
+
         case CMD_PWM_INPUT:
             usePIDCompute     = false;
             heartbeatStopFlag = false;
@@ -20,20 +21,25 @@ void jsonCmdReceiveHandler() {
             leftCtrl(jsonCmdReceive["L"]);
             rightCtrl(jsonCmdReceive["R"]);
             break;
+
         case CMD_ROS_CTRL:
             rosCtrl(jsonCmdReceive["X"], jsonCmdReceive["Z"]);
             heartbeatStopFlag = false;
             lastCmdRecvTime   = millis();
             break;
+
         case CMD_SET_MOTOR_PID:
             setPID(jsonCmdReceive["P"], jsonCmdReceive["I"], jsonCmdReceive["D"], jsonCmdReceive["L"]);
             break;
+
         case CMD_OLED_CTRL:
             oledCtrl(jsonCmdReceive["lineNum"], jsonCmdReceive["Text"]);
             break;
+
         case CMD_OLED_DEFAULT:
             setOledDefault();
             break;
+
         case CMD_MODULE_TYPE:
             changeModuleType(jsonCmdReceive["cmd"]);
             break;
@@ -41,27 +47,35 @@ void jsonCmdReceiveHandler() {
         case CMD_GET_IMU_DATA:
             getIMUData();
             break;
+
         case CMD_CALI_IMU_STEP:
             imuCalibration();
             break;
+
         case CMD_GET_IMU_OFFSET:
             getIMUOffset();
             break;
+
         case CMD_SET_IMU_OFFSET:
             setIMUOffset(jsonCmdReceive["x"], jsonCmdReceive["y"], jsonCmdReceive["z"]);
             break;
+
         case CMD_BASE_FEEDBACK:
             baseInfoFeedback();
             break;
+
         case CMD_BASE_FEEDBACK_FLOW:
             setBaseInfoFeedbackMode(jsonCmdReceive["cmd"]);
             break;
+
         case CMD_FEEDBACK_FLOW_INTERVAL:
             setFeedbackFlowInterval(jsonCmdReceive["cmd"]);
             break;
+
         case CMD_UART_ECHO_MODE:
             setCmdEcho(jsonCmdReceive["cmd"]);
             break;
+
         case CMD_ARM_CTRL_UI:
             RoArmM2_uiCtrl(jsonCmdReceive["E"], jsonCmdReceive["Z"], jsonCmdReceive["R"]);
             break;
@@ -69,30 +83,39 @@ void jsonCmdReceiveHandler() {
         case CMD_LED_CTRL:
             led_pwm_ctrl(jsonCmdReceive["IO4"], jsonCmdReceive["IO5"]);
             break;
+
         case CMD_GIMBAL_CTRL_SIMPLE:
             gimbalCtrlSimple(jsonCmdReceive["X"], jsonCmdReceive["Y"], jsonCmdReceive["SPD"], jsonCmdReceive["ACC"]);
             break;
+
         case CMD_GIMBAL_CTRL_MOVE:
             gimbalCtrlMove(jsonCmdReceive["X"], jsonCmdReceive["Y"], jsonCmdReceive["SX"], jsonCmdReceive["SY"]);
             break;
+
         case CMD_GIMBAL_CTRL_STOP:
             gimbalCtrlStop();
             break;
+
         case CMD_HEART_BEAT_SET:
             changeHeartBeatDelay(jsonCmdReceive["cmd"]);
             break;
+
         case CMD_GIMBAL_STEADY:
             gimbalSteadySet(jsonCmdReceive["s"], jsonCmdReceive["y"]);
             break;
+
         case CMD_SET_SPD_RATE:
             setSpdRate(jsonCmdReceive["L"], jsonCmdReceive["R"]);
             break;
+
         case CMD_GET_SPD_RATE:
             getSpdRate();
             break;
+
         case CMD_SAVE_SPD_RATE:
             saveSpdRate();
             break;
+
         case CMD_GIMBAL_USER_CTRL:
             gimbalUserCtrl(jsonCmdReceive["X"], jsonCmdReceive["Y"], jsonCmdReceive["SPD"]);
             break;
@@ -101,6 +124,7 @@ void jsonCmdReceiveHandler() {
         case CMD_EOAT_TYPE:
             configEEmodeType(jsonCmdReceive["mode"]);
             break;
+
         case CMD_CONFIG_EOAT:
             configEoAT(jsonCmdReceive["pos"], jsonCmdReceive["ea"], jsonCmdReceive["eb"]);
             break;
@@ -110,22 +134,28 @@ void jsonCmdReceiveHandler() {
         case CMD_MOVE_INIT:
             RoArmM2_moveInit();
             break;
+
         case CMD_SINGLE_JOINT_CTRL:
             RoArmM2_singleJointAbsCtrl(jsonCmdReceive["joint"], jsonCmdReceive["rad"], jsonCmdReceive["spd"], jsonCmdReceive["acc"]);
             break;
+
         case CMD_JOINTS_RAD_CTRL:
             RoArmM2_allJointAbsCtrl(jsonCmdReceive["base"], jsonCmdReceive["shoulder"], jsonCmdReceive["elbow"], jsonCmdReceive["hand"], jsonCmdReceive["spd"], jsonCmdReceive["acc"]);
             break;
+
         case CMD_SINGLE_AXIS_CTRL:
             RoArmM2_singlePosAbsBesselCtrl(jsonCmdReceive["axis"], jsonCmdReceive["pos"], jsonCmdReceive["spd"]);
             break;
+
         case CMD_XYZT_GOAL_CTRL:
             RoArmM2_allPosAbsBesselCtrl(jsonCmdReceive["x"], jsonCmdReceive["y"], jsonCmdReceive["z"], jsonCmdReceive["t"], jsonCmdReceive["spd"]);
             break;
+
         case CMD_XYZT_DIRECT_CTRL:
             RoArmM2_baseCoordinateCtrl(jsonCmdReceive["x"], jsonCmdReceive["y"], jsonCmdReceive["z"], jsonCmdReceive["t"]);
             RoArmM2_goalPosMove();
             break;
+
         case CMD_SERVO_RAD_FEEDBACK:
             RoArmM2_getPosByServoFeedback();
             RoArmM2_infoFeedback();
@@ -134,6 +164,7 @@ void jsonCmdReceiveHandler() {
         case CMD_EOAT_HAND_CTRL:
             RoArmM2_handJointCtrlRad(1, jsonCmdReceive["cmd"], jsonCmdReceive["spd"], jsonCmdReceive["acc"]);
             break;
+
         case CMD_EOAT_GRAB_TORQUE:
             RoArmM2_handTorqueCtrl(jsonCmdReceive["tor"]);
             break;
@@ -141,6 +172,7 @@ void jsonCmdReceiveHandler() {
         case CMD_SET_JOINT_PID:
             RoArmM2_setJointPID(jsonCmdReceive["joint"], jsonCmdReceive["p"], jsonCmdReceive["i"]);
             break;
+
         case CMD_RESET_PID:
             RoArmM2_resetPID();
             break;
@@ -152,10 +184,12 @@ void jsonCmdReceiveHandler() {
         case CMD_DELAY_MILLIS:
             RoArmM2_delayMillis(jsonCmdReceive["cmd"]);
             break;
+
         case CMD_DYNAMIC_ADAPTATION:
             RoArmM2_dynamicAdaptation(jsonCmdReceive["mode"], jsonCmdReceive["b"], jsonCmdReceive["s"], jsonCmdReceive["e"], jsonCmdReceive["h"]);
             break;
-        // this two funcs are NOT for UGV.
+
+        // this two functions are NOT for UGV.
         // case CMD_SWITCH_CTRL: switchCtrl(
         // 											jsonCmdReceive["pwm_a"],
         // 											jsonCmdReceive["pwm_b"]
@@ -166,12 +200,15 @@ void jsonCmdReceiveHandler() {
         case CMD_SWITCH_OFF:
             switchEmergencyStop();
             break;
+
         case CMD_SINGLE_JOINT_ANGLE:
             RoArmM2_singleJointAngleCtrl(jsonCmdReceive["joint"], jsonCmdReceive["angle"], jsonCmdReceive["spd"], jsonCmdReceive["acc"]);
             break;
+
         case CMD_JOINTS_ANGLE_CTRL:
             RoArmM2_allJointsAngleCtrl(jsonCmdReceive["b"], jsonCmdReceive["s"], jsonCmdReceive["e"], jsonCmdReceive["h"], jsonCmdReceive["spd"], jsonCmdReceive["acc"]);
             break;
+
             // constant ctrl
             // m: 0 - angle
             //    1 - xyzt
@@ -187,27 +224,35 @@ void jsonCmdReceiveHandler() {
         case CMD_SCAN_FILES:
             scanFlashContents();
             break;
+
         case CMD_CREATE_FILE:
             createFile(jsonCmdReceive["name"], jsonCmdReceive["content"]);
             break;
+
         case CMD_READ_FILE:
             readFile(jsonCmdReceive["name"]);
             break;
+
         case CMD_DELETE_FILE:
             deleteFile(jsonCmdReceive["name"]);
             break;
+
         case CMD_APPEND_LINE:
             appendLine(jsonCmdReceive["name"], jsonCmdReceive["content"]);
             break;
+
         case CMD_INSERT_LINE:
             insertLine(jsonCmdReceive["name"], jsonCmdReceive["lineNum"], jsonCmdReceive["content"]);
             break;
+
         case CMD_REPLACE_LINE:
             replaceLine(jsonCmdReceive["name"], jsonCmdReceive["lineNum"], jsonCmdReceive["content"]);
             break;
+
         case CMD_READ_LINE:
             readSingleLine(jsonCmdReceive["name"], jsonCmdReceive["lineNum"]);
             break;
+
         case CMD_DELETE_LINE:
             deleteSingleLine(jsonCmdReceive["name"], jsonCmdReceive["lineNum"]);
             break;

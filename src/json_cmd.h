@@ -101,7 +101,7 @@
 #define CMD_BASE_FEEDBACK 130
 
 // off: {"T":131,"cmd":0} [default]
-// 	on: {"T":131,"cmd":1}
+// on: {"T":131,"cmd":1}
 #define CMD_BASE_FEEDBACK_FLOW 131
 
 // set the extra delay time(ms) for feedback info
@@ -136,7 +136,7 @@
 
 // GIMBAL STEADY
 // off: {"T":137,"s":0,"y":0}
-//  on:	{"T":137,"s":1,"y":0}
+// on:  {"T":137,"s":1,"y":0}
 #define CMD_GIMBAL_STEADY 137
 
 // SET SPEED RATE
@@ -287,8 +287,8 @@
 // m: 0 - angle
 //    1 - xyzt
 // cmd: 0 - stop
-// 		1 - increase
-// 		2 - decrease
+//      1 - increase
+//      2 - decrease
 // {"T":123,"m":0,"axis":0,"cmd":0,"spd":3}
 #define CMD_CONSTANT_CTRL 123
 
