@@ -38,13 +38,11 @@ compile: # compile Arduino Sketch using arduino-cli [Usage: `make compile`]
 			--clean \
 			--config-file "$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
-			--export-binaries \
 			--jobs "$(ARDUINO_CLI_COMPILE_JOBS)" \
 			--output-dir "$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)" \
 			--profile "$(ARDUINO_SKETCH_PROFILE)" \
 			--protocol "$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
 			--quiet \
-			--verbose \
 			--verify \
 			--warnings "$(ARDUINO_CLI_COMPILE_WARNINGS)" \
 			$(ARDUINO_SKETCH_FILE) \
