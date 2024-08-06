@@ -82,16 +82,35 @@ compile: # compile Arduino Sketch using arduino-cli [Usage: `make compile`]
 	$(BINARY_ARDUINO_CLI) \
 		compile \
 			--clean \
+			--config-file="$(ARDUINO_SKETCH_CONFIG)" \
 			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
 			--export-binaries \
 			--jobs="$(ARDUINO_CLI_COMPILE_JOBS)" \
 			--output-dir "$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)" \
 			--profile "$(ARDUINO_SKETCH_PROFILE)" \
-			--protocol "$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)" \
+			--protocol "$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
 			--quiet \
 			--verify \
 			--warnings "$(ARDUINO_CLI_COMPILE_WARNINGS)" \
 			$(ARDUINO_SKETCH_FILE) \
+	;
+
+
+.SILENT .PHONY: upload
+upload: # upload binary artifact using arduino-cli [Usage: `make upload`]
+	$(call print_reference,"$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)")
+
+	echo
+
+	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_compile/
+	$(BINARY_ARDUINO_CLI) \
+		upload \
+			--config-file="$(ARDUINO_SKETCH_CONFIG)" \
+			--discovery-timeout "$(ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT)" \
+			--input-dir "$(ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY)" \
+			--profile "$(ARDUINO_SKETCH_PROFILE)" \
+			--protocol="$(ARDUINO_CLI_COMPILE_PROTOCOL)" \
+			--verify
 	;
 
 

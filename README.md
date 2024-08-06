@@ -93,6 +93,7 @@ lint                 lint C++ code using cpplint and clang-format               
 lint-arduino         lint Arduino code using arduino-lint                              `make lint-arduino`
 attach               attach Arduino Board using arduino-cli                            `make attach`
 compile              compile Arduino Sketch using arduino-cli                          `make compile`
+upload               upload binary artifact using arduino-cli                          `make upload`
 install-core         install Arduino Board Core using arduino-cli                      `make install-core`
 install-libs         install Arduino libraries using arduino-cli                       `make install-libs`
 enable-unsafe-libs   enable installation of unsafe libraries when using arduino-cli    `make enable-unsafe-libs`
