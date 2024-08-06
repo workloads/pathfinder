@@ -1,6 +1,3 @@
-#ifndef IMU_H
-#define IMU_H
-
 #include "IMU.h"
 
 void  calibrateMagn();
@@ -53,7 +50,11 @@ void imuInit() {
     q3 = 0.0f;
 }
 
-void imuDataGet(EulerAngles *pstAngles, IMU_ST_SENSOR_DATA_FLOAT *pstGyroRawData, IMU_ST_SENSOR_DATA_FLOAT *pstAccelRawData, IMU_ST_SENSOR_DATA *pstMagnRawData) {
+void imuDataGet(
+    EulerAngles *pstAngles,
+    IMU_ST_SENSOR_DATA_FLOAT *pstGyroRawData,
+    IMU_ST_SENSOR_DATA_FLOAT *pstAccelRawData,
+    IMU_ST_SENSOR_DATA *pstMagnRawData) {
     float acc[3], gyro[3];
     float MotionVal[9];
 
@@ -75,7 +76,16 @@ void imuDataGet(EulerAngles *pstAngles, IMU_ST_SENSOR_DATA_FLOAT *pstGyroRawData
     MotionVal[7] = pstMagnRawData->s16Y;
     MotionVal[8] = pstMagnRawData->s16Z;
 
-    imuAHRSupdate((float)MotionVal[0] * 0.0175, (float)MotionVal[1] * 0.0175, (float)MotionVal[2] * 0.0175, (float)MotionVal[3], (float)MotionVal[4], (float)MotionVal[5], (float)MotionVal[6], (float)MotionVal[7], MotionVal[8]);
+    imuAHRSupdate(
+        (float)MotionVal[0] * 0.0175,
+        (float)MotionVal[1] * 0.0175,
+        (float)MotionVal[2] * 0.0175,
+        (float)MotionVal[3],
+        (float)MotionVal[4],
+        (float)MotionVal[5],
+        (float)MotionVal[6],
+        (float)MotionVal[7],
+        MotionVal[8]);
 
     pstAngles->pitch = asin(-2 * q1 * q3 + 2 * q0 * q2) * 57.3;                                  // pitch
     pstAngles->roll  = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2 * q2 + 1) * 57.3;  // roll

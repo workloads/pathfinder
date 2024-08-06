@@ -7,10 +7,6 @@
  *
 */
 
-#include <ArduinoJson.h>
-StaticJsonDocument<256> jsonCmdReceive;
-StaticJsonDocument<256> jsonInfoSend;
-StaticJsonDocument<512> jsonInfoHttp;
 
 // TaskHandle_t Pid_ctrl;
 
@@ -18,6 +14,7 @@ StaticJsonDocument<512> jsonInfoHttp;
 #include <Adafruit_ICM20X.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_Sensor.h>
+#include <ArduinoJson.h>
 #include <ESP32Encoder.h>
 #include <INA219_WE.h>
 #include <LittleFS.h>
@@ -30,6 +27,10 @@ StaticJsonDocument<512> jsonInfoHttp;
 #include <esp_system.h>
 #include <math.h>
 #include <nvs_flash.h>
+
+StaticJsonDocument<256> jsonCmdReceive;
+StaticJsonDocument<256> jsonInfoSend;
+StaticJsonDocument<512> jsonInfoHttp;
 
 // functions for battery info.
 #include "src/Battery.h"

@@ -28,22 +28,30 @@ class QMI8658 {
     // bool init(void);
     // bool GetEulerAngles(float *pitch,float *roll, float *yaw,float acc[3],float gyro[3]);
 
-    void config_acc(enum qmi8658_AccRange range, enum qmi8658_AccOdr odr, enum qmi8658_LpfConfig lpfEnable, enum qmi8658_StConfig stEnable);
+    void config_acc(
+        enum qmi8658_AccRange range,
+        enum qmi8658_AccOdr odr,
+        enum qmi8658_LpfConfig lpfEnable,
+        enum qmi8658_StConfig stEnable);
 
-    void config_gyro(enum qmi8658_GyrRange range, enum qmi8658_GyrOdr odr, enum qmi8658_LpfConfig lpfEnable, enum qmi8658_StConfig stEnable);
+    void config_gyro(
+        enum qmi8658_GyrRange range,
+        enum qmi8658_GyrOdr odr,
+        enum qmi8658_LpfConfig lpfEnable,
+        enum qmi8658_StConfig stEnable);
 
-    void          read_sensor_data(float acc[3], float gyro[3]);
-    void          read_acc(float acc[3]);
-    void          read_gyro(float gyro[3]);
-    void          read_xyz(float acc[3], float gyro[3]);
-    void          axis_convert(float data_a[3], float data_g[3], int layout);
-    void          config_reg(unsigned char low_power);
-    void          enableSensors(unsigned char enableFlags);
+    void read_sensor_data(float acc[3], float gyro[3]);
+    void read_acc(float acc[3]);
+    void read_gyro(float gyro[3]);
+    void read_xyz(float acc[3], float gyro[3]);
+    void axis_convert(float data_a[3], float data_g[3], int layout);
+    void config_reg(unsigned char low_power);
+    void enableSensors(unsigned char enableFlags);
     unsigned char get_id(void);
     unsigned char begin(void);
-    void          dump_reg(void);
-    void          qmi8658_on_demand_cali(void);
-    void          autoOffsets(void);
+    void dump_reg(void);
+    void qmi8658_on_demand_cali(void);
+    void autoOffsets(void);
 
    public:
     int16_t             ax, ay, az, gx, gy, gz;

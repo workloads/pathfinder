@@ -20,9 +20,23 @@ typedef struct imu_st_sensor_data_float {
 } IMU_ST_SENSOR_DATA_FLOAT;
 
 void imuInit();
-void imuDataGet(EulerAngles *pstAngles, IMU_ST_SENSOR_DATA_FLOAT *pstGyroRawData, IMU_ST_SENSOR_DATA_FLOAT *pstAccelRawData, IMU_ST_SENSOR_DATA *pstMagnRawData);
 
-void imuAHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz);
+void imuDataGet(
+    EulerAngles *pstAngles,
+    IMU_ST_SENSOR_DATA_FLOAT *pstGyroRawData,
+    IMU_ST_SENSOR_DATA_FLOAT *pstAccelRawData,
+    IMU_ST_SENSOR_DATA *pstMagnRawData);
+
+void imuAHRSupdate(
+    float gx,
+    float gy,
+    float gz,
+    float ax,
+    float ay,
+    float az,
+    float mx,
+    float my,
+    float mz);
 
 float invSqrt(float x);
 

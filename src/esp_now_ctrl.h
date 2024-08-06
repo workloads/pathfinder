@@ -46,6 +46,7 @@ void changeEspNowMode(byte inputMode) {
     switch (inputMode) {
         case 0:
             espNowMode = inputMode;
+
             if (InfoPrint == 1) {
                 Serial.println("esp-now mode: none");
             }
@@ -56,12 +57,15 @@ void changeEspNowMode(byte inputMode) {
             jsonInfoHttp["info"] = "esp-now mode: none";
 
             break;
+
         case 1:
             espNowMode        = inputMode;
             espNowMessage.cmd = 0;
+
             if (InfoPrint == 1) {
                 Serial.println("esp-now mode: flow-leader(group)");
             }
+
             screenLine_3 = "ESP-NOW: F-LEADER-B";
             oled_update();
 
@@ -69,12 +73,15 @@ void changeEspNowMode(byte inputMode) {
             jsonInfoHttp["info"] = "esp-now mode: flow-leader(group)";
 
             break;
+
         case 2:
             espNowMode        = inputMode;
             espNowMessage.cmd = 0;
+
             if (InfoPrint == 1) {
                 Serial.println("esp-now mode: flow-leader(single)");
             }
+
             screenLine_3 = "ESP-NOW: F-LEADER-S";
             oled_update();
 
@@ -82,11 +89,14 @@ void changeEspNowMode(byte inputMode) {
             jsonInfoHttp["info"] = "esp-now mode: flow-leader(single)";
 
             break;
+
         case 3:
             espNowMode = inputMode;
+
             if (InfoPrint == 1) {
                 Serial.println("esp-now mode: follower");
             }
+
             screenLine_3 = "ESP-NOW: > FOLLOWER <";
             oled_update();
 
@@ -102,7 +112,16 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
     char macStr[18];
     // Serial.print("Packet to: ");
     // Copies the sender mac address to a string
-    snprintf(macStr, sizeof(macStr), "%02x:%02x:%02x:%02x:%02x:%02x", mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
+    snprintf(
+        macStr,
+        sizeof(macStr),
+        "%02x:%02x:%02x:%02x:%02x:%02x",
+        mac_addr[0],
+        mac_addr[1],
+        mac_addr[2],
+        mac_addr[3],
+        mac_addr[4],
+        mac_addr[5]);
 
     jsonInfoHttp.clear();
     jsonInfoHttp["T"]      = CMD_ESP_NOW_SEND;
@@ -119,6 +138,7 @@ void macStringToByteArray(const String &macString, uint8_t *byteArray) {
     for (int i = 0; i < 6; i++) {
         byteArray[i] = strtol(macString.substring(i * 3, i * 3 + 2).c_str(), NULL, 16);
     }
+
     return;
 }
 
@@ -156,7 +176,7 @@ void OnDataRecv(const unsigned char *mac, const unsigned char *incomingData, int
         case 0: {
             RoArmM2_allJointAbsCtrl(espNowMegsRecv.base, espNowMegsRecv.shoulder, espNowMegsRecv.elbow, espNowMegsRecv.hand, 0, 0);
 
-            break
+            break;
         }
 
         case 1: {
@@ -190,6 +210,7 @@ void initEspNow() {
         String getInfoJsonString;
         serializeJson(jsonInfoHttp, getInfoJsonString);
         Serial.println(getInfoJsonString);
+
         return;
     }
 
@@ -223,7 +244,9 @@ void registerNewFollowerToPeer(String inputMac) {
     for (int i = 0; i < 6; i++) {
         singleFollowerDev[i] = macArray[i];
     }
+
     memcpy(peerInfo.peer_addr, macArray, 6);
+
     if (esp_now_add_peer(&peerInfo) != ESP_OK) {
         // Serial.println("Failed to add peer: " + inputMac);
         jsonInfoHttp.clear();
@@ -237,6 +260,7 @@ void registerNewFollowerToPeer(String inputMac) {
         Serial.println(getInfoJsonString);
         return;
     }
+
     // Serial.println("add peer: " + inputMac);
     jsonInfoHttp.clear();
     jsonInfoHttp["T"]      = CMD_ESP_NOW_SEND;

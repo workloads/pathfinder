@@ -292,7 +292,11 @@ bool wifiModeSTA(const char* input_ssid, const char* input_password) {
 }
 
 // set Wi-Fi as AP+STA mode.
-bool wifiModeAPSTA(const char* input_ap_ssid, const char* input_ap_password, const char* input_sta_ssid, const char* input_sta_password) {
+bool wifiModeAPSTA(
+    const char* input_ap_ssid,
+    const char* input_ap_password,
+    const char* input_sta_ssid,
+    const char* input_sta_password) {
     WiFi.disconnect();
 
     if (InfoPrint == 1) {
@@ -436,7 +440,12 @@ void configWifiModeOnBoot(byte inputMode) {
 
 // create a wifiConfig.json file
 // from the args input.
-void createWifiConfigFileByInput(byte inputMode, const char* inputApSsid, const char* inputApPassword, const char* inputStaSsid, const char* inputStaPassword) {
+void createWifiConfigFileByInput(
+    byte inputMode,
+    const char* inputApSsid,
+    const char* inputApPassword,
+    const char* inputStaSsid,
+    const char* inputStaPassword) {
     WIFI_MODE_ON_BOOT = inputMode;
     wifiModeAPSTA(inputApSsid, inputApPassword, inputStaSsid, inputStaPassword);
 
