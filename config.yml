@@ -16,9 +16,7 @@ directories:
   user: ".arduino/user"
 
 library:
-  # required for the `arduino-cli lib install` command
-  # to allow for installation of the `SCServo` library
-  enable_unsafe_install: true
+  enable_unsafe_install: false
 
 locale: "en_US.UTF-8"
 

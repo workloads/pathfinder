@@ -19,3 +19,7 @@ CompileFlags:
     - -I.arduino/data/internal/esp32_esp32_2.0.17_*cores/esp32/
     - -I.arduino/data/internal/esp32_esp32_2.0.17_*variants/esp32/
 
+    - -DARDUINO_ESP32_DEV
+    - -DARDUINO_ARCH_ESP32
+    - -DARDUINO_BOARD="ESP32_DEV"
+    - -DESP32

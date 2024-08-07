@@ -21,7 +21,7 @@ profiles:
 
     # see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#build-profiles
     # and https://arduino.github.io/arduino-cli/1.0/library-specification/
-    # ⚠️ If this list is updated here, it MUST also be updated in `config.mk`
+    # ⚠️ If this value is updated, it MUST be updated project-wide
     libraries:
       ################################################################################
       # UPSTREAM LIBRARIES                                                           #
@@ -70,8 +70,9 @@ profiles:
       # UNSAFE LIBRARIES                                                             #
       ################################################################################
 
-      - # see https://github.com/workloads/scservo.git
-        SCServo https://github.com/workloads/scservo.git
+      #- # see https://github.com/workloads/scservo.git
+      #  SCServo (1.0.1)
+
 
     # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
     platforms:

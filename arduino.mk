@@ -109,16 +109,16 @@ install-libs: # install Arduino libraries using arduino-cli [Usage: `make instal
 				$(ARDUINO_LIBRARIES_UPSTREAM) \
 	;
 
-	echo
-	echo "⚠️  Installing and updating unsafe libraries"
-
-	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_lib_install/
-	$(foreach ITEM,$(ARDUINO_LIBRARIES_UNSAFE), \
-		$(BINARY_ARDUINO_CLI) \
-			lib \
-				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
-				install \
-				--git-url $(ITEM) \
+#	echo
+#	echo "⚠️  Installing and updating unsafe libraries"
+#
+#	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_lib_install/
+#	$(foreach ITEM,$(ARDUINO_LIBRARIES_UNSAFE), \
+#		$(BINARY_ARDUINO_CLI) \
+#			lib \
+#				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
+#				install \
+#				--git-url $(ITEM) \
 	)
 
 .SILENT .PHONY: list-libs

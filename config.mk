@@ -39,6 +39,7 @@ ARDUINO_LIBRARIES_UPSTREAM ?= \
     "INA219_WE@1.3.8" \
     "LittleFS_esp32@1.0.6" \
     "PID_v2@2.0.1" \
+    "SCServo@1.0.1" \
     "SimpleKalmanFilter@0.1"
 
 # list of unsafe / non-upstream Arduino libraries to be installed
