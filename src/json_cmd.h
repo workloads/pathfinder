@@ -1,6 +1,9 @@
-#define FEEDBACK_BASE_INFO  1001
-#define FEEDBACK_IMU_DATA   1002
-// esp-now recv.
+#ifndef JSON_CMD_H_
+#define JSON_CMD_H_
+
+#define FEEDBACK_BASE_INFO 1001
+#define FEEDBACK_IMU_DATA  1002
+// esp-now receive.
 // {"T":1003,"mac":"FF:FF:FF:FF:FF:FF","megs":"hello!"}
 #define CMD_ESP_NOW_RECV 1003
 // esp-now send status
@@ -15,8 +18,6 @@
 // bus servos error feedback
 // {"T":1005,"id":1,"status":1}
 #define CMD_BUS_SERVO_ERROR 1005
-
-
 
 // ---===< EoAT type settings. >===---
 
@@ -46,109 +47,109 @@
 //    --------                      BASE_JOINT -> XX
 // unit:mm
 // {"T":125,"pos":3,"ea":0,"eb":20}
-#define CMD_CONFIG_EOAT	125
+#define CMD_CONFIG_EOAT 125
 
 // ---===< UGV ctrl. >===---
 // SPEED_INPUT
 // {"T":1,"L":0.5,"R":0.5}
-#define CMD_SPEED_CTRL	1
+#define CMD_SPEED_CTRL 1
 
 // {"T":11,"L":164,"R":164} (input PWM +-255)
-#define CMD_PWM_INPUT	11
+#define CMD_PWM_INPUT 11
 
 // {"T":13,"X":0.1,"Z":0.3} (m/s,rad/s)(Not for the products without encoders)
-#define CMD_ROS_CTRL	13
+#define CMD_ROS_CTRL 13
 
 // MOTOR PID & WINDUP LIMITS
 // {"T":2,"P":200,"I":2500,"D":0,"L":255}
 // {"T":2,"P":20,"I":2500,"D":0,"L":255}
 // {"T":222,"name":"mission_a","step":"{\"T\":104,\"x\":235,\"y\":0,\"z\":234,\"t\":3.14,\"spd\":0.25}"}
 // {"T":222,"name":"boot","step":"{\"T\":2,\"P\":20,\"I\":2500,\"D\":0,\"L\":255}"}
-#define CMD_SET_MOTOR_PID	2
+#define CMD_SET_MOTOR_PID 2
 
 // OLED INFO SET
 // {"T":3,"lineNum":0,"Text":"putYourTextHere"}
-#define CMD_OLED_CTRL	3
+#define CMD_OLED_CTRL 3
 
 // OLED DEFAULT
 // {"T":-3}
-#define CMD_OLED_DEFAULT	-3
+#define CMD_OLED_DEFAULT -3
 
 // MODULE TYPE
 // 0: nothing
 // 1: RoArm-M2-S
 // 2: Gimbal
 // {"T":4,"cmd":0}
-#define CMD_MODULE_TYPE	4
+#define CMD_MODULE_TYPE 4
 
 // {"T":126}
-#define CMD_GET_IMU_DATA	126
+#define CMD_GET_IMU_DATA 126
 
 // the robot need to be put on a ground and kept still
 // getting the imu offset and set as default
 // this is going to take a while (5s)
 // {"T":127}
-#define CMD_CALI_IMU_STEP	127
+#define CMD_CALI_IMU_STEP 127
 
 // {"T":128}
-#define CMD_GET_IMU_OFFSET	128
+#define CMD_GET_IMU_OFFSET 128
 
 // {"T":129,"x":-12,"y":0,"z":0}
-#define CMD_SET_IMU_OFFSET	129
+#define CMD_SET_IMU_OFFSET 129
 
 // {"T":130}
-#define CMD_BASE_FEEDBACK 	130
+#define CMD_BASE_FEEDBACK 130
 
 // off: {"T":131,"cmd":0} [default]
-// 	on: {"T":131,"cmd":1}
-#define CMD_BASE_FEEDBACK_FLOW   131
+// on: {"T":131,"cmd":1}
+#define CMD_BASE_FEEDBACK_FLOW 131
 
 // set the extra delay time(ms) for feedback info
 // {"T":142,"cmd":0}
-#define CMD_FEEDBACK_FLOW_INTERVAL	142	// dev
+#define CMD_FEEDBACK_FLOW_INTERVAL 142  // dev
 
 // set the echo mode of receiving new cmd.
 // 0: [default]off
 // 1: on
 // {"T":143,"cmd":0}
-#define CMD_UART_ECHO_MODE	143
+#define CMD_UART_ECHO_MODE 143
 
 // LIGHT/GIMBAL/MOVTION CTRL
 // {"T":132,"IO4":255,"IO5":255}
-#define CMD_LED_CTRL	132
+#define CMD_LED_CTRL 132
 
 // GIMBAL CTRL(SIMPLE)
 // {"T":133,"X":45,"Y":45,"SPD":0,"ACC":0}
-#define CMD_GIMBAL_CTRL_SIMPLE	133
+#define CMD_GIMBAL_CTRL_SIMPLE 133
 
 // GIMBAL CTRL MOVE
 // {"T":134,"X":45,"Y":45,"SX":300,"SY":300}
-#define CMD_GIMBAL_CTRL_MOVE	134
+#define CMD_GIMBAL_CTRL_MOVE 134
 
 // GIMBAL CTRL STOP
 // {"T":135}
-#define CMD_GIMBAL_CTRL_STOP	135
+#define CMD_GIMBAL_CTRL_STOP 135
 
 // CHANGE HEART BEAT DELAY
 // {"T":136,"cmd":3000}
-#define CMD_HEART_BEAT_SET	136
+#define CMD_HEART_BEAT_SET 136
 
 // GIMBAL STEADY
 // off: {"T":137,"s":0,"y":0}
-//  on:	{"T":137,"s":1,"y":0}
-#define CMD_GIMBAL_STEADY	137
+// on:  {"T":137,"s":1,"y":0}
+#define CMD_GIMBAL_STEADY 137
 
 // SET SPEED RATE
 // {"T":138,"L":1,"R":1}
-#define CMD_SET_SPD_RATE	138
+#define CMD_SET_SPD_RATE 138
 
 // GET SPEED RATE
 // {"T":139}
-#define CMD_GET_SPD_RATE	139
+#define CMD_GET_SPD_RATE 139
 
 // SAVE SPEED RATE
 // {"T":140}
-#define CMD_SAVE_SPD_RATE	140
+#define CMD_SAVE_SPD_RATE 140
 
 // GIMBAL USER CTRL
 // {"T":141,"X":0,"Y":0,"SPD":300}
@@ -156,7 +157,7 @@
 //  1: increase
 //  0: stop
 //  2,2: middle
-#define CMD_GIMBAL_USER_CTRL	141
+#define CMD_GIMBAL_USER_CTRL 141
 
 // ---===< Arm ctrl. >===---
 
@@ -187,7 +188,7 @@
 
 // // // // // // // // // // // // // // // // // // // // //
 // {"T":104,"x":235,"y":0,"z":234,"t":3.14,"spd":0.25}      //
-#define CMD_XYZT_GOAL_CTRL 104                              //
+#define CMD_XYZT_GOAL_CTRL 104  //
 // // // // // // // // // // // // // // // // // // // // //
 
 // {"T":1041,"x":235,"y":0,"z":234,"t":3.14}
@@ -239,7 +240,7 @@
 
 // dynamic external force adaptation.
 // mode: 0 - stop: reset every limit torque to 1000.
-//       1 - start: set the joint limit torque. 
+//       1 - start: set the joint limit torque.
 // b, s, e, h = bassJoint, shoulderJoint, elbowJoint, handJoint
 // example:
 // starts. input the limit torque of every joint.
@@ -280,19 +281,18 @@
 // spd - angle/s
 // acc - angle/s^2 (max: 22.5)
 // {"T":122,"b":0,"s":0,"e":90,"h":180,"spd":10,"acc":10}
-#define CMD_JOINTS_ANGLE_CTRL  122
+#define CMD_JOINTS_ANGLE_CTRL 122
 
 // constant ctrl
 // m: 0 - angle
 //    1 - xyzt
 // cmd: 0 - stop
-// 		1 - increase
-// 		2 - decrease
+//      1 - increase
+//      2 - decrease
 // {"T":123,"m":0,"axis":0,"cmd":0,"spd":3}
-#define CMD_CONSTANT_CTRL  123
+#define CMD_CONSTANT_CTRL 123
 
 // 124/125...131
-
 
 // === === === MISSION CTRL & FILE CTRL === === ===
 
@@ -339,13 +339,13 @@
 
 // === === === mission & steps edit. === === ===
 
-// create a mission in flash: 
+// create a mission in flash:
 // {"T":220,"name":"mission_a","intro":"test mission created in flash."}
 #define CMD_CREATE_MISSION 220
 
 // input the mission name and get the total content.
 // {"T":221,"name":"mission_a"}
-#define CMD_MISSION_CONTENT  221
+#define CMD_MISSION_CONTENT 221
 
 // {"T":144,"E":100,"Z":0,"R":0}
 #define CMD_ARM_CTRL_UI 144
@@ -418,22 +418,22 @@
 // espNowMode: 0 - none
 //             1 - flow-leader(group): sending cmds
 //             2 - flow-leader(single): sending cmds to a single follower
-//             3 - [default]follower: recv cmds
+//             3 - [default]follower: receive cmds
 // flow-leader - use cmd=0, ctrl servos in real time.
 //               leader uses the servos feedback pos to ctrl followers.
 // {"T":301,"mode":3}
-#define CMD_ESP_NOW_CONFIG    301
+#define CMD_ESP_NOW_CONFIG 301
 
 // get this dev mac address.
 // {"T":302}
-#define CMD_GET_MAC_ADDRESS   302
+#define CMD_GET_MAC_ADDRESS 302
 
 // add a new follower mac address to peer.
 // {"T":303,"mac":"FF:FF:FF:FF:FF:FF"}
 // {"T":303,"mac":"CC:DB:A7:5B:E4:1C"}
 // {"T":303,"mac":"CC:DB:A7:5C:1C:40"}
 // {"T":303,"mac":"CC:DB:A7:5C:E5:FC"}
-#define CMD_ESP_NOW_ADD_FOLLOWER  303
+#define CMD_ESP_NOW_ADD_FOLLOWER 303
 
 // remove a follower from peer.
 // {"T":304,"mac":"FF:FF:FF:FF:FF:FF"}
@@ -467,7 +467,7 @@
 
 // config ap mode.
 // {"T":402,"ssid":"UGV","password":"12345678"}
-#define CMD_SET_AP  402
+#define CMD_SET_AP 402
 
 // config sta mode.
 // {"T":403,"ssid":"na","password":"ps"}
@@ -475,11 +475,11 @@
 
 // config ap/sta mode.
 // {"T":404,"ap_ssid":"UGV","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}
-#define CMD_WIFI_APSTA   404
+#define CMD_WIFI_APSTA 404
 
 // get Wi-Fi info.
 // {"T":405}
-#define CMD_WIFI_INFO    405
+#define CMD_WIFI_INFO 405
 
 // create a wifiConfig.json file
 // from the args already be using.
@@ -508,43 +508,45 @@
 // > ELBOW_SERVO_ID   14
 // > GRIPPER_SERVO_ID 15
 // {"T":502,"id":11}
-#define CMD_SET_MIDDLE   502
+#define CMD_SET_MIDDLE 502
 
 // set the P/PID of a single servo.
 // {"T":503,"id":14,"p":16}
-#define CMD_SET_SERVO_PID   503
+#define CMD_SET_SERVO_PID 503
 
 // === === === esp32 settings. === === ===
 
 // esp-32 ctrl.
 // reboot device.
 // {"T":600}
-#define CMD_REBOOT 	600
+#define CMD_REBOOT 600
 
 // get the size of free flash space
 // {"T":601}
-#define CMD_FREE_FLASH_SPACE	601
+#define CMD_FREE_FLASH_SPACE 601
 
 // boot mission info.
 // {"T":602}
-#define CMD_BOOT_MISSION_INFO	602
+#define CMD_BOOT_MISSION_INFO 602
 
 // reset boot mission.
 // {"T":603}
-#define CMD_RESET_BOOT_MISSION	603
+#define CMD_RESET_BOOT_MISSION 603
 
 // if there is something wrong with Wi-Fi functions, clear the nvs.
 // {"T":604}
-#define CMD_NVS_CLEAR	604
+#define CMD_NVS_CLEAR 604
 
 // 2: flow feedback.
 // 1: [default]print debug info in serial.
 // 0: don't print debug info in serial.
 // {"T":605,"cmd":1}
-#define CMD_INFO_PRINT	605
+#define CMD_INFO_PRINT 605
 
 // === === === mainType & moduleType settings. === === ===
 // mainType: 1.RaspRover, 2.UGV Rover, 3.UGV Beast
 // {"T":900,"main":1,"module":0}
 // main_type: 1-WAVE ROVER, 2-UGV02, 3-UGV01
 #define CMD_MM_TYPE_SET 900
+
+#endif  // JSON_CMD_H_

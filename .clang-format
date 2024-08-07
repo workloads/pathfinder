@@ -1,0 +1,72 @@
+---
+
+# provide suggestions based on Google's Style Guide
+# see https://google.github.io/styleguide/cppguide.html
+BasedOnStyle: Google
+
+AlignAfterOpenBracket: true
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#alignarrayofstructures
+AlignArrayOfStructures: Left
+
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveBitFields: Consecutive
+AlignConsecutiveDeclarations: Consecutive
+AlignConsecutiveMacros: Consecutive
+
+AlignConsecutiveShortCaseStatements:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+  AlignCaseColons: false
+
+AlignEscapedNewlines: Left
+AlignOperands: true
+AlignTrailingComments: true
+
+AllowAllArgumentsOnNextLine: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortLoopsOnASingleLine: true
+
+AlwaysBreakBeforeMultilineStrings: true
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#binpackarguments
+BinPackArguments: false
+BinPackParameters: false
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#breakbeforebraces
+BreakBeforeBraces: Custom
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#bracewrapping
+BraceWrapping:
+    AfterCaseLabel: false
+    AfterClass: false
+    AfterControlStatement: MultiLine
+    AfterEnum: false
+    AfterExternBlock: false
+    AfterFunction: false
+    AfterNamespace: false
+    AfterObjCDeclaration: false
+    AfterStruct: false
+    AfterUnion: false
+    SplitEmptyFunction: false
+    SplitEmptyRecord: false
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#columnlimit
+ColumnLimit: 999
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#indentwidth
+IndentWidth: 4
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#language
+Language: Cpp
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#reflowcomments
+ReflowComments: false
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#removeparentheses
+RemoveParentheses: MultipleParentheses
+
+RemoveSemicolon: True
+
+UseTab: Never

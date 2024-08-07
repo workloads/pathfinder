@@ -1,0 +1,25 @@
+# see https://clangd.llvm.org/config#if
+If:
+    PathMatch: *
+
+# see https://clangd.llvm.org/config#compileflags
+CompileFlags:
+    Add:
+
+CompileFlags:
+  Add:
+    # ⚠️ If these values are updated, they MUST be updated project-wide
+    - -I.arduino/user/libraries/
+
+    - -I.arduino/data/packages/arduino/hardware/avr/1.8.6/libraries/
+    - -I.arduino/data/internal/arduino_avr_1.8.6_*/cores/arduino/
+    - -I.arduino/data/internal/arduino_avr_1.8.6_*/variants/standard/
+
+    - -I.arduino/data/packages/esp32/hardware/esp32/2.0.17/libraries/
+    - -I.arduino/data/internal/esp32_esp32_2.0.17_*cores/esp32/
+    - -I.arduino/data/internal/esp32_esp32_2.0.17_*variants/esp32/
+
+    - -DARDUINO_ESP32_DEV
+    - -DARDUINO_ARCH_ESP32
+    - -DARDUINO_BOARD="ESP32_DEV"
+    - -DESP32

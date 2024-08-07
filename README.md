@@ -16,6 +16,8 @@
       * [Development](#development)
   * [Usage](#usage)
   * [Notes](#notes)
+    * [Hardware Datasheets](#hardware-datasheets)
+    * [Delays](#delays)
   * [Contributors](#contributors)
   * [License](#license)
 <!-- TOC -->
@@ -65,10 +67,10 @@ This group consists of:
 - a copy of [@workloads/tooling](https://github.com/workloads/tooling)
 - [Arduino IDE](https://www.arduino.cc/en/software)
 - Arduino CLI `1.0.0` or [newer](https://arduino.github.io/arduino-cli/)
-- Arduino Board Core for ESP32 `v2.x.x`
-- Arduino Libraries
+- Arduino Board Core for ESP32 [v2.x.x](https://github.com/espressif/arduino-esp32)
+- Arduino Libraries 
   
-For an exhaustive list of Core and Library versions, see [./config.mk](./config.mk).
+For an exhaustive list of Core and Library versions, see [./sketch.yml](./sketch.yml).
 
 #### Development
 
@@ -88,20 +90,38 @@ Running `make` without commands will print out the following help information:
 ```text
 🧭 PATHFINDER
 
-Target               Description                                                       Usage
-lint                 lint C++ code using cpplint and clang-format                      `make lint`
-lint-arduino         lint Arduino code using arduino-lint                              `make lint-arduino`
-board                install Arduino Board Core using arduino-cli                      `make board`
-libs                 install Arduino libraries using arduino-cli                       `make libs`
-libs-enable-unsafe   enable installation of unsafe libraries when using Arduino CLI    `make libs-enable-unsafe`
-help                 display a list of Make Targets                                    `make help`
-_listincludes        list all included Makefiles and *.mk files                        `make _listincludes`
-_selfcheck           lint Makefile                                                     `make _selfcheck`
+Target           Description                                     Usage
+lint-arduino     lint Arduino code using arduino-lint            `make lint-arduino`
+lint-cpp         lint C++ code using cpplint and clang-format    `make lint-cpp`
+lint-yaml        lint YAML files                                 `make lint-yaml`
+attach           attach Arduino Board using arduino-cli          `make attach`
+clean            clean Arduino cache using arduino-cli           `make clean`
+compile          compile Arduino Sketch using arduino-cli        `make compile`
+upload           upload binary artifact using arduino-cli        `make upload`
+monitor          monitor binary output using arduino-cli         `make monitor`
+install-cores    install Arduino Board Core using arduino-cli    `make install-cores`
+install-libs     install Arduino libraries using arduino-cli     `make install-libs`
+list-libs        list Arduino libraries using arduino-cli        `make list-libs`
+docs             create docs using doxygen                       `make docs`
+docs-get-theme   retrieve Doxygen theme using git                `make docs-get-theme`
+help             display a list of Make Targets                  `make help`
+_listincludes    list all included Makefiles and *.mk files      `make _listincludes`
+_selfcheck       lint Makefile                                   `make _selfcheck`
 ```
 
 ## Notes
 
-TODO
+### Hardware Datasheets
+
+This repository does not include any datasheets directly.
+
+For an overview of the WAVE ROVER hardware, see [waveshare.com](https://www.waveshare.com/wiki/WAVE_ROVER#Resource).
+
+For an overview of the ESP32 hardware, see [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf).
+
+### Delays
+
+All use of the [`delay()`](https://www.arduino.cc/reference/en/language/functions/time/delay/) function is intentional, despite the function's blocking behavior.
 
 ## Contributors
 

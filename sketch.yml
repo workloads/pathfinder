@@ -1,0 +1,89 @@
+---
+
+# Sketch Project File
+# see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/
+
+# default flags for Arduino usage
+# see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#default-flags-for-arduino-cli-usage
+default_fqbn: "esp32:esp32:esp32"
+default_port: "/dev/cu.usbserial-1210"
+default_profile: default
+default_programmer: esptool
+
+profiles:
+  # see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#build-profiles
+  default:
+    notes: See https://go.workloads.io/pathfinder for more information.
+
+    # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
+    # and https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli-board-list/
+    fqbn: "esp32:esp32:esp32"
+
+    # see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#build-profiles
+    # and https://arduino.github.io/arduino-cli/1.0/library-specification/
+    # ⚠️ If this value is updated, it MUST be updated project-wide
+    libraries:
+      ################################################################################
+      # UPSTREAM LIBRARIES                                                           #
+      ################################################################################
+
+      - # see https://github.com/adafruit/Adafruit_BusIO
+        Adafruit BusIO (1.16.1)
+
+      - # see https://github.com/adafruit/Adafruit-GFX-Library
+        Adafruit GFX Library (1.11.10)
+
+      - # see https://github.com/adafruit/Adafruit_ICM20X
+        Adafruit ICM20X (2.0.7)
+
+      - # see https://github.com/adafruit/Adafruit_SSD1306
+        Adafruit SSD1306 (2.5.11)
+
+      - # see https://github.com/adafruit/Adafruit_Sensor
+        Adafruit Unified Sensor (1.1.14)
+
+      - # see https://github.com/bblanchon/ArduinoJson
+        ArduinoJson (7.1.0)
+
+      - # see https://github.com/ricaun/ArduinoUniqueID
+        ArduinoUniqueID (1.3.0)
+
+      - # see https://github.com/madhephaestus/ESP32Encoder
+        ESP32Encoder (0.11.6)
+
+      - # see https://github.com/wollewald/ICM20948_WE
+        ICM20948_WE (1.1.8)
+
+      - # see https://github.com/wollewald/INA219_WE
+        INA219_WE (1.3.8)
+
+      - # see https://github.com/lorol/LITTLEFS
+        LittleFS_esp32 (1.0.6)
+
+      - # see https://github.com/jacksonliam/PID_v2
+        PID_v2 (2.0.1)
+
+      - # see https://github.com/denyssene/SimpleKalmanFilter
+        SimpleKalmanFilter (0.1)
+
+      ################################################################################
+      # UNSAFE LIBRARIES                                                             #
+      ################################################################################
+
+      #- # see https://github.com/workloads/scservo.git
+      #  SCServo (1.0.1)
+
+
+    # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
+    platforms:
+      -
+        # see https://github.com/arduino/ArduinoCore-avr
+        # ⚠️ If this value is updated, it MUST be updated project-wide
+        platform: "arduino:avr (1.8.6)"
+
+      -
+        # see https://github.com/espressif/arduino-esp32
+        # ⚠️ Pathfinder currently depends on `v2` of the ESP32 core, which is not the latest version.
+        # ⚠️ If this value is updated, it MUST be updated project-wide
+        platform: "esp32:esp32 (2.0.17)"
+        platform_index_url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
