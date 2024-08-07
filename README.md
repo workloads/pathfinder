@@ -88,25 +88,26 @@ Running `make` without commands will print out the following help information:
 ```text
 🧭 PATHFINDER
 
-Target          Description                                     Usage
-lint-arduino    lint Arduino code using arduino-lint            `make lint-arduino`
-lint-cpp        lint C++ code using cpplint and clang-format    `make lint-cpp`
-lint-yaml       lint YAML files                                 `make lint-yaml`
-attach          attach Arduino Board using arduino-cli          `make attach`
-clean           clean Arduino cache using arduino-cli           `make clean`
-compile         compile Arduino Sketch using arduino-cli        `make compile`
-upload          upload binary artifact using arduino-cli        `make upload`
-monitor         monitor binary output using arduino-cli         `make monitor`
-install-core    install Arduino Board Core using arduino-cli    `make install-core`
-install-libs    install Arduino libraries using arduino-cli     `make install-libs`
-help            display a list of Make Targets                  `make help`
-_listincludes   list all included Makefiles and *.mk files      `make _listincludes`
-_selfcheck      lint Makefile                                   `make _selfcheck`
+Target           Description                                     Usage
+lint-arduino     lint Arduino code using arduino-lint            `make lint-arduino`
+lint-cpp         lint C++ code using cpplint and clang-format    `make lint-cpp`
+lint-yaml        lint YAML files                                 `make lint-yaml`
+attach           attach Arduino Board using arduino-cli          `make attach`
+clean            clean Arduino cache using arduino-cli           `make clean`
+compile          compile Arduino Sketch using arduino-cli        `make compile`
+upload           upload binary artifact using arduino-cli        `make upload`
+monitor          monitor binary output using arduino-cli         `make monitor`
+install-core     install Arduino Board Core using arduino-cli    `make install-core`
+install-libs     install Arduino libraries using arduino-cli     `make install-libs`
+docs             create docs using doxygen                       `make docs`
+docs-get-theme   retrieve Doxygen theme using git                `make docs-get-theme`
+help             display a list of Make Targets                  `make help`
+_listincludes    list all included Makefiles and *.mk files      `make _listincludes`
+_selfcheck       lint Makefile                                   `make _selfcheck`
 ```
 
 ## Notes
 
-TODO
 
 ## Contributors
 

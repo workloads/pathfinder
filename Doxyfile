@@ -1,22 +1,43 @@
-DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = "Nomad Smart Dial"
-OPTIMIZE_OUTPUT_FOR_C  = YES
-EXTRACT_ALL            = YES
-EXTRACT_PRIVATE        = YES
-EXTRACT_STATIC         = YES
-GENERATE_LATEX         = NO
-GENERATE_MAN           = NO
-GENERATE_RTF           = NO
-GENERATE_XML           = NO
-GENERATE_DOCBOOK       = NO
-GENERATE_HTML          = YES
-HTML_OUTPUT            = ./docs
-GENERATE_TREEVIEW      = YES
-INPUT                  = ./ src/
-INPUT_ENCODING         = UTF-8
-FILE_PATTERNS          = *.ino *.cpp *.h
-RECURSIVE              = NO
-SOURCE_BROWSER         = NO
-INLINE_SOURCES         = YES
-ALPHABETICAL_INDEX     = YES
-MARKDOWN_SUPPORT       = YES
+# Doxyfile 1.11.0
+
+PROJECT_NAME          = "Pathfinder"
+DOXYFILE_ENCODING     = UTF-8
+
+ALPHABETICAL_INDEX    = YES
+
+DISABLE_INDEX         = NO
+
+EXTRACT_ALL           = YES
+EXTRACT_PRIVATE       = YES
+EXTRACT_STATIC        = YES
+
+FILE_PATTERNS         = *.ino *.cpp *.h
+
+FULL_SIDEBAR          = NO
+
+GENERATE_DOCBOOK      = NO
+GENERATE_HTML         = YES
+GENERATE_LATEX        = NO
+GENERATE_MAN          = NO
+GENERATE_RTF          = NO
+GENERATE_TREEVIEW     = YES
+GENERATE_XML          = NO
+
+HTML_OUTPUT           = ./docs
+
+# see https://jothepro.github.io/doxygen-awesome-css/
+HTML_EXTRA_STYLESHEET = .doxygen/theme/doxygen-awesome.css
+HTML_COLORSTYLE       = LIGHT
+
+INLINE_SOURCES        = YES
+
+INPUT                 = ./src/
+INPUT_ENCODING        = UTF-8
+
+MARKDOWN_SUPPORT      = YES
+
+OPTIMIZE_OUTPUT_FOR_C = YES
+
+RECURSIVE             = NO
+
+SOURCE_BROWSER        = NO
