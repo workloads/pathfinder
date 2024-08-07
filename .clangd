@@ -5,5 +5,17 @@ If:
 # see https://clangd.llvm.org/config#compileflags
 CompileFlags:
     Add:
-        - "-I${HOME}/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino"
-        - "-I${HOME}/Library/Arduino15/packages/esp32/hardware/esp32/2.0.17/cores/esp32"
+
+CompileFlags:
+  Add:
+    # ⚠️ If these values are updated here, they MUST also be updated in `config.mk`
+    - -I.arduino/user/libraries/
+
+    - -I.arduino/data/packages/arduino/hardware/avr/1.8.6/libraries/
+    - -I.arduino/data/internal/arduino_avr_1.8.6_78e0815c6047bc54/cores/arduino/
+    - -I.arduino/data/internal/arduino_avr_1.8.6_78e0815c6047bc54/variants/standard/
+
+    - -I.arduino/data/packages/esp32/hardware/esp32/2.0.17/libraries/
+    - -I.arduino/data/internal/esp32_esp32_2.0.17_0b52d97b80e59000/cores/esp32/
+    - -I.arduino/data/internal/esp32_esp32_2.0.17_0b52d97b80e59000/variants/esp32/
+

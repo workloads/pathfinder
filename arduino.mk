@@ -33,6 +33,7 @@ compile: # compile Arduino Sketch using arduino-cli [Usage: `make compile`]
 	$(call print_reference,"$(ARDUINO_SKETCH_FILE)")
 
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_compile/
+	# and https://arduino.github.io/arduino-cli/1.0/sketch-build-process/
 	$(BINARY_ARDUINO_CLI) \
 		compile \
 			--clean \

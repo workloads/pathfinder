@@ -9,11 +9,15 @@ board_manager:
       "https://espressif.github.io/arduino-esp32/package_esp32_index.json"
 
 directories:
-  data: "./.arduino/data"
-  downloads: "./.arduino/downloads"
-  user: "./.arduino/user"
+  data: ".arduino/data"
+  downloads: ".arduino/downloads"
+
+  # ⚠️ If this value is updated here, it MUST also be updated in `config.mk`
+  user: ".arduino/user"
 
 library:
+  # required for the `arduino-cli lib install` command
+  # to allow for installation of the `SCServo` library
   enable_unsafe_install: true
 
 locale: "en_US.UTF-8"
