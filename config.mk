@@ -18,6 +18,7 @@ ARDUINO_CLI_COMPILE_WARNINGS = "default"
 # baudrate for the serial monitor
 ARDUINO_CLI_MONITOR_BAUDRATE ?= "115200"
 
+# board core and version to be used for compiling the sketch
 ARDUINO_CORE ?= "esp32:esp32@2.0.17"
 
 # list of upstream Arduino libraries to be installed

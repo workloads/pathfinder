@@ -27,6 +27,6 @@ profiles:
       -
         # see https://github.com/espressif/arduino-esp32
         # ⚠️ Pathfinder currently depends on `v2` of the ESP32 core, which is not the latest version.
-        # ⚠️ If this value is updated here, it MUST also be updated in `config.mk`
+        # ⚠️ If this value is updated here, it MUST also be updated in `config.mk` and `CMakelists.txt`.
         platform: "esp32:esp32 (2.0.17)"
         platform_index_url: https://espressif.github.io/arduino-esp32/package_esp32_index.json

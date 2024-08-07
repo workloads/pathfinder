@@ -10,6 +10,7 @@
 #ifndef CORE_DEBUG_LEVEL
 // Levels `INFO`, `DEBUG`, and `VERBOSE` may result in a performance decrease
 #define CORE_DEBUG_LEVEL LOG_INFO
+#endif
 
 // TaskHandle_t Pid_ctrl;
 

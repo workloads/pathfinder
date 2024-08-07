@@ -1,0 +1,9 @@
+# see https://clangd.llvm.org/config#if
+If:
+    PathMatch: *
+
+# see https://clangd.llvm.org/config#compileflags
+CompileFlags:
+    Add:
+        - "-I${HOME}/Library/Arduino15/packages/arduino/hardware/avr/1.8.6/cores/arduino"
+        - "-I${HOME}/Library/Arduino15/packages/esp32/hardware/esp32/2.0.17/cores/esp32"
