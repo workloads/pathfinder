@@ -46,7 +46,7 @@ ARDUINO_LIBRARIES_UNSAFE ?= \
 	"https://github.com/workloads/scservo.git"
 
 # path to the Arduino sketch configuration file
-ARDUINO_SKETCH_CONFIG ?= "config.yaml"
+ARDUINO_SKETCH_CONFIG ?= "config.yml"
 
 # path to the (primary) Arduino sketch file
 ARDUINO_SKETCH_FILE ?= "pathfinder.ino"
