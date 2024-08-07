@@ -7,6 +7,9 @@
  *
 */
 
+#ifndef CORE_DEBUG_LEVEL
+// Levels `INFO`, `DEBUG`, and `VERBOSE` may result in a performance decrease
+#define CORE_DEBUG_LEVEL LOG_INFO
 
 // TaskHandle_t Pid_ctrl;
 
@@ -32,46 +35,21 @@ StaticJsonDocument<256> jsonCmdReceive;
 StaticJsonDocument<256> jsonInfoSend;
 StaticJsonDocument<512> jsonInfoHttp;
 
-// functions for battery info.
+// Load local configuration and helpers
 #include "src/Battery.h"
-
-// config for ugv.
 #include "src/ugv_config.h"
-
-// functions for oled.
 #include "src/oled_ctrl.h"
-
-// functions for the LEDs of UGV.
 #include "src/PinController.h"
-
-// functions for gimbal ctrl.
+#include "src/RoArm-M2_module.h"
 #include "src/gimbal_module.h"
-
-// define json cmd.
 #include "src/json_cmd.h"
-
-// functions for IMU ctrl.
 #include "src/IMU_ctrl.h"
-
-// functions for movtion ctrl.
 #include "src/Movement.h"
-
-// functions for editing the files in flash.
 #include "src/files_ctrl.h"
-
-// advance functions for ugv ctrl.
 #include "src/ugv_advance.h"
-
-// functions for Wi-Fi ctrl.
 #include "src/wifi_ctrl.h"
-
-// functions for esp-now.
 #include "src/esp_now_ctrl.h"
-
-// functions for UART json ctrl.
 #include "src/uart_ctrl.h"
-
-// functions for http & web server.
 #include "src/HttpServer.h"
 
 void moduleType_Gimbal() {
@@ -95,6 +73,7 @@ void setup() {
     mm_settings(mainType, moduleType);
 
     init_oled();
+
     if (mainType == 1) {
         screenLine_0 = "WAVE ROVER";
     } else if (mainType == 2) {
@@ -245,6 +224,8 @@ void setup() {
     missionPlay("boot", 1);
 }
 
+
+// Enter application flow
 void loop() {
     serialCtrl();
     server.handleClient();
