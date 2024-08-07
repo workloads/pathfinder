@@ -16,6 +16,8 @@
       * [Development](#development)
   * [Usage](#usage)
   * [Notes](#notes)
+    * [Hardware Datasheets](#hardware-datasheets)
+    * [Delays](#delays)
   * [Contributors](#contributors)
   * [License](#license)
 <!-- TOC -->
@@ -108,6 +110,17 @@ _selfcheck       lint Makefile                                   `make _selfchec
 
 ## Notes
 
+### Hardware Datasheets
+
+This repository does not include any datasheets directly.
+
+For an overview of the WAVE ROVER hardware, see [waveshare.com](https://www.waveshare.com/wiki/WAVE_ROVER#Resource).
+
+For an overview of the ESP32 hardware, see [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf).
+
+### Delays
+
+All use of the [`delay()`](https://www.arduino.cc/reference/en/language/functions/time/delay/) function is intentional, despite the function's blocking behavior.
 
 ## Contributors
 

@@ -1,17 +1,19 @@
 ---
 
+# Sketch Project File
 # see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/
 
-default_fqbn: esp32:esp32:esp32
-default_programmer: esptool
-default_port: /dev/cu.usbserial-1210
-
+# default flags for Arduino usage
+# see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#default-flags-for-arduino-cli-usage
+default_fqbn: "esp32:esp32:esp32"
+default_port: "/dev/cu.usbserial-1210"
 default_profile: default
+default_programmer: esptool
 
 profiles:
   # see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#build-profiles
   default:
-    notes: default build profile for Pathfinder
+    notes: See https://go.workloads.io/pathfinder for more information.
 
     # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
     # and https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli-board-list/
