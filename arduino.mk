@@ -83,16 +83,16 @@ monitor: # monitor binary output using arduino-cli [Usage: `make monitor`]
 	;
 
 
-.SILENT .PHONY: install-core
-install-core: # install Arduino Board Core using arduino-cli [Usage: `make install-core`]
-	$(call print_reference,"$(ARDUINO_CORE)")
+.SILENT .PHONY: install-cores
+install-cores: # install Arduino Board Core using arduino-cli [Usage: `make install-cores`]
+	$(call print_reference,"$(ARDUINO_CORES)")
 
 	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_core_install/
 	$(BINARY_ARDUINO_CLI) \
 		core \
 			install \
 				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
-				$(ARDUINO_CORE) \
+				$(ARDUINO_CORES) \
 	;
 
 

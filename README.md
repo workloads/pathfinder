@@ -99,7 +99,7 @@ clean            clean Arduino cache using arduino-cli           `make clean`
 compile          compile Arduino Sketch using arduino-cli        `make compile`
 upload           upload binary artifact using arduino-cli        `make upload`
 monitor          monitor binary output using arduino-cli         `make monitor`
-install-core     install Arduino Board Core using arduino-cli    `make install-core`
+install-cores    install Arduino Board Core using arduino-cli    `make install-cores`
 install-libs     install Arduino libraries using arduino-cli     `make install-libs`
 list-libs        list Arduino libraries using arduino-cli        `make list-libs`
 docs             create docs using doxygen                       `make docs`

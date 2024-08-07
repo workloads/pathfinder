@@ -19,7 +19,9 @@ ARDUINO_CLI_COMPILE_WARNINGS = "default"
 ARDUINO_CLI_MONITOR_BAUDRATE ?= "115200"
 
 # board core and version to be used for compiling the sketch
-ARDUINO_CORE ?= "esp32:esp32@2.0.17"
+ARDUINO_CORES ?= \
+	"arduino:avr@1.8.6" \
+	"esp32:esp32@2.0.17"
 
 # list of upstream Arduino libraries to be installed
 # see https://arduino.github.io/arduino-cli/1.0/library-specification/
