@@ -119,3 +119,16 @@ install-libs: # install Arduino libraries using arduino-cli [Usage: `make instal
 				install \
 				--git-url $(ITEM) \
 	)
+
+.SILENT .PHONY: list-libs
+list-libs: # list Arduino libraries using arduino-cli [Usage: `make list-libs`]
+	$(call print_reference,"$(ARDUINO_SKETCH_CONFIG)")
+
+	# see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_lib_list/
+	$(BINARY_ARDUINO_CLI) \
+		lib \
+			list \
+				--all \
+				--config-file "$(ARDUINO_SKETCH_CONFIG)" \
+	;
+
