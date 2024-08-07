@@ -58,6 +58,8 @@ void moduleType_Gimbal() {
     gimbalSteady(steadyGoalY);
 }
 
+
+// Setup application flow
 void setup() {
     Serial.begin(115200);
     Wire.begin(S_SDA, S_SCL);

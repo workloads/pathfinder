@@ -10,6 +10,5 @@ include ./cpp.mk
 include ../tooling/make/targets/yamllint.mk
 include ./arduino.mk
 include ./doxygen.mk
-include ../tooling/make/functions/snyk.mk
 include ../tooling/make/targets/shared.mk
 include ./config.mk

@@ -19,7 +19,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # set common paths
 # see https://cmake.org/cmake/help/v3.30/command/set.html
-# ⚠️ If this value is updated here, it MUST also be updated in `config.mk`
+# ⚠️ If this value is updated, it MUST be updated project-wide
 set(ARDUINO_BASE_PATH .arduino)
 
 # see https://cmake.org/cmake/help/v3.30/command/set.html
@@ -31,7 +31,7 @@ set(ARDUINO_LIBS_PATH ${ARDUINO_BASE_PATH}/user/libraries)
 set(ARDUINO_LIBRARY_VERSION 1.8.6)
 
 # set ESP32 library version
-# ⚠️ If this value is updated here, it MUST also be updated in `config.mk` and `sketch.yaml`.
+# ⚠️ If this value is updated, it MUST be updated project-wide
 # see https://cmake.org/cmake/help/v3.30/command/set.html
 set(ESP32_LIBRARY_VERSION 2.0.17)
 
