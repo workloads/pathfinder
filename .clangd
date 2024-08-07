@@ -8,7 +8,7 @@ CompileFlags:
 
 CompileFlags:
   Add:
-    # ⚠️ If these values are updated here, they MUST also be updated in `config.mk`
+    # ⚠️ If these values are updated, they MUST be updated project-wide
     - -I.arduino/user/libraries/
 
     - -I.arduino/data/packages/arduino/hardware/avr/1.8.6/libraries/

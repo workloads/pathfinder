@@ -70,7 +70,7 @@ This group consists of:
 - Arduino Board Core for ESP32 [v2.x.x](https://github.com/espressif/arduino-esp32)
 - Arduino Libraries 
   
-For an exhaustive list of Core and Library versions, see [./sketch.yaml](./sketch.yaml).
+For an exhaustive list of Core and Library versions, see [./sketch.yml](./sketch.yml).
 
 #### Development
 

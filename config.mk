@@ -24,7 +24,7 @@ ARDUINO_CORES ?= \
 	"esp32:esp32@2.0.17"
 
 # list of upstream Arduino libraries to be installed
-# ⚠️ If this list is updated here, it MUST also be updated in `sketch.yaml`
+# ⚠️ If this value is updated, it MUST be updated project-wide
 # see https://arduino.github.io/arduino-cli/1.0/library-specification/
 ARDUINO_LIBRARIES_UPSTREAM ?= \
     "Adafruit BusIO@1.16.1" \
