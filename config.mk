@@ -1,16 +1,13 @@
 # project-specific configuration for Pathfinder
 
 # timeout for the board discovery process
-ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT = "1s"
+ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT = "10s"
 
 # number of parallel jobs to use for compiling the sketch
 ARDUINO_CLI_COMPILE_JOBS ?= "0"
 
 # output directory for compiled artifacts
 ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY = "./build"
-
-# protocol to use for compiling the sketch
-ARDUINO_CLI_COMPILE_PROTOCOL = "serial"
 
 # warning level for the compile process
 ARDUINO_CLI_COMPILE_WARNINGS = "default"

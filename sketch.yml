@@ -9,6 +9,7 @@ default_fqbn: "esp32:esp32:esp32"
 default_port: "/dev/cu.usbserial-1210"
 default_profile: default
 default_programmer: esptool
+default_protocol: serial
 
 profiles:
   # see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#build-profiles
