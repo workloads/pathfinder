@@ -16,6 +16,7 @@ ARDUINO_CLI_COMPILE_PROTOCOL = "serial"
 ARDUINO_CLI_COMPILE_WARNINGS = "default"
 
 # baudrate for the serial monitor
+# ⚠️ If this value is updated, it MUST be updated project-wide
 ARDUINO_CLI_MONITOR_BAUDRATE ?= "115200"
 
 # board core and version to be used for compiling the sketch
