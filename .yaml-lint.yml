@@ -4,6 +4,7 @@ extends: default
 
 ignore:
   - ".arduino/"
+  - ".doxygen/"
 
 
 yaml-files:
