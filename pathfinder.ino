@@ -3,7 +3,7 @@
  * @file pathfinder.ino
  * @brief ESP32-based mobile edge computing platform
  * @url https://go.workloads.io/pathfinder
- * @version 0.9.5
+ * @version 0.10.0
  *
 */
 
