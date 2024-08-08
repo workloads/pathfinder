@@ -73,12 +73,12 @@ profiles:
         LittleFS_esp32 (1.0.6)
 
       -
-        # see https://github.com/jacksonliam/PID_v2
+        # see https://github.com/imax9000/Arduino-PID-Library
         PID_v2 (2.0.1)
 
-      -
+       -
         # see https://github.com/workloads/scservo.git
-        #SCServo (1.0.1)
+        SCServo (1.0.2)
 
       -
         # see https://github.com/denyssene/SimpleKalmanFilter
