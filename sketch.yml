@@ -9,7 +9,6 @@ default_fqbn: "esp32:esp32:esp32"
 default_port: "/dev/cu.usbserial-1210"
 default_profile: default
 default_programmer: esptool
-default_protocol: serial
 
 profiles:
   # see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#build-profiles
@@ -76,7 +75,7 @@ profiles:
         # see https://github.com/imax9000/Arduino-PID-Library
         PID_v2 (2.0.1)
 
-       -
+      -
         # see https://github.com/workloads/scservo.git
         SCServo (1.0.2)
 
