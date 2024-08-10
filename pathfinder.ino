@@ -26,8 +26,8 @@ const int serialBaudRate = 115200;
 void setup() {
     const char *logTag = __func__;
 
+    // Initialize serial communication
     Serial.begin(serialBaudRate);
-
     Serial.println("Serial connection initialized");
 
     logDebug(logTag, "Initializing device setup");
@@ -35,7 +35,7 @@ void setup() {
     while (!deviceSetup()) {
         logWarning(logTag, "Device setup failed, retrying in %d seconds...", deviceSetupRestartDelay / 1000);  // NOLINT(whitespace/line_length)
 
-        // delay restart of `setup()` so device and ecosystem (e.g.: Wi-Fi APs)
+        // Delay restart of `setup()` so device and ecosystem (e.g.: Wi-Fi APs)
         // have enough time to process operations and restore connectivity
         // see https://www.arduino.cc/reference/en/language/functions/time/delay/
         delay(deviceSetupRestartDelay);

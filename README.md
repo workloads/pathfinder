@@ -1,11 +1,11 @@
-# Pathfinder
+# 🧭  Pathfinder
 
 > ESP32-based mobile edge computing device based on the Waveshare UGV platform
 
 ## Table of Contents
 
 <!-- TOC -->
-* [Pathfinder](#pathfinder)
+* [🧭  Pathfinder](#-pathfinder)
   * [Table of Contents](#table-of-contents)
   * [Requirements](#requirements)
     * [Hardware](#hardware)

@@ -12,17 +12,22 @@
 
 extern const size_t kLogLineBufferSize;
 
+// Log levels enumeration
 typedef enum { LOG_NONE = 0, LOG_ERROR = 1, LOG_WARN = 2, LOG_INFO = 3, LOG_DEBUG = 4, LOG_VERBOSE = 5 } LogLevel;
 
+// Mapping of log level names to their corresponding log level values
 struct LogLevelMap {
     const char *name;
     LogLevel    level;
 };
 
+// Global log level setting
 extern int logLevelGlobal;
 
+// Array of log level mappings
 extern const LogLevelMap logLevels[];
 
+// Size of the log levels array
 extern const int logLevelsSize;
 ////////////////////////////////////////////////////////////////////////////////
 
