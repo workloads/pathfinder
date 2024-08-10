@@ -53,9 +53,6 @@ const char *getLogLevelName(LogLevel level) {
  * @param args Additional arguments to format the log message.
  */
 void logPrintSerialLine(LogLevel level, const char *glyph, const char *tag, const char *logMessage, va_list args) {
-    // Debug print to check log levels
-    //    Serial.printf("logLevelGlobal: %d, level: %d\n", logLevelGlobal, level);
-
     // Check if serial connection is available and only continue if `level` is higher than globally set log level
     if (Serial) {
         // TODO(ksatirli) fix this
