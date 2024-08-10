@@ -13,7 +13,6 @@
  *
  * @return `true` if the string starts with a protocol, `false` otherwise.
  */
-bool helperCheckIfStringStartsWithProtocol(const char *input);
 inline bool helperCheckIfStringStartsWithProtocol(const char *input);
 
 /**
