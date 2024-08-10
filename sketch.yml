@@ -89,6 +89,10 @@ profiles:
         # see https://github.com/denyssene/SimpleKalmanFilter
         SimpleKalmanFilter (0.1)
 
+      -
+        # see https://github.com/denyssene/SimpleKalmanFilter
+        SimpleKalmanFilter (0.1)
+
     # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
     platforms:
       -
