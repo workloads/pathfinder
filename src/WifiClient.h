@@ -1,7 +1,6 @@
 #ifndef WIFICLIENT_H_
 #define WIFICLIENT_H_
 
-// Built-in and Third-Party libraries
 #include <ESPmDNS.h>
 #include <WiFi.h>
 

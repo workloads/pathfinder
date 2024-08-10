@@ -1,7 +1,6 @@
 #ifndef DEVICE_H_
 #define DEVICE_H_
 
-// Built-in and Third-Party libraries
 #include <Arduino.h>
 #include <ArduinoUniqueID.h>
 #include <esp_system.h>
