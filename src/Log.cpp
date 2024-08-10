@@ -4,7 +4,7 @@
 // CONFIGURATION                                                              //
 ////////////////////////////////////////////////////////////////////////////////
 
-// initialize log line buffer
+// Initialize log line buffer
 constexpr size_t kLogLineBufferSize = 128;
 
 // TODO(ksatirli): Set global log level from CORE_DEBUG_LEVEL
@@ -25,6 +25,13 @@ const int logLevelsSize = sizeof(logLevels) / sizeof(LogLevelMap);
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @brief Converts a numeric log level to its corresponding string representation.
+ *
+ * @param level The numeric log level.
+ *
+ * @return The string representation of the log level.
+ */
 const char *getLogLevelName(LogLevel level) {
     for (int i = 0; i < logLevelsSize; i++) {
         if (logLevels[i].level == level) {
@@ -36,6 +43,15 @@ const char *getLogLevelName(LogLevel level) {
     return "UNKNOWN";
 }
 
+/**
+ * @brief Prints a log message to the serial output.
+ *
+ * @param level The level of the log message.
+ * @param glyph The emoji representing the log level.
+ * @param tag The tag identifying the log source.
+ * @param logMessage The log message format string.
+ * @param args Additional arguments to format the log message.
+ */
 void logPrintSerialLine(LogLevel level, const char *glyph, const char *tag, const char *logMessage, va_list args) {
     // Debug print to check log levels
     //    Serial.printf("logLevelGlobal: %d, level: %d\n", logLevelGlobal, level);
@@ -55,6 +71,13 @@ void logPrintSerialLine(LogLevel level, const char *glyph, const char *tag, cons
     }
 }
 
+/**
+ * @brief Logs a message at `DEBUG` level.
+ *
+ * @param logTag The tag identifying the log source.
+ * @param logMessage The log message format string.
+ * @param ... Additional arguments to format the log message.
+ */
 void logDebug(const char *logTag, const char *logMessage, ...) {
     // Handle variable arguments:
     va_list args;
@@ -66,6 +89,13 @@ void logDebug(const char *logTag, const char *logMessage, ...) {
     va_end(args);
 }
 
+/**
+ * @brief Logs a message at `ERROR` level.
+ *
+ * @param logTag The tag identifying the log source.
+ * @param logMessage The log message format string.
+ * @param ... Additional arguments to format the log message.
+ */
 void logError(const char *logTag, const char *logMessage, ...) {
     // Handle variable arguments:
     va_list args;
@@ -77,6 +107,13 @@ void logError(const char *logTag, const char *logMessage, ...) {
     va_end(args);
 }
 
+/**
+ * @brief Logs a message at `INFO` level.
+ *
+ * @param logTag The tag identifying the log source.
+ * @param logMessage The log message format string.
+ * @param ... Additional arguments to format the log message.
+ */
 void logInfo(const char *logTag, const char *logMessage, ...) {
     // Handle variable arguments:
     va_list args;
@@ -88,6 +125,13 @@ void logInfo(const char *logTag, const char *logMessage, ...) {
     va_end(args);
 }
 
+/**
+ * @brief Logs a message at `WARN` level.
+ *
+ * @param logTag The tag identifying the log source.
+ * @param logMessage The log message format string.
+ * @param ... Additional arguments to format the log message.
+ */
 void logWarning(const char *logTag, const char *logMessage, ...) {
     // Handle variable arguments:
     va_list args;
@@ -99,6 +143,13 @@ void logWarning(const char *logTag, const char *logMessage, ...) {
     va_end(args);
 }
 
+/**
+ * @brief Logs a message at `VERBOSE` level.
+ *
+ * @param logTag The tag identifying the log source.
+ * @param logMessage The log message format string.
+ * @param ... Additional arguments to format the log message.
+ */
 void logVerbose(const char *logTag, const char *logMessage, ...) {
     // Handle variable arguments:
     va_list args;
@@ -110,6 +161,11 @@ void logVerbose(const char *logTag, const char *logMessage, ...) {
     va_end(args);
 }
 
+/**
+ * @brief Updates the global log level setting.
+ *
+ * @param level The new log level.
+ */
 void logSetLevel(LogLevel level) {
     const char *logTag = __func__;
 
