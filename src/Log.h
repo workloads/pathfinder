@@ -3,14 +3,11 @@
 
 #include <Arduino.h>
 
-#include <cstdarg>
-#include <cstddef>
-
 ////////////////////////////////////////////////////////////////////////////////
 // CONFIGURATION                                                              //
 ////////////////////////////////////////////////////////////////////////////////
 
-extern const size_t kLogLineBufferSize;
+constexpr size_t kLogLineBufferSize = 256;  // Example size, adjust as needed
 
 // Log levels enumeration
 typedef enum { LOG_NONE = 0, LOG_ERROR = 1, LOG_WARN = 2, LOG_INFO = 3, LOG_DEBUG = 4, LOG_VERBOSE = 5 } LogLevel;
