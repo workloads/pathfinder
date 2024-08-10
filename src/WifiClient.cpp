@@ -9,46 +9,46 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // Toggle to enable auto-reconnect to Wi-Fi
-const bool wifiAutoReconnect = true;
+constexpr bool wifiAutoReconnect = true;
 
 // How many milliseconds to delay after disconnect
-const int wifiDisconnectDelay = 1000;
+constexpr int wifiDisconnectDelay = 1000;
 
 // Wi-Fi hostname prefix
 // Must not be longer than 27 characters, as 5 characters
 // are reserved for the device identifier and a separator)
-const char *wifiHostnamePrefix = "pathfinder";
+constexpr char wifiHostnamePrefix[] = "pathfinder";
 
 // Wi-Fi hostname
 char wifiHostname[32];
 
 // Wi-Fi / mDNS instance name
-const char *wifiInstanceName = "Pathfinder";
+constexpr char wifiInstanceName[] = "Pathfinder";
 
 // Wi-Fi password
 char wifiPassword[64] = "workloads";
 
 // Wi-Fi Protected Access Mode
-const char wifiProtectedAccessMode[32] = "WPA2";
+constexpr char wifiProtectedAccessMode[] = "WPA2";
 
 // How many times to attempt to connect to Wi-Fi
-int wifiReconnectAttempts = 20;
+constexpr int wifiReconnectAttempts = 20;
 
 // How many milliseconds to delay before attempting reconnection
-const int wifiReconnectDelay = 1000;
+constexpr int wifiReconnectDelay = 1000;
 
 // How many milliseconds to delay the next Wi-Fi scan
-const int wifiRescanDelay = 10000;
+constexpr int wifiRescanDelay = 10000;
 
 // TODO(ksatirli): load from config file
 // Wi-Fi SSID (network name)
 char wifiSsid[32] = "workloads";
 
 // Toggle for hidden Wi-Fi SSID
-const bool wifiSsidHidden = false;
+constexpr bool wifiSsidHidden = false;
 
 // How many milliseconds to delay between status messages
-const int wifiStatusMessageDelay = 500;
+constexpr int wifiStatusMessageDelay = 500;
 ////////////////////////////////////////////////////////////////////////////////
 
 char *wifiGenerateHostname() {
@@ -234,7 +234,6 @@ void wifiStartMdnsService(const char *hostname, const char *instance_name) {
     if (err) {
         // TODO(ksatirli): add `err` to log message
         logError(logTag, "Failed to initialize mDNS: %s", esp_err_to_name(err));
-
         return;
     }
 

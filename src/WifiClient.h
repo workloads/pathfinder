@@ -14,6 +14,7 @@ char *wifiGenerateHostname();
 
 /**
  * @brief Disconnect from a Wi-Fi network.
+ *
  * @return True if the disconnection was successful, false otherwise.
  */
 bool wifiDisconnect();
