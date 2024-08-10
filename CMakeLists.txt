@@ -49,6 +49,10 @@ file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.h")
 # see https://cmake.org/cmake/help/v3.30/command/add_executable.html
 add_executable(pathfinder pathfinder.ino ${SOURCES})
 
+# ignore warning about literal suffixes, specifically for `libraries/Insights/src/Insights.cpp:8`
+# see https://cmake.org/cmake/help/v3.30/command/add_compile_options.html
+add_compile_options(-Wno-literal-suffix)
+
 # explicitly specify language as CXX (C++)
 # see https://cmake.org/cmake/help/v3.30/command/set_target_properties.html
 set_target_properties(pathfinder PROPERTIES LINKER_LANGUAGE CXX)

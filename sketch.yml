@@ -6,7 +6,9 @@
 # default flags for Arduino usage
 # see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#default-flags-for-arduino-cli-usage
 default_fqbn: "esp32:esp32:esp32"
-default_port: "/dev/cu.usbserial-1210"
+
+# `default_port` is dynamically set in the `Makefile`
+
 default_profile: default
 default_programmer: esptool
 
