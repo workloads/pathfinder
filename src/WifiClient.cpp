@@ -234,6 +234,7 @@ void wifiStartMdnsService(const char *hostname, const char *instance_name) {
     if (err) {
         // TODO(ksatirli): add `err` to log message
         logError(logTag, "Failed to initialize mDNS: %s", esp_err_to_name(err));
+
         return;
     }
 

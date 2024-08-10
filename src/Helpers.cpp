@@ -1,4 +1,5 @@
 #include "Helpers.h"
+
 #include "Log.h"
 
 inline bool helperCheckIfStringStartsWithProtocol(const char *input) {
