@@ -12,7 +12,6 @@ constexpr uint8_t displayWidth  = 32;
 
 // Display text color and size
 // See https://github.com/adafruit/Adafruit_SSD1306/blob/master/Adafruit_SSD1306.h for color overview
-
 constexpr uint16_t displayTextColor = SSD1306_WHITE;
 constexpr uint8_t  displayTextSize  = 1;
 

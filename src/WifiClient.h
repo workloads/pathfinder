@@ -7,7 +7,7 @@
 /**
  * @brief Generate Wi-Fi hostname.
  *
- * @return nil if the hostname was generated successfully
+ * @return nullptr if the hostname was generated successfully
  */
 char *wifiGenerateHostname();
 
