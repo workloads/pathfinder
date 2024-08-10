@@ -1,4 +1,5 @@
 #include "Device.h"
+
 #include "Display.h"
 
 // TODO(ksatirli) re-enable when upstream warning is fixed
