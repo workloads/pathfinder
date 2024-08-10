@@ -16,7 +16,7 @@ char applicationCompilationString[32];
 
 // TODO(ksatirli) move this to a configuration file
 // see https://dashboard.insights.espressif.com/home/manage-auth-keys/
-const char applicationInsightsKey[] = "<ENTER YOUR AUTH KEY>";
+const char applicationInsightsKey[] = "";
 
 // Toggle to sleep HTTP Server
 const bool enableHttpServer = false;

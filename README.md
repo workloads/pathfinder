@@ -107,6 +107,8 @@ docs-get-theme   retrieve Doxygen theme using git                `make docs-get-
 help             display a list of Make Targets                  `make help`
 _listincludes    list all included Makefiles and *.mk files      `make _listincludes`
 _selfcheck       lint Makefile                                   `make _selfcheck`
+vale             lint prose with Vale                            `make vale`
+vale-sync        sync Vale dependencies                          `make vale-sync`
 ```
 
 ## Notes
