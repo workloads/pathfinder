@@ -21,6 +21,7 @@ inline bool helperCheckIfStringStartsWithProtocol(const char *input);
  * @param inputAddr The IP Address to convert to a string.
  *
  * @return The string representation of the IP Address.
+ * @return A string representation of the IPAddress.
  */
 inline const char *helperIpAddressToString(IPAddress inputAddr);
 

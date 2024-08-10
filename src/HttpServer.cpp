@@ -2,7 +2,6 @@
 
 #include <WebServer.h>
 
-#include "Config.h"
 #include "Filesystem.h"
 #include "Log.h"
 
@@ -12,15 +11,30 @@
 
 // `7284` is `PATH` on a phone keypad
 const uint16_t httpServerPort = 7284;
-////////////////////////////////////////////////////////////////////////////////
 
 // Declare a pointer for the HTTP server for dynamic allocation
 WebServer *httpServer = nullptr;
+////////////////////////////////////////////////////////////////////////////////
 
-// Initialize HTTP server; this should be called in wifiConnect(), after WL_CONNECTED is reached
-void httpServerInit() {
+bool httpServerInit() {
     const char *logTag = __func__;
 
+    if (!httpServer) {
+        httpServer = new WebServer(httpServerPort);
+        logInfo(logTag, "HTTP server initialized on port `%d`", httpServerPort);
+
+        return true;
+    } else {
+        logError(logTag, "HTTP server pointer is null, initialization failed");
+
+        return false;
+    }
+}
+
+void httpServerMapRoutes() {
+    const char *logTag = __func__;
+
+    // TODO(ksatirli) dynamically populate these entries from a config
     if (httpServer) {
         // Handle requests to root
         httpServer->on("/", HTTP_GET, httpServerHandlerOnConnect);
@@ -29,9 +43,9 @@ void httpServerInit() {
         httpServer->onNotFound(httpServerHandlerNotFound);
 
         httpServer->begin();
-        logInfo(logTag, "HTTP server started on port `%d`", httpServerPort);
+        logInfo(logTag, "HTTP server routes mapped and server started on port `%d`", httpServerPort);
     } else {
-        logError(logTag, "HTTP server pointer is null, initialization failed");
+        logError(logTag, "HTTP server pointer is null, cannot map routes");
     }
 }
 

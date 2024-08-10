@@ -1,9 +1,8 @@
 #include "Device.h"
 
 #include "Display.h"
-
-// TODO(ksatirli) re-enable when upstream warning is fixed
-// #include "Insights.h"
+#include "HttpServer.h"
+// #include "Insights.h"  // TODO(ksatirli) re-enable when upstream warning is fixed
 #include "Log.h"
 #include "WifiClient.h"
 #include "WireClient.h"
@@ -19,7 +18,7 @@ char applicationCompilationString[32];
 const char applicationInsightsKey[] = "";
 
 // Toggle to sleep HTTP Server
-const bool enableHttpServer = false;
+const bool enableHttpServer = true;
 
 // Toggle to enable ESP Insights
 // See https://dashboard.insights.espressif.com/
@@ -98,6 +97,12 @@ bool deviceSetup() {
         return false;
     }
 
+    if (!httpServerInit()) {
+        logError(logTag, "Failed to initialize HTTP server");
+
+        return false;
+    }
+
     if (!displayInit()) {
         logError(logTag, "Failed to initialize Display");
 
@@ -128,7 +133,7 @@ void deviceLoop() {
 
     if (enableHttpServer) {
         logDebug(logTag, "Handling HTTP Server events");
-        //        httpServerHandleEvents();
+        httpServerHandleEvents();
     }
 
     // Update display

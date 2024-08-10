@@ -8,7 +8,8 @@ inline bool helperCheckIfStringStartsWithProtocol(const char *input) {
 }
 
 inline const char *helperIpAddressToString(IPAddress inputAddr) {
-    static char output[16];  // Static storage duration to return safely, 15 characters + null terminator
+    // 15 characters + null terminator
+    static char output[16];
     snprintf(output, sizeof(output), "%d.%d.%d.%d", inputAddr[0], inputAddr[1], inputAddr[2], inputAddr[3]);
 
     logInfo(__func__, "IP Address: %s", output);

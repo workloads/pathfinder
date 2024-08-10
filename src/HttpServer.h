@@ -12,8 +12,17 @@ extern WebServer *httpServer;
  * @brief Initialize and configure the HTTP server.
  *
  * This function sets up the HTTP server, registers request handlers, and starts the server.
+ *
+ * @return True if the server was successfully initialized, false otherwise.
  */
-void httpServerInit();
+bool httpServerInit();
+
+/**
+ * @brief Map routes for the HTTP server.
+ *
+ * This function streams a file to the client over HTTP.
+ */
+void httpServerMapRoutes();
 
 /**
  * @brief Stream a file over HTTP.
