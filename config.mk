@@ -41,8 +41,7 @@ ARDUINO_LIBRARIES_UPSTREAM ?= \
     "SimpleKalmanFilter@0.1"
 
 # list of unsafe / non-upstream Arduino libraries to be installed
-ARDUINO_LIBRARIES_UNSAFE ?= \
-	"https://github.com/workloads/scservo.git"
+ARDUINO_LIBRARIES_UNSAFE ?= ""
 
 # path to the Arduino sketch configuration file
 ARDUINO_SKETCH_CONFIG ?= "config.yml"

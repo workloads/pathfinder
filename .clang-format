@@ -22,9 +22,13 @@ AlignConsecutiveShortCaseStatements:
 
 AlignEscapedNewlines: Left
 AlignOperands: true
-AlignTrailingComments: true
+
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 2
 
 AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortFunctionsOnASingleLine: None
 AllowShortLoopsOnASingleLine: true
 
