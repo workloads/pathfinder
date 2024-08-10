@@ -1,36 +1,51 @@
 #ifndef HTTPSERVER_H_
 #define HTTPSERVER_H_
 
-#include "./Assets.h"
+#include <WebServer.h>
 
-// Create AsyncWebServer object on port 80
-WebServer server(80);
+/**
+ * @brief Global pointer to the HTTP server instance.
+ */
+extern WebServer *httpServer;
 
-void httpServerHandleRoot() {
-    server.send(200, "text/html", assetWebserverIndex);  // Send web page
-}
+/**
+ * @brief Initialize and configure the HTTP server.
+ *
+ * This function sets up the HTTP server, registers request handlers, and starts the server.
+ */
+void httpServerInit();
 
-void httpServerController() {
-    server.on("/", httpServerHandleRoot);
+/**
+ * @brief Stream a file over HTTP.
+ *
+ * This function streams a file to the client over HTTP.
+ *
+ * @param server Pointer to the WebServer instance.
+ * @param filename Name of the file to stream.
+ * @param contentType Content type of the file.
+ * @return True if the file was successfully streamed, false otherwise.
+ */
+bool httpServerStreamFile(WebServer *server, const char *filename, const char *contentType = "text/html");
 
-    server.on("/js", []() {
-        String jsonCmdWebString = server.arg(0);
-        deserializeJson(jsonCmdReceive, jsonCmdWebString);
-        jsonCmdReceiveHandler();
-        serializeJson(jsonInfoHttp, jsonFeedbackWeb);
-        server.send(200, "text/json", jsonFeedbackWeb);
-        jsonFeedbackWeb = "";
-        jsonInfoHttp.clear();
-        jsonCmdReceive.clear();
-    });
+/**
+ * @brief Begin processing incoming HTTP requests.
+ *
+ * This function handles incoming HTTP requests and processes them.
+ */
+void httpServerHandleEvents();
 
-    // Start server
-    server.begin();
-    Serial.println("Server Starts.");
-}
+/**
+ * @brief Handle requests to the root ("/") path.
+ *
+ * This function handles HTTP GET requests to the root path.
+ */
+void httpServerHandlerOnConnect();
 
-void httpServerInit() {
-    httpServerController();
-}
+/**
+ * @brief Handle requests to undefined paths.
+ *
+ * This function handles HTTP requests to paths that are not defined.
+ */
+void httpServerHandlerNotFound();
 
 #endif  // HTTPSERVER_H_

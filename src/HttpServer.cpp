@@ -36,44 +36,45 @@ void httpServerInit() {
 }
 
 bool httpServerStreamFile(WebServer *server, const char *filename, const char *contentType) {
-    bool httpServerStreamFile(WebServer * server, const char *filename, const char *contentType = "text/html") {
-        const char *logTag = __func__;
+    const char *logTag = __func__;
 
-        File file = filesystemStreamFile(filename, "r");
-        if (!file) {
-            logError(logTag, "Failed to open file `%s`", filename);
-            return false;
-        }
+    File file = filesystemStreamFile(filename, "r");
 
-        server->streamFile(file, contentType);
-        file.close();
+    if (!file) {
+        logError(logTag, "Failed to open file `%s`", filename);
 
-        logInfo(logTag, "File streamed successfully `%s`", filename);
-
-        return true;
+        return false;
     }
 
-    void httpServerHandleEvents() {
-        const char *logTag = __func__;
+    server->streamFile(file, contentType);
+    file.close();
 
-        if (httpServer) {
-            httpServer->handleClient();
-            logInfo(logTag, "HTTP server handling client interactions");
-        } else {
-            logError(logTag, "HTTP server not initialized");
-        }
+    logInfo(logTag, "File streamed successfully `%s`", filename);
+
+    return true;
+}
+
+void httpServerHandleEvents() {
+    const char *logTag = __func__;
+
+    if (httpServer) {
+        httpServer->handleClient();
+        logInfo(logTag, "HTTP server handling client interactions");
+    } else {
+        logError(logTag, "HTTP server not initialized");
     }
+}
 
-    void httpServerHandlerOnConnect() {
-        const char *logTag = __func__;
+void httpServerHandlerOnConnect() {
+    const char *logTag = __func__;
 
-        if (!httpServerStreamFile(httpServer, "/index.html", "text/html")) {
-            httpServer->send(500, "text/plain", "Internal Server Error");
-        }
+    if (!httpServerStreamFile(httpServer, "/index.html", "text/html")) {
+        httpServer->send(500, "text/plain", "Internal Server Error");
     }
+}
 
-    void httpServerHandlerNotFound() {
-        const char *logTag = __func__;
+void httpServerHandlerNotFound() {
+    const char *logTag = __func__;
 
-        httpServer->send(404, "text/plain", "404: Not Found");
-    }
+    httpServer->send(404, "text/plain", "404: Not Found");
+}
