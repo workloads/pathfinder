@@ -74,6 +74,10 @@ profiles:
         LittleFS_esp32 (1.0.6)
 
       -
+        # see https://github.com/floatplane/ministache
+        Ministache (1.0.1)
+
+      -
         # see https://github.com/imax9000/Arduino-PID-Library
         PID_v2 (2.0.1)
 

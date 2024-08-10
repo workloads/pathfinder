@@ -36,6 +36,7 @@ ARDUINO_LIBRARIES_UPSTREAM ?= \
     "ICM20948_WE@1.1.8" \
     "INA219_WE@1.3.8" \
     "LittleFS_esp32@1.0.6" \
+    "Ministache@1.0.1" \
     "PID_v2@2.0.1" \
     "SCServo@1.0.2" \
     "SimpleKalmanFilter@0.1"

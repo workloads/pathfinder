@@ -115,7 +115,7 @@ _selfcheck       lint Makefile                                   `make _selfchec
 
 This repository does not include any datasheets directly.
 
-* for the Waveshare WAVE ROVER`, see [waveshare.com](https://www.waveshare.com/wiki/WAVE_ROVER#Resource)
+* for the Waveshare WAVE ROVER, see [waveshare.com](https://www.waveshare.com/wiki/WAVE_ROVER#Resource)
 * for the Waveshare OLED module, see [waveshare.com](https://www.waveshare.com/wiki/0.91inch_OLED_Module)
 * for the ESP32 `WROOM-32UE-N4` module, see [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf)
 
