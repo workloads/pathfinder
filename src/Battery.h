@@ -1,34 +1,45 @@
 #ifndef BATTERY_H_
 #define BATTERY_H_
 
-#define INA219_ADDRESS 0x42
-INA219_WE ina219 = INA219_WE(INA219_ADDRESS);
+#include <Arduino.h>
+#include <INA219_WE.h>
+#include <Wire.h>
 
-float shuntVoltage_mV = 0.0;
-float loadVoltage_V   = 0.0;
-float busVoltage_V    = 0.0;
-float current_mA      = 0.0;
-float power_mW        = 0.0;
-bool  ina219_overflow = false;
+// Battery address
+extern const uint8_t batteryAddress;
 
-void ina219_init() {
-    if (!ina219.init()) {
-        Serial.println("INA219 not connected!");
-    }
+// Battery Bit Mode
+extern const BitMode batteryBitMode;
 
-    ina219.setADCMode(BIT_MODE_9);
-    ina219.setPGain(PG_320);
-    ina219.setBusRange(BRNG_16);
-    ina219.setShuntSizeInOhms(0.01);  // used in INA219.
-}
+// Battery Power Gain (`PGain`)
+extern const PGain batteryPGain;
 
-void inaDataUpdate() {
-    shuntVoltage_mV = ina219.getShuntVoltage_mV();
-    busVoltage_V    = ina219.getBusVoltage_V();
-    current_mA      = ina219.getCurrent_mA();
-    power_mW        = ina219.getBusPower();
-    loadVoltage_V   = busVoltage_V + (shuntVoltage_mV / 1000);
-    ina219_overflow = ina219.getOverflow();
-}
+// Battery Bus Voltage Range
+extern const BRNG batteryBusVoltageRange;
+
+// Battery Shunt Size
+extern const float batteryShuntSize;
+
+class BatteryData {
+  public:
+    float shuntVoltage    = 0.0;  // value in `mV`
+    float busVoltage      = 0.0;  // value in `V`
+    float current         = 0.0;  // value in `mV`
+    float power           = 0.0;  // value in `mW`
+    float loadVoltage     = 0.0;  // value in `V`
+    bool  ina219_overflow = false;
+};
+
+class Battery {
+  public:
+    Battery();
+    bool               setup();
+    void               update();
+    const BatteryData& getData() const;
+
+  private:
+    INA219_WE   ina219;
+    BatteryData data;
+};
 
 #endif  // BATTERY_H_
