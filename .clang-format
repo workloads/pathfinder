@@ -4,7 +4,7 @@
 # see https://google.github.io/styleguide/cppguide.html
 BasedOnStyle: Google
 
-AccessModifierOffset: -2
+AccessModifierOffset: -1
 
 AlignAfterOpenBracket: true
 
@@ -23,6 +23,7 @@ AlignConsecutiveShortCaseStatements:
   AlignCaseColons: false
 
 AlignEscapedNewlines: Left
+
 AlignOperands: true
 
 AlignTrailingComments:
@@ -65,7 +66,7 @@ ColumnLimit: 999
 EmptyLineBeforeAccessModifier: LogicalBlock
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#emptylineafteraccessmodifier
-EmptyLineAfterAccessModifier: Always
+EmptyLineAfterAccessModifier: Never
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#indentwidth
 IndentWidth: 4
