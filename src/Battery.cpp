@@ -1,5 +1,4 @@
 #include "Battery.h"
-
 #include "Log.h"
 
 // Battery address
@@ -66,11 +65,11 @@ void Battery::update() {
     data.ina219_overflow = ina219.getOverflow();
 
     logDebug(logTag, "Battery Data:");
-    logDebug(logTag, "  Shunt:    %s mV", data.shuntVoltage);
-    logDebug(logTag, "  Bus:      %s V", data.busVoltage);
-    logDebug(logTag, "  Current:  %s mV", data.current);
-    logDebug(logTag, "  Power:    %s V", data.power);
-    logDebug(logTag, "  Overflow: %s", data.ina219_overflow);
+    logDebug(logTag, "  Shunt:    %f mV", data.shuntVoltage);
+    logDebug(logTag, "  Bus:      %f V", data.busVoltage);
+    logDebug(logTag, "  Current:  %f mA", data.current);
+    logDebug(logTag, "  Power:    %f mW", data.power);
+    logDebug(logTag, "  Overflow: %d", data.ina219_overflow);
 }
 
 const BatteryData &Battery::getData() const {

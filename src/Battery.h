@@ -21,23 +21,23 @@ extern const BRNG batteryBusVoltageRange;
 extern const float batteryShuntSize;
 
 class BatteryData {
-  public:
+   public:
     float shuntVoltage    = 0.0;  // value in `mV`
     float busVoltage      = 0.0;  // value in `V`
-    float current         = 0.0;  // value in `mV`
+    float current         = 0.0;  // value in `mA`
     float power           = 0.0;  // value in `mW`
     float loadVoltage     = 0.0;  // value in `V`
     bool  ina219_overflow = false;
 };
 
 class Battery {
-  public:
+   public:
     Battery();
     bool               setup();
     void               update();
     const BatteryData& getData() const;
 
-  private:
+   private:
     INA219_WE   ina219;
     BatteryData data;
 };
