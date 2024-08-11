@@ -4,6 +4,8 @@
 # see https://google.github.io/styleguide/cppguide.html
 BasedOnStyle: Google
 
+AccessModifierOffset: -2
+
 AlignAfterOpenBracket: true
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#alignarrayofstructures
@@ -59,8 +61,15 @@ BraceWrapping:
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#columnlimit
 ColumnLimit: 999
 
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#emptylinebeforeaccessmodifier
+EmptyLineBeforeAccessModifier: LogicalBlock
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#emptylineafteraccessmodifier
+EmptyLineAfterAccessModifier: Always
+
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#indentwidth
 IndentWidth: 4
+IndentAccessModifiers: false
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#language
 Language: Cpp

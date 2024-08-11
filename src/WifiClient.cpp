@@ -227,7 +227,7 @@ void wifiScanNetworks() {
 void wifiStartMdnsService(const char *hostname, const char *instance_name) {
     const char *logTag = __func__;
 
-    // Initialize mDNS service
+    // Initialize mDNS Service
     logDebug(logTag, "Initializing mDNS service");
     esp_err_t err = mdns_init();
 

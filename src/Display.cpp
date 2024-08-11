@@ -22,8 +22,9 @@ constexpr int8_t displayResetPin = -1;
 //             128 x 32 display = `0x3C`
 //             128 x 64 display = `0x3D`
 constexpr uint8_t displayAddress = 0x3C;
+////////////////////////////////////////////////////////////////////////////////
 
-// Initialize display library
+// Initialize Display Library
 Adafruit_SSD1306 display(displayWidth, displayHeight, &Wire, displayResetPin);
 
 bool displayInit() {

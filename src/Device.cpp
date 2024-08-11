@@ -74,6 +74,9 @@ bool deviceSetup() {
     snprintf(applicationCompilationString, sizeof(applicationCompilationString), "%s at %s", __DATE__, __TIME__);
 
     // Print to serial monitor directly as loggers are not yet initialized
+    Serial.println();
+    Serial.println('----------------------------------------------------------------');
+
     char initialLogMessage[64];
     snprintf(initialLogMessage, sizeof(initialLogMessage), "[%s][🏁 START] Initializing device", logTag);
     Serial.println(initialLogMessage);
