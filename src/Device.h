@@ -2,7 +2,7 @@
 #define DEVICE_H_
 
 #include <Arduino.h>
-#include <ArduinoUniqueID.h>
+#include <ArduinoUniqueID.h>  // http://librarymanager/All/Other#ArduinoUniqueID
 #include <esp_system.h>
 
 /**

@@ -1,7 +1,7 @@
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
-#include <Adafruit_SSD1306.h>
+#include <Adafruit_SSD1306.h>  // http://librarymanager/All/Display#Adafruit_SSD1306
 #include <Arduino.h>
 #include <Wire.h>
 

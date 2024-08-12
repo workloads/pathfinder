@@ -1,7 +1,7 @@
 #ifndef FILESYSTEM_H_
 #define FILESYSTEM_H_
 
-#include <LittleFS.h>
+#include <LittleFS.h>  // http://librarymanager/All/Data%20Storage#LittleFS_esp32
 
 /**
  * @brief Initialize the filesystem.
