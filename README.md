@@ -60,7 +60,7 @@ The _Camera Platform_ (`CP`) provides visual detection capabilities for the _Pat
 This group consists of:
 
 - 1 x Waveshare [2-axis Pan-Tilt Camera Module](https://www.waveshare.com/2-axis-pan-tilt-camera-module.htm)
-- 1 x youyeetoo [FHL-LD19P](https://wiki.youyeetoo.com/en/Lidar/D300) Lidar device (or compatible)
+- 1 x youyeetoo [FHL-LD19P](https://www.youyeetoo.com/products/fhl-ld19-lidar-sensor-12meter-39ft-360°-ranging) Lidar device (or compatible)
 
 ### Software
 
@@ -94,6 +94,7 @@ Target           Description                                     Usage
 lint-arduino     lint Arduino code using arduino-lint            `make lint-arduino`
 lint-cpp         lint C++ code using cpplint and clang-format    `make lint-cpp`
 lint-yaml        lint YAML files                                 `make lint-yaml`
+lint-openapi     lint OpenAPI specification with spectral        `make lint-openapi`
 attach           attach Arduino Board using arduino-cli          `make attach`
 clean            clean Arduino cache using arduino-cli           `make clean`
 compile          compile Arduino Sketch using arduino-cli        `make compile`
