@@ -30,10 +30,10 @@ void setup() {
     Serial.begin(serialBaudRate);
     Serial.println("Serial connection initialized");
 
-    logDebug(logTag, "Initializing device setup");
+    Log::debug(logTag, "Initializing device setup");
 
-    while (!deviceSetup()) {
-        logWarning(logTag, "Device setup failed, retrying in %d seconds...", deviceSetupRestartDelay / 1000);  // NOLINT(whitespace/line_length)
+    while (!Device::setup()) {
+        Log::warning(logTag, "Device setup failed, retrying in %d seconds...", deviceSetupRestartDelay / 1000);  // NOLINT(whitespace/line_length)
 
         // Delay restart of `setup()` so device and ecosystem (e.g.: Wi-Fi APs)
         // have enough time to process operations and restore connectivity
@@ -44,5 +44,5 @@ void setup() {
 
 // Enter application flow
 void loop() {
-    deviceLoop();
+    Device::loop();
 }

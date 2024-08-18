@@ -12,8 +12,8 @@ project(
 # see https://cmake.org/cmake/help/latest/variable/CMAKE_LANG_CLANG_TIDY.html
 set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,readability-*)
 
-# see https://docs.espressif.com/projects/esp-idf/en/v3.30/esp32s3/api-guides/cplusplus.html
-set(CMAKE_CXX_STANDARD 11)
+# see https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/cplusplus.html
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # generate `compile_commands.json` for use with `clangd`

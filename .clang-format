@@ -4,8 +4,6 @@
 # see https://google.github.io/styleguide/cppguide.html
 BasedOnStyle: Google
 
-AccessModifierOffset: -1
-
 AlignAfterOpenBracket: true
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#alignarrayofstructures
@@ -23,15 +21,10 @@ AlignConsecutiveShortCaseStatements:
   AlignCaseColons: false
 
 AlignEscapedNewlines: Left
-
 AlignOperands: true
-
-AlignTrailingComments:
-  Kind: Always
-  OverEmptyLines: 2
+AlignTrailingComments: true
 
 AllowAllArgumentsOnNextLine: true
-AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortFunctionsOnASingleLine: None
 AllowShortLoopsOnASingleLine: true
 
@@ -62,18 +55,14 @@ BraceWrapping:
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#columnlimit
 ColumnLimit: 999
 
-# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#emptylinebeforeaccessmodifier
-EmptyLineBeforeAccessModifier: LogicalBlock
-
-# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#emptylineafteraccessmodifier
-EmptyLineAfterAccessModifier: Never
-
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#indentwidth
 IndentWidth: 4
-IndentAccessModifiers: false
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#language
 Language: Cpp
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#lineending
+LineEnding: CRLF
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#reflowcomments
 ReflowComments: false
@@ -81,6 +70,11 @@ ReflowComments: false
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#removeparentheses
 RemoveParentheses: MultipleParentheses
 
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#removesemicolon
 RemoveSemicolon: True
 
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#standard
+Standard: Cpp23
+
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#usetab
 UseTab: Never
