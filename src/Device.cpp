@@ -1,34 +1,18 @@
 #include "Device.h"
 
-#include "Display.h"
-#include "HttpServer.h"
-// #include "Insights.h"  // TODO(ksatirli) re-enable when upstream warning is fixed
-#include "Log.h"
-#include "WifiClient.h"
-#include "WireClient.h"
-
-////////////////////////////////////////////////////////////////////////////////
-// CONFIGURATION                                                              //
-////////////////////////////////////////////////////////////////////////////////
-
-char applicationCompilationString[32];
-
-// TODO(ksatirli) move this to a configuration file
-// see https://dashboard.insights.espressif.com/home/manage-auth-keys/
-const char applicationInsightsKey[] = "";
+// Internal configuration variables
+char Device::applicationCompilationString[32];
 
 // Toggle to sleep HTTP Server
-const bool enableHttpServer = true;
+const bool Device::enableHttpServer = true;
 
 // Toggle to enable ESP Insights
-// See https://dashboard.insights.espressif.com/
-const bool enableInsights = false;
+const bool Device::enableInsights = false;
 
 // Toggle to enable configuration changes via serial interface
-const bool enableSerialConfiguration = true;
-////////////////////////////////////////////////////////////////////////////////
+const bool Device::enableSerialConfiguration = true;
 
-char *deviceIdentifier(int length) {
+char *Device::identifier(int length) {
     const char *logTag = __func__;
 
     // Temporary buffer to hold the full UniqueID8 as a hex string
@@ -67,7 +51,7 @@ char *deviceIdentifier(int length) {
     return identifier;
 }
 
-bool deviceSetup() {
+bool Device::setup() {
     const char *logTag = __func__;
 
     // Store compilation time string
@@ -75,46 +59,47 @@ bool deviceSetup() {
 
     // Print to serial monitor directly as loggers are not yet initialized
     Serial.println();
-    Serial.println('----------------------------------------------------------------');
+    Serial.println("----------------------------------------------------------------");
 
-    char initialLogMessage[64];
+    char initialLogMessage[96];
     snprintf(initialLogMessage, sizeof(initialLogMessage), "[%s][🏁 START] Initializing device", logTag);
     Serial.println(initialLogMessage);
 
     // Explicitly set the log level
-    logSetLevel(static_cast<LogLevel>(CORE_DEBUG_LEVEL));
+    Log::setLevel(static_cast<LogLevel>(CORE_DEBUG_LEVEL));
+
+    // TODO(ksatirli): Initialize Battery
+    // Battery::init();
+
+    // Create an instance of WifiClient
+    WifiClient wifiClient;
 
     // Scan for Wi-Fi networks
-    wifiScanNetworks();
+    wifiClient.scanNetworks();
 
     // Wi-Fi and other initialization code
-    if (!wifiDisconnect()) {
-        logError(logTag, "Failed to disconnect previous Wi-Fi connection");
-
+    if (!wifiClient.disconnect()) {
+        Log::error(logTag, "Failed to disconnect previous Wi-Fi connection");
         return false;
     }
 
-    if (!wifiConnect()) {
-        logError(logTag, "Failed to establish a Wi-Fi connection");
-
+    if (!wifiClient.connect()) {
+        Log::error(logTag, "Failed to establish a Wi-Fi connection");
         return false;
     }
 
-    if (!httpServerInit()) {
-        logError(logTag, "Failed to initialize HTTP server");
-
+    if (!HttpServer::init()) {
+        Log::error(logTag, "Failed to initialize HTTP server");
         return false;
     }
 
-    if (!displayInit()) {
-        logError(logTag, "Failed to initialize Display");
-
+    if (!Display::init()) {
+        Log::error(logTag, "Failed to initialize Display");
         return false;
     }
 
-    if (!wireInit()) {
-        logError(logTag, "Failed to initialize Wire");
-
+    if (!WireClient::init()) {
+        Log::error(logTag, "Failed to initialize Wire");
         return false;
     }
 
@@ -126,26 +111,26 @@ bool deviceSetup() {
     return true;
 }
 
-void deviceLoop() {
+void Device::loop() {
     const char *logTag = __func__;
 
     if (enableSerialConfiguration) {
-        logDebug(logTag, "Handling serial input events");
-        //        serialHandleEvents();
+        Log::debug(logTag, "Handling serial input events");
+        // Serial::handleEvents();
     }
 
     if (enableHttpServer) {
-        logDebug(logTag, "Handling HTTP Server events");
-        httpServerHandleEvents();
+        Log::debug(logTag, "Handling HTTP Server events");
+        HttpServer::handleEvents();
     }
 
     // Update display
     const char *lines[4] = {"Line 1", "Line 2", "Line 3", "Line 4"};
-    displayUpdate(lines);
+    Display::update(lines);
 }
 
-void deviceInformation() {
+void Device::information() {
     const char *logTag = __func__;
 
-    // TODO(ksatirli) add code here
+    // TODO(ksatirli): Add code here to gather and display device information
 }

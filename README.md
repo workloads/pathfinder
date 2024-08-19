@@ -93,8 +93,8 @@ Running `make` without commands will print out the following help information:
 Target           Description                                     Usage
 lint-arduino     lint Arduino code using arduino-lint            `make lint-arduino`
 lint-cpp         lint C++ code using cpplint and clang-format    `make lint-cpp`
-lint-yaml        lint YAML files                                 `make lint-yaml`
-lint-openapi     lint OpenAPI specification with spectral        `make lint-openapi`
+lint-yaml        lint YAML files using yamllint                  `make lint-yaml`
+lint-openapi     lint OAS files using spectral                   `make lint-openapi`
 attach           attach Arduino Board using arduino-cli          `make attach`
 clean            clean Arduino cache using arduino-cli           `make clean`
 compile          compile Arduino Sketch using arduino-cli        `make compile`
@@ -108,7 +108,7 @@ docs-get-theme   retrieve Doxygen theme using git                `make docs-get-
 help             display a list of Make Targets                  `make help`
 _listincludes    list all included Makefiles and *.mk files      `make _listincludes`
 _selfcheck       lint Makefile                                   `make _selfcheck`
-vale             lint prose with Vale                            `make vale`
+lint-vale        lint prose using vale                           `make lint-vale`
 vale-sync        sync Vale dependencies                          `make vale-sync`
 ```
 

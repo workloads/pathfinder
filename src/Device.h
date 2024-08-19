@@ -5,30 +5,55 @@
 #include <ArduinoUniqueID.h>  // http://librarymanager/All/Other#ArduinoUniqueID
 #include <esp_system.h>
 
-/**
- * @brief Retrieves device identifier
- *
- * This function retrieves a unique device identifier and formats it for downstream use
- *
- * @param length The length of the string to return.
- *
- * @return The text representation of the device identifier
- */
-char *deviceIdentifier(int length = 16);
+#include "Display.h"
+#include "HttpServer.h"
+#include "Log.h"
+#include "WifiClient.h"
+#include "WireClient.h"
 
 /**
- * @brief Initializes the `setup` stage.
+ * @brief Device class for managing device-specific operations such as setup, loop, and information retrieval.
  */
-bool deviceSetup();
+class Device {
+ private:
+    static char applicationCompilationString[32];
 
-/**
- * @brief Executes the `loop` stage.
- */
-void deviceLoop();
+    // Toggle to sleep HTTP Server
+    static const bool enableHttpServer;
 
-/**
- * @brief Gathers device information from ESP32 module.
-*/
-void deviceInformation();
+    // Toggle to enable ESP Insights
+    static const bool enableInsights;
+
+    // Toggle to enable configuration changes via serial interface
+    static const bool enableSerialConfiguration;
+
+ public:
+    /**
+     * @brief Retrieves device identifier.
+     *
+     * This function retrieves a unique device identifier and formats it for downstream use.
+     *
+     * @param length The length of the string to return.
+     * @return The text representation of the device identifier.
+     */
+    static char *identifier(int length = 16);
+
+    /**
+     * @brief Initializes the `setup` stage.
+     *
+     * @return `true` if setup was successful, `false` otherwise.
+     */
+    static bool setup();
+
+    /**
+     * @brief Executes the `loop` stage.
+     */
+    static void loop();
+
+    /**
+     * @brief Gathers device information from ESP32 module.
+     */
+    static void information();
+};
 
 #endif  // DEVICE_H_
