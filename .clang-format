@@ -1,8 +1,6 @@
 ---
 
-# provide suggestions based on Google's Style Guide
-# see https://google.github.io/styleguide/cppguide.html
-BasedOnStyle: Google
+AccessModifierOffset: -3
 
 AlignAfterOpenBracket: true
 
@@ -29,6 +27,10 @@ AllowShortFunctionsOnASingleLine: None
 AllowShortLoopsOnASingleLine: true
 
 AlwaysBreakBeforeMultilineStrings: true
+
+# provide suggestions based on Google's Style Guide
+# see https://google.github.io/styleguide/cppguide.html
+BasedOnStyle: Google
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#binpackarguments
 BinPackArguments: false
@@ -62,7 +64,7 @@ IndentWidth: 4
 Language: Cpp
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#lineending
-LineEnding: CRLF
+LineEnding: LF
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#reflowcomments
 ReflowComments: false
@@ -73,8 +75,9 @@ RemoveParentheses: MultipleParentheses
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#removesemicolon
 RemoveSemicolon: True
 
+# TODO: update this to `c++23` when it becomes available
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#standard
-Standard: Cpp23
+Standard: c++20
 
 # see https://clang.llvm.org/docs/ClangFormatStyleOptions.html#usetab
 UseTab: Never
