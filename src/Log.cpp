@@ -1,18 +1,7 @@
 #include "Log.h"
 
-////////////////////////////////////////////////////////////////////////////////
-// CONFIGURATION                                                              //
-////////////////////////////////////////////////////////////////////////////////
-
-// Initialize log line buffer
-constexpr size_t kLogLineBufferSize = 128;
-
-// TODO(ksatirli): Set global log level from CORE_DEBUG_LEVEL
-// ⚠️ Levels `LOG_INFO`, `LOG_DEBUG`, and `LOG_VERBOSE` may result in a performance decrease
-int logLevelGlobal = LOG_ERROR;
-
-// Define log levels and their corresponding integer values
-const LogLevelMap logLevels[] = {
+// Initialize the log level mappings
+const LogLevelMap Log::logLevels[] = {
     {"NONE",    LOG_NONE   },
     {"ERROR",   LOG_ERROR  },
     {"WARN",    LOG_WARN   },
@@ -21,23 +10,26 @@ const LogLevelMap logLevels[] = {
     {"VERBOSE", LOG_VERBOSE}
 };
 
-const int logLevelsSize = sizeof(logLevels) / sizeof(LogLevelMap);
+// Initialize the size of the log level mappings array
+const int Log::logLevelsSize = sizeof(Log::logLevels) / sizeof(LogLevelMap);
 
-const char *getLogLevelName(LogLevel level) {
+// Initialize the global log level setting
+int Log::logLevelGlobal = LOG_INFO;
+
+const char *Log::getLogLevelName(LogLevel level) {
     for (int i = 0; i < logLevelsSize; i++) {
         if (logLevels[i].level == level) {
             return logLevels[i].name;
         }
     }
-
     // Return "UNKNOWN" if the level is not found
     return "UNKNOWN";
 }
 
-void logPrintSerialLine(LogLevel level, const char *glyph, const char *tag, const char *logMessage, va_list args) {
+void Log::printSerialLine(LogLevel level, const char *glyph, const char *tag, const char *logMessage, va_list args) {
     // Check if serial connection is available and only continue if `level` is higher than globally set log level
     if (Serial) {
-        // TODO(ksatirli) fix this
+        // TODO(ksatirli): fix this
         // if (Serial && level <= logLevelGlobal) {
         // Create buffer for log line content
         char logLine[kLogLineBufferSize];
@@ -50,65 +42,65 @@ void logPrintSerialLine(LogLevel level, const char *glyph, const char *tag, cons
     }
 }
 
-void logDebug(const char *logTag, const char *logMessage, ...) {
+void Log::debug(const char *logTag, const char *logMessage, ...) {
     // Handle variable arguments:
     va_list args;
     va_start(args, logMessage);
 
     // Assemble log line:
-    logPrintSerialLine(LOG_DEBUG, "🟦", logTag, logMessage, args);
+    printSerialLine(LOG_DEBUG, "🟦", logTag, logMessage, args);
 
     va_end(args);
 }
 
-void logError(const char *logTag, const char *logMessage, ...) {
+void Log::error(const char *logTag, const char *logMessage, ...) {
     // Handle variable arguments:
     va_list args;
     va_start(args, logMessage);
 
     // Assemble log line:
-    logPrintSerialLine(LOG_ERROR, "🟥", logTag, logMessage, args);
+    printSerialLine(LOG_ERROR, "🟥", logTag, logMessage, args);
 
     va_end(args);
 }
 
-void logInfo(const char *logTag, const char *logMessage, ...) {
+void Log::info(const char *logTag, const char *logMessage, ...) {
     // Handle variable arguments:
     va_list args;
     va_start(args, logMessage);
 
     // Assemble log line:
-    logPrintSerialLine(LOG_INFO, "🟩", logTag, logMessage, args);
+    printSerialLine(LOG_INFO, "🟩", logTag, logMessage, args);
 
     va_end(args);
 }
 
-void logWarning(const char *logTag, const char *logMessage, ...) {
+void Log::warning(const char *logTag, const char *logMessage, ...) {
     // Handle variable arguments:
     va_list args;
     va_start(args, logMessage);
 
     // Assemble log line:
-    logPrintSerialLine(LOG_WARN, "🟨", logTag, logMessage, args);
+    printSerialLine(LOG_WARN, "🟨", logTag, logMessage, args);
 
     va_end(args);
 }
 
-void logVerbose(const char *logTag, const char *logMessage, ...) {
+void Log::verbose(const char *logTag, const char *logMessage, ...) {
     // Handle variable arguments:
     va_list args;
     va_start(args, logMessage);
 
     // Assemble log line:
-    logPrintSerialLine(LOG_VERBOSE, "⬛", logTag, logMessage, args);
+    printSerialLine(LOG_VERBOSE, "⬛", logTag, logMessage, args);
 
     va_end(args);
 }
 
-void logSetLevel(LogLevel level) {
+void Log::setLevel(LogLevel level) {
     const char *logTag = __func__;
 
-    logInfo(logTag, "Setting log level to %d", level);
+    info(logTag, "Setting log level to %d", level);
 
     // Update global log level
     logLevelGlobal = level;
