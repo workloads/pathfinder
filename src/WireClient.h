@@ -4,8 +4,21 @@
 #include <Wire.h>
 
 /**
- * @brief Initializes the Wire
+ * @brief WireClient class for managing I2C communication initialization.
  */
-bool wireInit();
+class WireClient {
+ private:
+    // Configuration
+    constexpr static int S_SCL = 33;
+    constexpr static int S_SDA = 32;
 
+ public:
+    /**
+     * @brief Initializes the Wire (I2C) communication.
+     *
+     * @return True if initialization was successful, false otherwise.
+     */
+    static bool init();
+};
+l
 #endif  // WIRECLIENT_H_
