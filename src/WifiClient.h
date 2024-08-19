@@ -4,53 +4,81 @@
 #include <ESPmDNS.h>
 #include <WiFi.h>
 
-/**
- * @brief Generate Wi-Fi hostname.
- *
- * @return nullptr if the hostname was generated successfully
- */
-char *wifiGenerateHostname();
+#include "Device.h"
+#include "Helpers.h"
+#include "Log.h"
 
 /**
- * @brief Disconnect from a Wi-Fi network.
- *
- * @return True if the disconnection was successful, false otherwise.
+ * @brief WifiClient class for managing Wi-Fi connections and related services.
  */
-bool wifiDisconnect();
+class WifiClient {
+ private:
+    // Configuration
+    constexpr static bool autoReconnect      = true;
+    constexpr static int  disconnectDelay    = 1000;
+    constexpr static char hostnamePrefix[32] = "pathfinder";
+    constexpr static char instanceName[32]   = "Pathfinder";
+    constexpr static int  reconnectAttempts  = 20;
+    constexpr static int  reconnectDelay     = 1000;
+    constexpr static int  rescanDelay        = 10000;
+    constexpr static bool ssidHidden         = false;
+    constexpr static int  statusMessageDelay = 500;
 
-/**
- * @brief Establish connection with a Wi-Fi network.
- *
- * @return True if the connection was successful, false otherwise.
- * @note This function has the device acting as a client (= station).
- */
-bool wifiConnect();
+    // Wi-Fi credentials and details
+    char wifiHostname[32];
+    char wifiSsid[32]                = "workloads";
+    char wifiPassword[64]            = "workloads";
+    char wifiProtectedAccessMode[32] = "WPA2";
 
-/**
- * @brief Check if the Wi-Fi connection is alive.
- *
- * @return True if the connection is alive, false otherwise.
- */
-bool wifiConnectionAlive();
+ public:
+    /**
+     * @brief Generate Wi-Fi hostname.
+     *
+     * @return nullptr if the hostname was generated successfully
+     */
+    char* generateHostname();
 
-/**
- * @brief Reestablish connection with a Wi-Fi network.
- *
- * @note This function has the device acting as a client (= station).
- */
-void wifiReconnect();
+    /**
+     * @brief Disconnect from a Wi-Fi network.
+     *
+     * @return True if the disconnection was successful, false otherwise.
+     */
+    bool disconnect();
 
-/**
- * @brief Scan for Wi-Fi networks.
- */
-void wifiScanNetworks();
+    /**
+     * @brief Establish connection with a Wi-Fi network.
+     *
+     * @return True if the connection was successful, false otherwise.
+     * @note This function has the device acting as a client (= station).
+     */
+    bool connect();
 
-/**
- * @brief Start mDNS service.
- *
- * @param hostname The hostname to use.
- * @param instance_name The instance name to use.
- */
-void wifiStartMdnsService(const char *hostname, const char *instance_name);
+    /**
+     * @brief Check if the Wi-Fi connection is alive.
+     *
+     * @return True if the connection is alive, false otherwise.
+     */
+    bool connectionAlive();
+
+    /**
+     * @brief Reestablish connection with a Wi-Fi network.
+     *
+     * @note This function has the device acting as a client (= station).
+     */
+    void reconnect();
+
+    /**
+     * @brief Scan for Wi-Fi networks.
+     */
+    void scanNetworks();
+
+    /**
+     * @brief Start mDNS service.
+     *
+     * @param hostname The hostname to use.
+     * @param instance_name The instance name to use.
+     */
+    void startMdnsService(const char* hostname, const char* instance_name);
+};
 
 #endif  // WIFICLIENT_H_
