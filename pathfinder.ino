@@ -1,4 +1,4 @@
-/**
+/*
  *
  * @file pathfinder.ino
  * @brief ESP32-based mobile edge computing platform

@@ -14,7 +14,8 @@ set(CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,readability-*)
 
 # see https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/cplusplus.html
 set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # generate `compile_commands.json` for use with `clangd`
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
