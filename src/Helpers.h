@@ -13,7 +13,7 @@
  *
  * @return `true` if the string starts with a protocol, `false` otherwise.
  */
-inline bool helperCheckIfStringStartsWithProtocol(const char *input);
+bool helperCheckIfStringStartsWithProtocol(const char *input);
 
 /**
  * @brief Converts IP Address of type IPAddress to a string.
@@ -21,9 +21,8 @@ inline bool helperCheckIfStringStartsWithProtocol(const char *input);
  * @param inputAddr The IP Address to convert to a string.
  *
  * @return The string representation of the IP Address.
- * @return A string representation of the IPAddress.
  */
-inline const char *helperIpAddressToString(IPAddress inputAddr);
+const char *helperIpAddressToString(IPAddress inputAddr);
 
 /**
  * @brief Converts a string representation of a log level to its corresponding numeric value.
@@ -32,7 +31,7 @@ inline const char *helperIpAddressToString(IPAddress inputAddr);
  *
  * @return The numeric value of the log level, or -1 if the input string is invalid.
  */
-inline int helperStringToLogLevel(const char *levelString);
+int helperStringToLogLevel(const char *levelString);
 
 /**
  * @brief Converts percentage to an integer in the range of 0 to 255.
@@ -45,6 +44,6 @@ inline int helperStringToLogLevel(const char *levelString);
  * @param percentage The percentage to convert to an integer. Expected range is 0 to 100.
  * @return The integer value of the percentage, scaled to 0-255.
  */
-inline uint8_t helperPercentageToInteger(int percentage);
+uint8_t helperPercentageToInteger(int percentage);
 
 #endif  // HELPERS_H_
