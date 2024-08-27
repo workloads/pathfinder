@@ -20,5 +20,5 @@ class WireClient {
      */
     static bool init();
 };
-l
+
 #endif  // WIRECLIENT_H_

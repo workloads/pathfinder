@@ -17,7 +17,6 @@ class WifiClient {
     constexpr static bool autoReconnect      = true;
     constexpr static int  disconnectDelay    = 1000;
     constexpr static char hostnamePrefix[32] = "pathfinder";
-    constexpr static char instanceName[32]   = "Pathfinder";
     constexpr static int  reconnectAttempts  = 20;
     constexpr static int  reconnectDelay     = 1000;
     constexpr static int  rescanDelay        = 10000;
@@ -31,6 +30,8 @@ class WifiClient {
     char wifiProtectedAccessMode[32] = "WPA2";
 
  public:
+    constexpr static char instanceName[32] = "Pathfinder";  // No WifiClient:: prefix
+
     /**
      * @brief Generate Wi-Fi hostname.
      *

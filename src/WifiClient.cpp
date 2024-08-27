@@ -1,5 +1,8 @@
 #include "WifiClient.h"
 
+constexpr char WifiClient::hostnamePrefix[32];
+constexpr char WifiClient::instanceName[32];
+
 char* WifiClient::generateHostname() {
     const char* logTag = __func__;
 
