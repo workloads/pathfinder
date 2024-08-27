@@ -3,4 +3,4 @@ If:
   PathMatch: *
 CompileFlags:
   Add:
-    - "-I${HOME}/Library/Arduino15/packages/esp32/hardware/esp32/2.0.16/cores/esp32"
+    - "-I${HOME}/Library/Arduino15/packages/esp32/hardware/esp32/2.0.17/cores/esp32"

@@ -1,5 +1,5 @@
 # see https://cmake.org/cmake/help/v3.30/command/cmake_minimum_required.html
-cmake_minimum_required(VERSION 3.30.0)
+cmake_minimum_required(VERSION 3.29.0)
 
 # see https://cmake.org/cmake/help/v3.30/command/project.html#project
 project(

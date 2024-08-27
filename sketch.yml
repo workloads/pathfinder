@@ -63,7 +63,7 @@ profiles:
 
       -
         # see https://github.com/wollewald/ICM20948_WE
-        ICM20948_WE (1.1.8)
+        ICM20948_WE (1.1.10)
 
       -
         # see https://github.com/wollewald/INA219_WE
@@ -91,7 +91,7 @@ profiles:
 
       -
         # see https://github.com/denyssene/SimpleKalmanFilter
-        SimpleKalmanFilter (0.1)
+        SimpleKalmanFilter (0.1.0)
 
     # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
     platforms:
