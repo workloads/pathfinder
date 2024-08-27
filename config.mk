@@ -33,13 +33,13 @@ ARDUINO_LIBRARIES_UPSTREAM ?= \
     "ArduinoJson@7.1.0" \
     "ArduinoUniqueID@1.3.0" \
     "ESP32Encoder@0.11.6" \
-    "ICM20948_WE@1.1.8" \
+    "ICM20948_WE@1.1.10" \
     "INA219_WE@1.3.8" \
     "LittleFS_esp32@1.0.6" \
     "Ministache@1.0.1" \
     "PID_v2@2.0.1" \
     "SCServo@1.0.2" \
-    "SimpleKalmanFilter@0.1"
+    "SimpleKalmanFilter@0.1.0"
 
 # list of unsafe / non-upstream Arduino libraries to be installed
 ARDUINO_LIBRARIES_UNSAFE ?= ""
