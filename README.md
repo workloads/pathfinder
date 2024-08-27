@@ -11,7 +11,7 @@
     * [Hardware](#hardware)
       * [Mobility Platform](#mobility-platform)
       * [Compute Environment](#compute-environment)
-      * [Camera Platform](#camera-platform)
+      * [Vision Platform](#vision-platform)
     * [Software](#software)
       * [Development](#development)
   * [Usage](#usage)
@@ -29,8 +29,8 @@
 A _Pathfinder_ unit consists of three distinct groups of hardware components:
 
 - Mobility Platform 
-- compute environment
-- camera platform
+- Compute Environment
+- Vision Platform
 
 #### Mobility Platform
 
@@ -53,9 +53,9 @@ This group consists of:
 - 1 x [Raspberry Pi AI Kit](https://www.raspberrypi.com/products/ai-kit/)
 - 1 x microSD card (minimum 64GB capacity)
 
-#### Camera Platform
+#### Vision Platform
 
-The _Camera Platform_ (`CP`) provides visual detection capabilities for the _Pathfinder_ unit.
+The _Vision Platform_ (`VP`) provides visual detection capabilities for the _Pathfinder_ unit.
 
 This group consists of:
 
