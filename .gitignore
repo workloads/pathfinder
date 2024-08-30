@@ -10,4 +10,8 @@ cmake-build-debug
 .doxygen/theme
 docs/
 
+### MacOS sucks
 **/*.DS_Store
+
+### VS CODE
+.history
