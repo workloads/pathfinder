@@ -5,7 +5,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-#include "Log.h"
+#include <Logger.h>
 
 /**
  * @brief Display class for managing OLED display initialization and updates.

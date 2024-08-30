@@ -66,7 +66,7 @@ bool Device::setup() {
     Serial.println(initialLogMessage);
 
     // Explicitly set the log level
-    Log::setLevel(static_cast<LogLevel>(CORE_DEBUG_LEVEL));
+    Logger::setLevel(static_cast<LogLevel>(CORE_DEBUG_LEVEL));
 
     // TODO(ksatirli): Initialize Battery
     // Battery::init();
@@ -79,27 +79,27 @@ bool Device::setup() {
 
     // Wi-Fi and other initialization code
     if (!wifiClient.disconnect()) {
-        Log::error(logTag, "Failed to disconnect previous Wi-Fi connection");
+        Logger::error(logTag, "Failed to disconnect previous Wi-Fi connection");
         return false;
     }
 
     if (!wifiClient.connect()) {
-        Log::error(logTag, "Failed to establish a Wi-Fi connection");
+        Logger::error(logTag, "Failed to establish a Wi-Fi connection");
         return false;
     }
 
     if (!HttpServer::init()) {
-        Log::error(logTag, "Failed to initialize HTTP server");
+        Logger::error(logTag, "Failed to initialize HTTP server");
         return false;
     }
 
     if (!Display::init()) {
-        Log::error(logTag, "Failed to initialize Display");
+        Logger::error(logTag, "Failed to initialize Display");
         return false;
     }
 
     if (!WireClient::init()) {
-        Log::error(logTag, "Failed to initialize Wire");
+        Logger::error(logTag, "Failed to initialize Wire");
         return false;
     }
 
@@ -115,12 +115,12 @@ void Device::loop() {
     const char *logTag = __func__;
 
     if (enableSerialConfiguration) {
-        Log::debug(logTag, "Handling serial input events");
+        Logger::debug(logTag, "Handling serial input events");
         // Serial::handleEvents();
     }
 
     if (enableHttpServer) {
-        Log::debug(logTag, "Handling HTTP Server events");
+        Logger::debug(logTag, "Handling HTTP Server events");
         HttpServer::handleEvents();
     }
 

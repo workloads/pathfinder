@@ -8,17 +8,17 @@ bool Display::init() {
 
     // `SSD1306_SWITCHCAPVCC` = generate display voltage from 3.3V internally
     if (!display.begin(SSD1306_SWITCHCAPVCC, displayAddress)) {
-        Log::error(logTag, "SSD1306 allocation failed");
+        Logger::error(logTag, "SSD1306 allocation failed");
         return false;
     }
 
-    Log::debug(logTag, "Clearing Display");
+    Logger::debug(logTag, "Clearing Display");
     display.clearDisplay();
     display.setCursor(0, 0);
     display.setTextColor(displayTextColor);
     display.setTextSize(displayTextSize);
 
-    Log::debug(logTag, "Rendering Image Buffer");
+    Logger::debug(logTag, "Rendering Image Buffer");
     display.display();
 
     return true;
@@ -27,7 +27,7 @@ bool Display::init() {
 void Display::update(const char *lines[4]) {
     const char *logTag = __func__;
 
-    Log::debug(logTag, "Clearing display");
+    Logger::debug(logTag, "Clearing display");
     display.clearDisplay();
     display.setCursor(0, 0);
 
@@ -35,6 +35,6 @@ void Display::update(const char *lines[4]) {
         display.println(lines[i]);
     }
 
-    Log::debug(logTag, "Rendering lines");
+    Logger::debug(logTag, "Rendering lines");
     display.display();
 }

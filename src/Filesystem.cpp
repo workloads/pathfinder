@@ -1,16 +1,16 @@
 #include "Filesystem.h"
 
-#include "Log.h"
+#include <Logger.h>
 
 bool Filesystem::init() {
     const char *logTag = __func__;
 
     if (!LittleFS.begin()) {
-        Log::error(logTag, "Unable to mount filesystem");
+        Logger::error(logTag, "Unable to mount filesystem");
         return false;
     }
 
-    Log::info(logTag, "Successfully mounted filesystem");
+    Logger::info(logTag, "Successfully mounted filesystem");
     return true;
 }
 
@@ -20,7 +20,7 @@ File Filesystem::streamFile(const String &filename, const char *mode) {
     File file = LittleFS.open(filename, mode);
 
     if (!file) {
-        Log::error(logTag, ("Failed to open file: " + filename).c_str());
+        Logger::error(logTag, ("Failed to open file: " + filename).c_str());
     }
 
     return file;

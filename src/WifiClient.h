@@ -6,7 +6,7 @@
 
 #include "Device.h"
 #include "Helpers.h"
-#include "Log.h"
+#include <Logger.h>
 
 /**
  * @brief WifiClient class for managing Wi-Fi connections and related services.

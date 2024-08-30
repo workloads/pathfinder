@@ -8,11 +8,11 @@ bool HttpServer::init() {
 
     if (!httpServer) {
         httpServer = new WebServer(httpServerPort);
-        Log::info(logTag, "HTTP server initialized on port `%d`", httpServerPort);
+        Logger::info(logTag, "HTTP server initialized on port `%d`", httpServerPort);
 
         return true;
     } else {
-        Log::error(logTag, "HTTP server pointer is null, initialization failed");
+        Logger::error(logTag, "HTTP server pointer is null, initialization failed");
 
         return false;
     }
@@ -29,9 +29,9 @@ void HttpServer::mapRoutes() {
         httpServer->onNotFound(handlerNotFound);
 
         httpServer->begin();
-        Log::info(logTag, "HTTP server routes mapped and server started on port `%d`", httpServerPort);
+        Logger::info(logTag, "HTTP server routes mapped and server started on port `%d`", httpServerPort);
     } else {
-        Log::error(logTag, "HTTP server pointer is null, cannot map routes");
+        Logger::error(logTag, "HTTP server pointer is null, cannot map routes");
     }
 }
 
@@ -41,7 +41,7 @@ bool HttpServer::streamFile(WebServer *server, const char *filename, const char 
     File file = Filesystem::streamFile(filename, "r");
 
     if (!file) {
-        Log::error(logTag, "Failed to open file `%s`", filename);
+        Logger::error(logTag, "Failed to open file `%s`", filename);
 
         return false;
     }
@@ -49,7 +49,7 @@ bool HttpServer::streamFile(WebServer *server, const char *filename, const char 
     server->streamFile(file, contentType);
     file.close();
 
-    Log::info(logTag, "File streamed successfully `%s`", filename);
+    Logger::info(logTag, "File streamed successfully `%s`", filename);
 
     return true;
 }
@@ -59,9 +59,9 @@ void HttpServer::handleEvents() {
 
     if (httpServer) {
         httpServer->handleClient();
-        Log::info(logTag, "HTTP server handling client interactions");
+        Logger::info(logTag, "HTTP server handling client interactions");
     } else {
-        Log::error(logTag, "HTTP server not initialized");
+        Logger::error(logTag, "HTTP server not initialized");
     }
 }
 

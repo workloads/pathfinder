@@ -7,7 +7,7 @@
 
 #include "Display.h"
 #include "HttpServer.h"
-#include "Log.h"
+#include <Logger.h>
 #include "WifiClient.h"
 #include "WireClient.h"
 
