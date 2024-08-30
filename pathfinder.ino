@@ -20,20 +20,21 @@ const int serialBaudRate = 115200;
 
 // Load local configuration and helpers
 #include "src/Device.h"
-#include "src/Log.h"
+#include <Logger.h>
 
 // Setup application flow
 void setup() {
+   // Logger logger;
     const char *logTag = __func__;
 
     // Initialize serial communication
     Serial.begin(serialBaudRate);
     Serial.println("Serial connection initialized");
 
-    Log::debug(logTag, "Initializing device setup");
+    Logger::debug(logTag, "Initializing device setup");
 
     while (!Device::setup()) {
-        Log::warning(logTag, "Device setup failed, retrying in %d seconds...", deviceSetupRestartDelay / 1000);  // NOLINT(whitespace/line_length)
+        Logger::warning(logTag, "Device setup failed, retrying in %d seconds...", deviceSetupRestartDelay / 1000);  // NOLINT(whitespace/line_length)
 
         // Delay restart of `setup()` so device and ecosystem (e.g.: Wi-Fi APs)
         // have enough time to process operations and restore connectivity
