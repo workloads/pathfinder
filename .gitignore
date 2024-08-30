@@ -9,3 +9,5 @@ cmake-build-debug
 ### Project-specific ###
 .doxygen/theme
 docs/
+
+**/*.DS_Store
