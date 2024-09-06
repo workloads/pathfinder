@@ -59,7 +59,7 @@ profiles:
 
       -
         # see https://github.com/madhephaestus/ESP32Encoder
-        ESP32Encoder (0.11.6)
+        ESP32Encoder (0.11.7)
 
       -
         # see https://github.com/wollewald/ICM20948_WE
@@ -87,11 +87,7 @@ profiles:
 
       -
         # see https://github.com/denyssene/SimpleKalmanFilter
-        SimpleKalmanFilter (0.1)
-
-      -
-        # see https://github.com/denyssene/SimpleKalmanFilter
-        SimpleKalmanFilter (0.1.0)
+        SimpleKalmanFilter (0.2)
 
     # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
     platforms:
