@@ -1,7 +1,7 @@
 /*
  *
  * @file pathfinder.ino
- * @brief ESP32-based mobile edge computing platform
+ * @brief ESP32-based mobile edge-computing platform
  * @url https://go.workloads.io/pathfinder
  * @version 0.10.0
  *
@@ -24,7 +24,7 @@ const int serialBaudRate = 115200;
 
 // Setup application flow
 void setup() {
-   // Logger logger;
+    // Logger logger;
     const char *logTag = __func__;
 
     // Initialize serial communication

@@ -120,11 +120,29 @@ This repository does not include any datasheets directly.
 
 * for the Waveshare WAVE ROVER, see [waveshare.com](https://www.waveshare.com/wiki/WAVE_ROVER#Resource)
 * for the Waveshare OLED module, see [waveshare.com](https://www.waveshare.com/wiki/0.91inch_OLED_Module)
+* for the Waveshare General Driver for Robots, see [waveshare.com](https://www.waveshare.com/wiki/General_Driver_for_Robots)
 * for the ESP32 `WROOM-32UE-N4` module, see [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf)
 
 ### Delays
 
 All use of the [`delay()`](https://www.arduino.cc/reference/en/language/functions/time/delay/) function is intentional, despite the function's blocking behavior.
+
+### SD Cards
+
+The `MP` component writes and loads data from SD cards. These cards plug into the SD card slot on the _General Driver for Robots_ board, located inside the `MP` (above the battery compartment.
+
+Before use, SD cards must be formatted using `FAT32`.
+
+On macOS, this may be done like so:
+
+```shell
+diskutil eraseDisk FAT32 PATHFINDER MBRFormat /dev/disk2
+```
+
+With this command, the SD card will be formatted with the correct filesystem (`FAT32`) and will be named `PATHFINDER`. 
+
+> **Note**
+> The location of the SD Card (e.g.: `/dev/disk2`) may be different on your system.
 
 ## Contributors
 
