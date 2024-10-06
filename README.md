@@ -39,8 +39,8 @@ A _Pathfinder_ unit consists of three distinct groups of hardware components:
 This group consists of:
 
 - 1 x Waveshare [WAVE ROVER](https://www.waveshare.com/wave-rover.htm)
-- 1 x TODO Antenna
-- 3 x 18650 Lithium batteries (min. 3000mAh capacity)
+- 1 x Waveshare [SMA 2db Antenne](https://www.waveshare.com/sma-2.4g-2db-antenna.htm)
+- 3 x 18650 Lithium batteries (min. 3000mAh capacity, _Murata VTC6_ recommended)
 
 #### Compute Environment
 
@@ -60,7 +60,7 @@ The _Vision Platform_ (`VP`) provides visual detection capabilities for the _Pat
 This group consists of:
 
 - 1 x Waveshare [2-axis Pan-Tilt Camera Module](https://www.waveshare.com/2-axis-pan-tilt-camera-module.htm)
-- 1 x youyeetoo [FHL-LD19P](https://www.youyeetoo.com/products/fhl-ld19-lidar-sensor-12meter-39ft-360°-ranging) Lidar device (or compatible)
+- 1 x youyeetoo [FHL-LD19P](https://www.youyeetoo.com/products/fhl-ld19-lidar-sensor-12meter-39ft-360°-ranging) Lidar device
 
 ### Software
 
@@ -122,10 +122,11 @@ This repository does not include any datasheets directly.
 * for the Waveshare OLED module, see [waveshare.com](https://www.waveshare.com/wiki/0.91inch_OLED_Module)
 * for the Waveshare General Driver for Robots, see [waveshare.com](https://www.waveshare.com/wiki/General_Driver_for_Robots)
 * for the ESP32 `WROOM-32UE-N4` module, see [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf)
+* for the Murata VTC6 batteries (type: 18650`), see [murata.com](https://www.murata.com/-/media/webrenewal/products/batteries/cylindrical/datasheet/us18650vtc6-product-datasheet.ashx)
 
 ### Delays
 
-All use of the [`delay()`](https://www.arduino.cc/reference/en/language/functions/time/delay/) function is intentional, despite the function's blocking behavior.
+All uses of the [`delay()`](https://www.arduino.cc/reference/en/language/functions/time/delay/) function are intentional, despite the function's blocking behavior.
 
 ### SD Cards
 
