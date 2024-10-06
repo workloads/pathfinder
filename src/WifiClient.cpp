@@ -68,7 +68,7 @@ bool WifiClient::connect() {
 
         switch (WiFi.status()) {
             case WL_NO_SHIELD:
-                Logger::error(logTag, "Device unable to find Radio");
+                Logger::error(logTag, "Device unable to find Wi-Fi Radio");
                 return false;
 
             case WL_NO_SSID_AVAIL:

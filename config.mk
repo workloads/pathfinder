@@ -30,7 +30,7 @@ ARDUINO_LIBRARIES_UPSTREAM ?= \
     "Adafruit ICM20X@2.0.7" \
     "Adafruit SSD1306@2.5.11" \
     "Adafruit Unified Sensor@1.1.14" \
-    "ArduinoJson@7.1.0" \
+    "ArduinoJson@7.2.0" \
     "ArduinoUniqueID@1.3.0" \
     "ESP32Encoder@0.11.7" \
     "ICM20948_WE@1.1.10" \

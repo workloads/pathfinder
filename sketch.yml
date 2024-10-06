@@ -51,7 +51,7 @@ profiles:
 
       -
         # see https://github.com/bblanchon/ArduinoJson
-        ArduinoJson (7.1.0)
+        ArduinoJson (7.2.0)
 
       -
         # see https://github.com/ricaun/ArduinoUniqueID
