@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // How many milliseconds to delay before restarting `setup()`
-const int deviceSetupRestartDelay = 3000;
+constexpr static int  deviceSetupRestartDelay = 3000;
 
 // Baud rate to use for serial communication
 const int serialBaudRate = 115200;

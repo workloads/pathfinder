@@ -18,7 +18,7 @@ class WifiClient {
     constexpr static int  disconnectDelay    = 1000;
     constexpr static char hostnamePrefix[32] = "pathfinder";
     constexpr static int  reconnectAttempts  = 20;
-    constexpr static int  reconnectDelay     = 1000;
+    constexpr static int  reconnectDelay     = 2000;
     constexpr static int  rescanDelay        = 10000;
     constexpr static bool ssidHidden         = false;
     constexpr static int  statusMessageDelay = 500;
