@@ -60,6 +60,8 @@ void HttpServer::handleEvents() {
     if (httpServer) {
         httpServer->handleClient();
         Logger::info(logTag, "HTTP server handling client interactions");
+
+        mapRoutes();
     } else {
         Logger::error(logTag, "HTTP server not initialized");
     }
@@ -68,9 +70,17 @@ void HttpServer::handleEvents() {
 void HttpServer::handlerOnConnect() {
     const char *logTag = __func__;
 
-    if (!streamFile(httpServer, "/index.html", "text/html")) {
-        httpServer->send(500, "text/plain", "Internal Server Error");
-    }
+    // if (!streamFile(httpServer, "assets/index.html", "text/html")) {
+    //     httpServer->send(500, "text/plain", "Internal Server Error");
+    // }
+}
+
+void HttpServer::handlerOnConnect() {
+    const char *logTag = __func__;
+
+    // if (!streamFile(httpServer, "assets/index.html", "text/html")) {
+    //     httpServer->send(500, "text/plain", "Internal Server Error");
+    // }
 }
 
 void HttpServer::handlerNotFound() {

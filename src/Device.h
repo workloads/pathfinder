@@ -27,6 +27,9 @@ class Device {
     // Toggle to enable configuration changes via serial interface
     static const bool enableSerialConfiguration;
 
+    // Delay (in msec) how long to delay Device Setup
+    constexpr static int deviceSetupBlockDelay = 5000;
+
  public:
     /**
      * @brief Retrieves device identifier.

@@ -65,6 +65,9 @@ bool Device::setup() {
     snprintf(initialLogMessage, sizeof(initialLogMessage), "[%s][🏁 START] Initializing device", logTag);
     Serial.println(initialLogMessage);
 
+    // Block continuation so serial monitor can catch up and operators can read message
+    delay(deviceSetupBlockDelay);
+
     // Explicitly set the log level
     Logger::setLevel(static_cast<LogLevel>(CORE_DEBUG_LEVEL));
 
@@ -73,9 +76,6 @@ bool Device::setup() {
 
     // Create an instance of WifiClient
     WifiClient wifiClient;
-
-    // Scan for Wi-Fi networks
-    wifiClient.scanNetworks();
 
     // Wi-Fi and other initialization code
     if (!wifiClient.disconnect()) {
@@ -86,6 +86,9 @@ bool Device::setup() {
     if (!wifiClient.connect()) {
         Logger::error(logTag, "Failed to establish a Wi-Fi connection");
         return false;
+    } else {
+        // Scan for Wi-Fi networks
+        wifiClient.scanNetworks();
     }
 
     if (!HttpServer::init()) {
