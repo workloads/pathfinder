@@ -6,19 +6,18 @@ constexpr char WifiClient::instanceName[32];
 char* WifiClient::generateHostname() {
     const char* logTag = __func__;
 
-    // Static storage to ensure the string remains valid after the function returns
     static char wifiHostname[32];
 
-    // Get the device identifier
-    // TODO: update logic so it grabs the last 4 chars
-    char* deviceId = Device::identifier(4);
+    // Get the last 4 characters of the device identifier
+    char deviceId[5];
+    strncpy(deviceId, Device::identifier() + (strlen(Device::identifier()) - 4), 4);
+    deviceId[4] = '\0';
 
-    // Assemble the Wi-Fi hostname
     snprintf(wifiHostname, sizeof(wifiHostname), "%s-%s", WifiClient::hostnamePrefix, deviceId);
 
     Logger::debug(logTag, "Generated hostname: `%s`", wifiHostname);
 
-    return strdup(wifiHostname);
+    return wifiHostname;
 }
 
 bool WifiClient::disconnect() {
@@ -79,10 +78,16 @@ bool WifiClient::connect() {
 
             case WL_NO_SSID_AVAIL:
                 Logger::info(logTag, "Device unable to find SSID `%s` after %d attempts", wifiSsid, attemptCount);
+
+                // TODO: variable and document
+                delay(3000);
             break;
 
             case WL_CONNECT_FAILED:
                 Logger::warning(logTag, "Device unable to connect");
+
+                // TODO: variable and document
+                delay(3000);
             break;
 
             case WL_CONNECTION_LOST:
@@ -100,10 +105,10 @@ bool WifiClient::connect() {
             case WL_CONNECTED:
                 Logger::info(logTag, "Device connected with IP `%s`", WiFi.localIP().toString().c_str());
 
-            // Connection established, start mDNS service
-            startMdnsService(wifiHostname, WifiClient::instanceName);
+                // Connection established, start mDNS service
+                startMdnsService(wifiHostname, WifiClient::instanceName);
 
-            return true;
+                return true;
 
             default:
                 Logger::warning(logTag, "Unhandled Wi-Fi status `%d` on attempt %d", WiFi.status(), attemptCount);
