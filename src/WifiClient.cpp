@@ -10,6 +10,7 @@ char* WifiClient::generateHostname() {
     static char wifiHostname[32];
 
     // Get the device identifier
+    // TODO: update logic so it grabs the last 4 chars
     char* deviceId = Device::identifier(4);
 
     // Assemble the Wi-Fi hostname
@@ -42,6 +43,9 @@ bool WifiClient::connect() {
     Logger::debug(logTag, "Generating Wi-Fi hostname");
     char* wifiHostname = generateHostname();
 
+    int wifiStatus = WL_IDLE_STATUS;
+    Logger::debug(logTag, "Setting Wi-Fi status to `%i`", wifiStatus);
+
     // Set Wi-Fi hostname
     Logger::debug(logTag, "Setting Wi-Fi hostname to `%s`", wifiHostname);
     WiFi.setHostname(wifiHostname);
@@ -54,54 +58,56 @@ bool WifiClient::connect() {
     // Set Wi-Fi mode
     WiFi.mode(WIFI_STA);
 
-    // Initialize Wi-Fi connection
-    WiFi.begin(WifiClient::wifiSsid, WifiClient::wifiPassword);
-    Logger::info(logTag, "Attempting to connect to SSID `%s`", wifiSsid);
-
     // Try to establish a connection with a limited number of retries
     int attemptsLeft = WifiClient::reconnectAttempts;
 
-    while (attemptsLeft > 0) {
+    // TODO: document more
+    while (wifiStatus != WL_CONNECTED && attemptsLeft > 0) {
         // Check the connection status after a delay
         delay(reconnectDelay);
+
+        // Initialize Wi-Fi connection
+        wifiStatus = WiFi.begin(WifiClient::wifiSsid, WifiClient::wifiPassword);
+        Logger::info(logTag, "Attempting to connect to SSID `%s`", wifiSsid);
+
         int attemptCount = reconnectAttempts - attemptsLeft + 1;
 
-        switch (WiFi.status()) {
+        switch (wifiStatus) {
             case WL_NO_SHIELD:
                 Logger::error(logTag, "Device unable to find Wi-Fi Radio");
-                return false;
+            return false;
 
             case WL_NO_SSID_AVAIL:
                 Logger::info(logTag, "Device unable to find SSID `%s` after %d attempts", wifiSsid, attemptCount);
-                break;
+            break;
 
             case WL_CONNECT_FAILED:
                 Logger::warning(logTag, "Device unable to connect");
-                break;
+            break;
 
             case WL_CONNECTION_LOST:
                 Logger::info(logTag, "Device lost connection");
-                break;
+            break;
 
             case WL_SCAN_COMPLETED:
                 Logger::debug(logTag, "Device completed scan");
-                break;
+            break;
 
             case WL_DISCONNECTED:
                 Logger::info(logTag, "Device disconnected");
-                break;
+            break;
 
             case WL_CONNECTED:
                 Logger::info(logTag, "Device connected with IP `%s`", WiFi.localIP().toString().c_str());
 
-                // Connection established, start mDNS service
-                startMdnsService(wifiHostname, WifiClient::instanceName);
+            // Connection established, start mDNS service
+            startMdnsService(wifiHostname, WifiClient::instanceName);
 
-                return true;
+            return true;
 
             default:
                 Logger::warning(logTag, "Unhandled Wi-Fi status `%d` on attempt %d", WiFi.status(), attemptCount);
-                break;
+            break;
         }
 
         // Decrement attempts after processing status
