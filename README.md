@@ -1,17 +1,17 @@
-# Pathfinder
+# 🧭  Pathfinder
 
 > ESP32-based mobile edge computing device based on the Waveshare UGV platform
 
 ## Table of Contents
 
 <!-- TOC -->
-* [Pathfinder](#pathfinder)
+* [🧭  Pathfinder](#-pathfinder)
   * [Table of Contents](#table-of-contents)
   * [Requirements](#requirements)
     * [Hardware](#hardware)
       * [Mobility Platform](#mobility-platform)
       * [Compute Environment](#compute-environment)
-      * [Camera Platform](#camera-platform)
+      * [Vision Platform](#vision-platform)
     * [Software](#software)
       * [Development](#development)
   * [Usage](#usage)
@@ -29,8 +29,8 @@
 A _Pathfinder_ unit consists of three distinct groups of hardware components:
 
 - Mobility Platform 
-- compute environment
-- camera platform
+- Compute Environment
+- Vision Platform
 
 #### Mobility Platform
 
@@ -39,8 +39,8 @@ A _Pathfinder_ unit consists of three distinct groups of hardware components:
 This group consists of:
 
 - 1 x Waveshare [WAVE ROVER](https://www.waveshare.com/wave-rover.htm)
-- 1 x TODO Antenna
-- 3 x 18650 Lithium batteries (min. 3000mAh capacity)
+- 1 x Waveshare [SMA 2db Antenne](https://www.waveshare.com/sma-2.4g-2db-antenna.htm)
+- 3 x 18650 Lithium batteries (min. 3000mAh capacity, _Murata VTC6_ recommended)
 
 #### Compute Environment
 
@@ -53,14 +53,14 @@ This group consists of:
 - 1 x [Raspberry Pi AI Kit](https://www.raspberrypi.com/products/ai-kit/)
 - 1 x microSD card (minimum 64GB capacity)
 
-#### Camera Platform
+#### Vision Platform
 
-The _Camera Platform_ (`CP`) provides visual detection capabilities for the _Pathfinder_ unit.
+The _Vision Platform_ (`VP`) provides visual detection capabilities for the _Pathfinder_ unit.
 
 This group consists of:
 
 - 1 x Waveshare [2-axis Pan-Tilt Camera Module](https://www.waveshare.com/2-axis-pan-tilt-camera-module.htm)
-- 1 x youyeetoo [FHL-LD19P](https://wiki.youyeetoo.com/en/Lidar/D300) Lidar device (or compatible)
+- 1 x youyeetoo [FHL-LD19P](https://www.youyeetoo.com/products/fhl-ld19-lidar-sensor-12meter-39ft-360°-ranging) Lidar device
 
 ### Software
 
@@ -93,7 +93,8 @@ Running `make` without commands will print out the following help information:
 Target           Description                                     Usage
 lint-arduino     lint Arduino code using arduino-lint            `make lint-arduino`
 lint-cpp         lint C++ code using cpplint and clang-format    `make lint-cpp`
-lint-yaml        lint YAML files                                 `make lint-yaml`
+lint-yaml        lint YAML files using yamllint                  `make lint-yaml`
+lint-openapi     lint OAS files using spectral                   `make lint-openapi`
 attach           attach Arduino Board using arduino-cli          `make attach`
 clean            clean Arduino cache using arduino-cli           `make clean`
 compile          compile Arduino Sketch using arduino-cli        `make compile`
@@ -107,6 +108,8 @@ docs-get-theme   retrieve Doxygen theme using git                `make docs-get-
 help             display a list of Make Targets                  `make help`
 _listincludes    list all included Makefiles and *.mk files      `make _listincludes`
 _selfcheck       lint Makefile                                   `make _selfcheck`
+lint-vale        lint prose using vale                           `make lint-vale`
+vale-sync        sync Vale dependencies                          `make vale-sync`
 ```
 
 ## Notes
@@ -115,13 +118,32 @@ _selfcheck       lint Makefile                                   `make _selfchec
 
 This repository does not include any datasheets directly.
 
-For an overview of the WAVE ROVER hardware, see [waveshare.com](https://www.waveshare.com/wiki/WAVE_ROVER#Resource).
-
-For an overview of the ESP32 hardware, see [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf).
+* for the Waveshare WAVE ROVER, see [waveshare.com](https://www.waveshare.com/wiki/WAVE_ROVER#Resource)
+* for the Waveshare OLED module, see [waveshare.com](https://www.waveshare.com/wiki/0.91inch_OLED_Module)
+* for the Waveshare General Driver for Robots, see [waveshare.com](https://www.waveshare.com/wiki/General_Driver_for_Robots)
+* for the ESP32 `WROOM-32UE-N4` module, see [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf)
+* for the Murata VTC6 batteries (type: 18650`), see [murata.com](https://www.murata.com/-/media/webrenewal/products/batteries/cylindrical/datasheet/us18650vtc6-product-datasheet.ashx)
 
 ### Delays
 
-All use of the [`delay()`](https://www.arduino.cc/reference/en/language/functions/time/delay/) function is intentional, despite the function's blocking behavior.
+All uses of the [`delay()`](https://www.arduino.cc/reference/en/language/functions/time/delay/) function are intentional, despite the function's blocking behavior.
+
+### SD Cards
+
+The `MP` component writes and loads data from SD cards. These cards plug into the SD card slot on the _General Driver for Robots_ board, located inside the `MP` (above the battery compartment.
+
+Before use, SD cards must be formatted using `FAT32`.
+
+On macOS, this may be done like so:
+
+```shell
+diskutil eraseDisk FAT32 PATHFINDER MBRFormat /dev/disk2
+```
+
+With this command, the SD card will be formatted with the correct filesystem (`FAT32`) and will be named `PATHFINDER`. 
+
+> **Note**
+> The location of the SD Card (e.g.: `/dev/disk2`) may be different on your system.
 
 ## Contributors
 

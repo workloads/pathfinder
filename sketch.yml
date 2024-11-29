@@ -6,7 +6,9 @@
 # default flags for Arduino usage
 # see https://arduino.github.io/arduino-cli/1.0/sketch-project-file/#default-flags-for-arduino-cli-usage
 default_fqbn: "esp32:esp32:esp32"
-default_port: "/dev/cu.usbserial-1210"
+
+# `default_port` is dynamically set in the `Makefile`
+
 default_profile: default
 default_programmer: esptool
 
@@ -49,7 +51,7 @@ profiles:
 
       -
         # see https://github.com/bblanchon/ArduinoJson
-        ArduinoJson (7.1.0)
+        ArduinoJson (7.2.0)
 
       -
         # see https://github.com/ricaun/ArduinoUniqueID
@@ -57,11 +59,11 @@ profiles:
 
       -
         # see https://github.com/madhephaestus/ESP32Encoder
-        ESP32Encoder (0.11.6)
+        ESP32Encoder (0.11.7)
 
       -
         # see https://github.com/wollewald/ICM20948_WE
-        ICM20948_WE (1.1.8)
+        ICM20948_WE (1.1.10)
 
       -
         # see https://github.com/wollewald/INA219_WE
@@ -72,17 +74,20 @@ profiles:
         LittleFS_esp32 (1.0.6)
 
       -
-        # see https://github.com/jacksonliam/PID_v2
+        # see https://github.com/floatplane/ministache
+        Ministache (1.0.1)
+
+      -
+        # see https://github.com/imax9000/Arduino-PID-Library
         PID_v2 (2.0.1)
 
       -
-        # see https://github.com/denyssene/SimpleKalmanFilter
-        SimpleKalmanFilter (0.1)
+        # see https://github.com/workloads/scservo.git
+        SCServo (1.0.2)
 
       -
-        # see https://github.com/workloads/scservo.git
-        SCServo (1.0.1)
-
+        # see https://github.com/denyssene/SimpleKalmanFilter
+        SimpleKalmanFilter (0.2)
 
     # see https://arduino.github.io/arduino-cli/1.0/platform-specification/
     platforms:
