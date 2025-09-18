@@ -47,7 +47,6 @@ DynamicJsonDocument apiResponse(1408);
 // functions for the leds of UGV.
 #include "src/ugv_led_ctrl.h"
 
-
 // define json cmd.
 #include "src/json_cmd.h"
 
@@ -77,7 +76,6 @@ DynamicJsonDocument apiResponse(1408);
 
 // functions for http & web server.
 #include "src/http_server.h"
-
 
 
 void setup() {
@@ -144,12 +142,9 @@ void setup() {
   success &= (myICM.resetFIFO() == ICM_20948_Stat_Ok);
 
   // Check success
-  if (success)
-  {
+  if (success) {
     Serial.println(F("DMP enabled!"));
-  }
-  else
-  {
+  } else {
     Serial.println(F("Enable DMP failed!"));
     Serial.println(F("Please check that you have uncommented line 29 (#define ICM_20948_USE_DMP) in ICM_20948_C.h..."));
   }
@@ -164,7 +159,7 @@ void setup() {
 
   init_oled();
   screenLine_0 = "Pathfinder";
-  screenLine_1 = "version: 1.14";
+  screenLine_1 = "version: 1.3.5";
   screenLine_2 = "starting...";
   screenLine_3 = "";
   oled_update();
@@ -181,47 +176,78 @@ void setup() {
   screenLine_2 = screenLine_3;
   screenLine_3 = "Initialize LittleFS";
   oled_update();
-  if(InfoPrint == 1){Serial.println("Initialize LittleFS for Flash files ctrl.");}
+  
+  if (InfoPrint == 1) {
+    Serial.println("Initialize LittleFS for Flash files ctrl.");
+  }
+  
   initFS();
 
   // init the funcs in switch_module.h
   screenLine_2 = screenLine_3;
   screenLine_3 = "Initialize 12V-switch ctrl";
   oled_update();
-  if(InfoPrint == 1){Serial.println("Initialize the pins used for 12V-switch ctrl.");}
+
+  if (InfoPrint == 1) {
+    Serial.println("Initialize the pins used for 12V-switch ctrl.");
+  }
+  
   motionPinInit();
 
   // servos power up
   screenLine_2 = screenLine_3;
   screenLine_3 = "Power up the servos";
   oled_update();
-  if(InfoPrint == 1){Serial.println("Power up the servos.");}
+  
+  if (InfoPrint == 1) {
+    Serial.println("Power up the servos.");
+  }
+  
   delay(500);
   
 
   screenLine_3 = "WiFi init";
   oled_update();
-  if(InfoPrint == 1){Serial.println("WiFi init.");}
+  
+  if (InfoPrint == 1) {
+    Serial.println("WiFi init.");
+  }
+  
   initWifi();
 
   screenLine_3 = "http & web init";
   oled_update();
-  if(InfoPrint == 1){Serial.println("http & web init.");}
+  
+  if (InfoPrint == 1) {
+    Serial.println("http & web init.");
+  }
+  
   initHttpWebServer();
 
   screenLine_3 = "ESP-NOW init";
   oled_update();
-  if(InfoPrint == 1){Serial.println("ESP-NOW init.");}
+
+  if (InfoPrint == 1 ){
+    Serial.println("ESP-NOW init.");
+  }
+  
   initEspNow();
 
   screenLine_3 = "IMU Calibrating";
   oled_update();
-  if(InfoPrint == 1){Serial.println("IMU Calibrating");}
+  
+  if (InfoPrint == 1) {
+    Serial.println("IMU Calibrating");
+  }
+  
   imuCalibration();
 
-  screenLine_3 = "UGV started";
+  screenLine_3 = "Pathfinder started";
   oled_update();
-  if(InfoPrint == 1){Serial.println("UGV started.");}
+  
+  if (InfoPrint == 1) {
+    Serial.println("Pathfinder started.");
+  }
 
   getThisDevMacAddress();
 
@@ -236,7 +262,10 @@ void setup() {
 
   led_pwm_ctrl(0, 0);
 
-  if(InfoPrint == 1){Serial.println("Application initialization settings.");}
+  if (InfoPrint == 1) {
+    Serial.println("Application initialization settings.");
+  }
+  
   createMission("boot", "these cmds run automatically at boot.");
   missionPlay("boot", 1);
 }
