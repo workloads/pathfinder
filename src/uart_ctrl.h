@@ -298,48 +298,7 @@ void jsonCmdReceiveHandler()
 			jsonCmdReceive["times"]);
 		break;
 
-		// esp-now settings.
-	case CMD_BROADCAST_FOLLOWER:
-		changeBroadcastMode(
-			jsonCmdReceive["mode"],
-			jsonCmdReceive["mac"]);
-		break;
-	case CMD_ESP_NOW_CONFIG:
-		changeEspNowMode(
-			jsonCmdReceive["mode"]);
-		break;
-	case CMD_GET_MAC_ADDRESS:
-		getThisDevMacAddress();
-		break;
-	case CMD_ESP_NOW_ADD_FOLLOWER:
-		registerNewFollowerToPeer(
-			jsonCmdReceive["mac"]);
-		break;
-	case CMD_ESP_NOW_REMOVE_FOLLOWER:
-		deleteFollower(
-			jsonCmdReceive["mac"]);
-		break;
-	case CMD_ESP_NOW_GROUP_CTRL:
-		espNowGroupSend(
-			jsonCmdReceive["dev"],
-			jsonCmdReceive["b"],
-			jsonCmdReceive["s"],
-			jsonCmdReceive["e"],
-			jsonCmdReceive["h"],
-			jsonCmdReceive["cmd"],
-			jsonCmdReceive["megs"]);
-		break;
-	case CMD_ESP_NOW_SINGLE:
-		espNowSingleDevSend(
-			jsonCmdReceive["mac"],
-			jsonCmdReceive["dev"],
-			jsonCmdReceive["b"],
-			jsonCmdReceive["s"],
-			jsonCmdReceive["e"],
-			jsonCmdReceive["h"],
-			jsonCmdReceive["cmd"],
-			jsonCmdReceive["megs"]);
-		break;
+		// ESP-NOW functionality removed
 
 	// wifi settings.
 	case CMD_WIFI_ON_BOOT:

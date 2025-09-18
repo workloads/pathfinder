@@ -477,34 +477,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                     </div>
                 </div>
                 <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_BROADCAST_FOLLOWER: <span id="cmd300" class="cmd-value">{"T":300,"mode":1}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd300');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_ESP_NOW_CONFIG: <span id="cmd301" class="cmd-value">{"T":301,"mode":3}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd301');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_GET_MAC_ADDRESS: <span id="cmd302" class="cmd-value">{"T":302}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd302');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_ESP_NOW_ADD_FOLLOWER: <span id="cmd303" class="cmd-value">{"T":303,"mac":"FF:FF:FF:FF:FF:FF"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd303');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_ESP_NOW_REMOVE_FOLLOWER: <span id="cmd304" class="cmd-value">{"T":304,"mac":"FF:FF:FF:FF:FF:FF"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd304');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_ESP_NOW_GROUP_CTRL: <span id="cmd305" class="cmd-value">{"T":305,"dev":0,"b":0,"s":0,"e":1.57,"h":1.57,"cmd":0,"megs":"hello!"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd305');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_ESP_NOW_SINGLE: <span id="cmd306" class="cmd-value">{"T":306,"mac":"FF:FF:FF:FF:FF:FF","dev":0,"b":0,"s":0,"e":1.57,"h":1.57,"cmd":0,"megs":"hello!"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd306');">INPUT</button>
-                    </div>
+                    <!-- ESP-NOW functionality removed -->
                 </div>
                 <div class="info-box json-cmd-info">
                     <div>

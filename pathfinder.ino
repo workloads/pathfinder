@@ -25,7 +25,6 @@ DynamicJsonDocument apiResponse(1408);
 #include <LittleFS.h>
 #include <WiFi.h>
 #include <WebServer.h>
-#include <esp_now.h>
 #include <nvs_flash.h>
 #include <Adafruit_SSD1306.h>
 #include <INA219_WE.h>
@@ -68,8 +67,6 @@ DynamicJsonDocument apiResponse(1408);
 // functions for API.
 #include "src/api_ctrl.h"
 
-// functions for esp-now.
-#include "src/esp_now_ctrl.h"
 
 // functions for uart json ctrl.
 #include "src/uart_ctrl.h"
@@ -224,14 +221,7 @@ void setup() {
   
   initHttpWebServer();
 
-  screenLine_3 = "ESP-NOW init";
-  oled_update();
-
-  if (InfoPrint == 1 ){
-    Serial.println("ESP-NOW init.");
-  }
-  
-  initEspNow();
+  // ESP-NOW functionality removed
 
   screenLine_3 = "IMU Calibrating";
   oled_update();
@@ -249,15 +239,13 @@ void setup() {
     Serial.println("Pathfinder started.");
   }
 
-  getThisDevMacAddress();
-
   updateOledWifiInfo();
 
   initEncoders();
 
   pidControllerInit();
 
-  screenLine_2 = String("MAC:") + macToString(thisDevMac);
+  screenLine_2 = "Pathfinder Ready";
   oled_update();
 
   led_pwm_ctrl(0, 0);
@@ -332,7 +320,7 @@ void loop() {
   // read and compute the info of joints.
   // No additional modules (gimbal functionality removed)
 
-  // recv esp-now json cmd.
+  // ESP-NOW functionality removed
   if(runNewJsonCmd) {
     jsonCmdReceiveHandler();
     jsonCmdReceive.clear();

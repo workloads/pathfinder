@@ -5,11 +5,7 @@
 byte InfoPrint = 0;
 
 // devices info:
-// espNowMode: 0 - none
-//             1 - flow-leader(group): sending cmds
-//             2 - flow-leader(single): sending cmds to a single follower
-//             3 - [default]follower: recv cmds
-byte espNowMode = 3;
+// ESP-NOW functionality removed
 
 // set the broadcast ctrl mode.
 // broadcast mac address: FF:FF:FF:FF:FF:FF.

@@ -7,22 +7,13 @@
 // {"T":1002,"gx":0,"gy":0,"gz":0,"ax":0,"ay":0,"az":0,"mx":0,"my":0,"mz":0}
 #define FEEDBACK_IMU_DATA   1002
 
-// esp-now recv.
-// {"T":1003,"mac":"FF:FF:FF:FF:FF:FF","megs":"hello!"}
-#define CMD_ESP_NOW_RECV 1003
+// ESP-NOW functionality removed
 
 // get imu bias
 // {"T":129,"gx":0,"gy":0,"gz":0,"ax":0,"ay":0,"az":0,"cx":0,"cy":0,"cz":0}
 #define FEEDBACK_IMU_OFFSET 129
 
-// esp-now send status
-// 0:failed   1:succeed   2:Error initializing ESP-NOW
-// 3:invalid MAC address format.
-// 4:Failed to add peer.
-// 5:add peer.   6:delete peer.
-// 7:error sending the data.   8:sent with success.
-// {"T":1004,"mac":"FF:FF:FF:FF:FF:FF","status":1,"megs":"xxx"}
-#define CMD_ESP_NOW_SEND 1004
+// ESP-NOW functionality removed
 
 // bus servos error feedback
 // {"T":1005,"id":1,"status":1}
@@ -427,56 +418,7 @@
 
 
 
-// === === === ESP-NOW settings. === === ===
-
-// note: wifi must be running under STA(AP+STA) mode.
-// it will be controled by broadcast mac address.
-// {"T":300,"mode":1} [default]
-// it won't be controled by broadcast mac address, and add one mac to whitelist.
-// if there is no leader you can just fill 00:00:00:00:00:00 in it.
-// {"T":300,"mode":0,"mac":"CC:DB:A7:5B:E4:1C"}
-#define CMD_BROADCAST_FOLLOWER 300
-
-// set the mode of esp-now
-// espNowMode: 0 - none
-//             1 - flow-leader(group): sending cmds
-//             2 - flow-leader(single): sending cmds to a single follower
-//             3 - [default]follower: recv cmds
-// flow-leader - use cmd=0, ctrl servos in real time.
-//               leader uses the servos feedback pos to ctrl followers.
-// {"T":301,"mode":3}
-#define CMD_ESP_NOW_CONFIG    301
-
-// get this dev mac address.
-// {"T":302}
-#define CMD_GET_MAC_ADDRESS   302
-
-// add a new follower mac address to peer.
-// {"T":303,"mac":"FF:FF:FF:FF:FF:FF"}
-// {"T":303,"mac":"CC:DB:A7:5B:E4:1C"}
-// {"T":303,"mac":"CC:DB:A7:5C:1C:40"}
-// {"T":303,"mac":"CC:DB:A7:5C:E5:FC"}
-#define CMD_ESP_NOW_ADD_FOLLOWER  303
-
-// remove a follower from peer.
-// {"T":304,"mac":"FF:FF:FF:FF:FF:FF"}
-// {"T":304,"mac":"CC:DB:A7:5B:E4:1C"}
-// {"T":304,"mac":"CC:DB:A7:5C:1C:40"}
-// {"T":304,"mac":"CC:DB:A7:5C:E5:FC"}
-#define CMD_ESP_NOW_REMOVE_FOLLOWER 304
-
-// send info to more than one peer devs.
-// "FF:FF:FF:FF:FF:FF" can't be in the broadcast peer.
-// {"T":305,"dev":0,"b":0,"s":0,"e":1.57,"h":1.57,"cmd":0,"megs":"hello!"}
-#define CMD_ESP_NOW_GROUP_CTRL 305
-
-// send info to a single dev, or to every devs by using "FF:FF:FF:FF:FF:FF"
-// broadcast ctrl:
-// {"T":306,"mac":"FF:FF:FF:FF:FF:FF","dev":0,"b":0,"s":0,"e":1.57,"h":1.57,"cmd":0,"megs":"hello!"}
-// {"T":306,"mac":"FF:FF:FF:FF:FF:FF","dev":0,"b":0,"s":0,"e":0,"h":0,"cmd":1,"megs":"{\"T\":114,\"led\":255}"}
-// single ctrl:
-// {"T":306,"mac":"CC:DB:A7:5C:E5:FC","dev":0,"b":0,"s":0,"e":1.57,"h":1.57,"cmd":0,"megs":"hello!"}
-#define CMD_ESP_NOW_SINGLE 306
+// ESP-NOW functionality removed
 
 
 
