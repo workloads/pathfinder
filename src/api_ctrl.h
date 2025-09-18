@@ -112,36 +112,14 @@ String jsonAPIHandler(String stringInput)
 
     break;
 
-  case CMD_GIMBAL_CTRL_SIMPLE:
-    gimbalCtrlSimple(
-        jsonInput["X"],
-        jsonInput["Y"],
-        jsonInput["SPD"],
-        jsonInput["ACC"]);
-    break;
-
-  case CMD_GIMBAL_CTRL_MOVE:
-    gimbalCtrlMove(
-        jsonInput["X"],
-        jsonInput["Y"],
-        jsonInput["SX"],
-        jsonInput["SY"]);
-    break;
-
-  case CMD_GIMBAL_CTRL_STOP:
-    gimbalCtrlStop();
-    break;
+  // Gimbal functionality removed
 
   case CMD_HEART_BEAT_SET:
     changeHeartBeatDelay(
         jsonInput["cmd"]);
     break;
 
-  case CMD_GIMBAL_STEADY:
-    gimbalSteadySet(
-        jsonInput["s"],
-        jsonInput["y"]);
-    break;
+  // Gimbal functionality removed
 
   case CMD_SET_SPD_RATE:
     setSpdRate(
@@ -157,12 +135,7 @@ String jsonAPIHandler(String stringInput)
     saveSpdRate();
     break;
 
-  case CMD_GIMBAL_USER_CTRL:
-    gimbalUserCtrl(
-        jsonInput["X"],
-        jsonInput["Y"],
-        jsonInput["SPD"]);
-    break;
+  // Gimbal functionality removed
 
   // EoAT type settings.
   case CMD_EOAT_TYPE:

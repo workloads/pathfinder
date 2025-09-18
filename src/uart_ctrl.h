@@ -101,32 +101,12 @@ void jsonCmdReceiveHandler()
 			jsonCmdReceive["IO4"],
 			jsonCmdReceive["IO5"]);
 		break;
-	case CMD_GIMBAL_CTRL_SIMPLE:
-		gimbalCtrlSimple(
-			jsonCmdReceive["X"],
-			jsonCmdReceive["Y"],
-			jsonCmdReceive["SPD"],
-			jsonCmdReceive["ACC"]);
-		break;
-	case CMD_GIMBAL_CTRL_MOVE:
-		gimbalCtrlMove(
-			jsonCmdReceive["X"],
-			jsonCmdReceive["Y"],
-			jsonCmdReceive["SX"],
-			jsonCmdReceive["SY"]);
-		break;
-	case CMD_GIMBAL_CTRL_STOP:
-		gimbalCtrlStop();
-		break;
+	// Gimbal functionality removed
 	case CMD_HEART_BEAT_SET:
 		changeHeartBeatDelay(
 			jsonCmdReceive["cmd"]);
 		break;
-	case CMD_GIMBAL_STEADY:
-		gimbalSteadySet(
-			jsonCmdReceive["s"],
-			jsonCmdReceive["y"]);
-		break;
+	// Gimbal functionality removed
 	case CMD_SET_SPD_RATE:
 		setSpdRate(
 			jsonCmdReceive["L"],
@@ -138,12 +118,7 @@ void jsonCmdReceiveHandler()
 	case CMD_SAVE_SPD_RATE:
 		saveSpdRate();
 		break;
-	case CMD_GIMBAL_USER_CTRL:
-		gimbalUserCtrl(
-			jsonCmdReceive["X"],
-			jsonCmdReceive["Y"],
-			jsonCmdReceive["SPD"]);
-		break;
+	// Gimbal functionality removed
 
 	// EoAT type settings.
 	case CMD_EOAT_TYPE:

@@ -102,8 +102,7 @@
 #define CMD_OLED_DEFAULT	-3
 
 // MODULE TYPE
-// 0: nothing
-// 2: Gimbal
+// 0: nothing (no additional modules)
 // {"T":4,"cmd":0}
 #define CMD_MODULE_TYPE	4
 
@@ -142,30 +141,17 @@
 
 
 
-// LIGHT/GIMBAL/MOVTION CTRL
+// LIGHT/MOTION CTRL
 // {"T":132,"IO4":255,"IO5":255}
 #define CMD_LED_CTRL	132
 
-// GIMBAL CTRL(SIMPLE)
-// {"T":133,"X":45,"Y":45,"SPD":0,"ACC":0}
-#define CMD_GIMBAL_CTRL_SIMPLE	133
-
-// GIMBAL CTRL MOVE
-// {"T":134,"X":45,"Y":45,"SX":300,"SY":300}
-#define CMD_GIMBAL_CTRL_MOVE	134
-
-// GIMBAL CTRL STOP
-// {"T":135}
-#define CMD_GIMBAL_CTRL_STOP	135
+// Gimbal functionality removed
 
 // CHANGE HEART BEAT DELAY
 // {"T":136,"cmd":3000}
 #define CMD_HEART_BEAT_SET	136
 
-// GIMBAL STEADY
-// off: {"T":137,"s":0,"y":0}
-//  on:	{"T":137,"s":1,"y":0}
-#define CMD_GIMBAL_STEADY	137
+// Gimbal functionality removed
 
 // SET SPEED RATE
 // {"T":138,"L":1,"R":1}
@@ -179,13 +165,7 @@
 // {"T":140}
 #define CMD_SAVE_SPD_RATE	140
 
-// GIMBAL USER CTRL
-// {"T":141,"X":0,"Y":0,"SPD":300}
-// -1: decrease
-//  1: increase
-//  0: stop
-//  2,2: middle
-#define CMD_GIMBAL_USER_CTRL	141
+// Gimbal functionality removed
 
 
 // ---===< Arm ctrl. >===---
@@ -597,6 +577,6 @@
 // === === === mainType & moduleType settings. === === ===
 // set mainType & moduleType.
 // mainType: 1.RaspRover, 2.UGV Rover, 3.UGV Beast
-// moduleType: 0.Null, 2.PT
+// moduleType: 0.Null (no additional modules)
 // {"T":900,"main":1,"module":0}
 #define CMD_MM_TYPE_SET 900

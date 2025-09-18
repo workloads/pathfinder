@@ -47,8 +47,6 @@ DynamicJsonDocument apiResponse(1408);
 // functions for the leds of UGV.
 #include "src/ugv_led_ctrl.h"
 
-// functions for gimbal ctrl.
-#include "src/gimbal_module.h"
 
 // define json cmd.
 #include "src/json_cmd.h"
@@ -80,10 +78,6 @@ DynamicJsonDocument apiResponse(1408);
 // functions for http & web server.
 #include "src/http_server.h"
 
-void moduleType_Gimbal() {
-  getGimbalFeedback();
-  gimbalSteady(steadyGoalY);
-}
 
 
 void setup() {
@@ -307,9 +301,7 @@ void loop() {
   server.handleClient();
 
   // read and compute the info of joints.
-  switch (moduleType) {
-  case 2: moduleType_Gimbal();break;
-  }
+  // No additional modules (gimbal functionality removed)
 
   // recv esp-now json cmd.
   if(runNewJsonCmd) {

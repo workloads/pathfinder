@@ -354,12 +354,7 @@ void baseInfoFeedback() {
     int v_int = (int)(loadVoltage_V * 100);
 	jsonInfoHttp["v"] = v_int;
 
-	switch(moduleType) {
-	case 2:
-		jsonInfoHttp["pan"]  = panAngleCompute(gimbalFeedback[0].pos);
-		jsonInfoHttp["tilt"] = tiltAngleCompute(gimbalFeedback[1].pos);
-		break;
-	}
+	// No additional modules (gimbal functionality removed)
 
 	String getInfoJsonString;
 	serializeJson(jsonInfoHttp, getInfoJsonString);

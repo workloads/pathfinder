@@ -33,13 +33,8 @@ bool runNewJsonCmd = false;
 // 3: UGV Beast
 byte mainType = 2;
 
-// 0: [Base default] without gimbal.
-// 2: [Gimbal default] Gimbal mounted on the UGV.
+// 0: [Base default] without additional modules.
 byte moduleType = 0;
-
-// false: gimbal steady mode off.
-//  true: gimbal steady mode on.
-bool steadyMode = false;
 
 // 0: turn off base info feedback flow.
 // 1: [default] turn on base info feedback flow.
@@ -172,8 +167,6 @@ const uint16_t FREQ = 200;
 int feedbackFlowExtraDelay = 50;
 bool uartCmdEcho = 0;
 
-#define GIMBAL_PAN_ID  2
-#define GIMBAL_TILT_ID 1
 
 #define SERVO_STOP_DELAY 3
 

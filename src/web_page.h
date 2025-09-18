@@ -328,32 +328,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                         </div>
                     </div>
                     <div class="control-speed">
-                        <div>
-                            <div id="device-gimbal-btn_A">
-                                <label><button name="speedbtn" class="small-btn" onmousedown="gimbalCtrl(1);" ontouchstart="gimbalCtrl(1);" onmouseup="gimbalCtrl(0);" ontouchend="gimbalCtrl(0);">UP</button></label>
-                            </div>
-                        </div>
-                        <br>
-                        <div>
-                            <div id="device-gimbal-btn_B">
-                                <label><button name="speedbtn" class="small-btn" onmousedown="gimbalCtrl(3);" ontouchstart="gimbalCtrl(3);" onmouseup="gimbalCtrl(0);" ontouchend="gimbalCtrl(0);">LEFT</button></label>
-                                <label><button name="speedbtn" class="small-btn" onmousedown="gimbalCtrl(5);" ontouchstart="gimbalCtrl(5);" onmouseup="gimbalCtrl(0);" ontouchend="gimbalCtrl(0);">FORWARD</button></label>
-                                <label><button name="speedbtn" class="small-btn" onmousedown="gimbalCtrl(4);" ontouchstart="gimbalCtrl(4);" onmouseup="gimbalCtrl(0);" ontouchend="gimbalCtrl(0);">RIGHT</button></label>
-                            </div>
-                        </div>
-                        <br>
-                        <div>
-                            <div id="device-gimbal-btn_C">
-                                <label><button name="speedbtn" class="small-btn" onmousedown="gimbalCtrl(2);" ontouchstart="gimbalCtrl(2);" onmouseup="gimbalCtrl(0);" ontouchend="gimbalCtrl(0);">DOWN</button></label>
-                            </div>
-                        </div>
-                        <br>
-                        <div>
-                            <div id="device-gimbal-btn_D">
-                                <label><button name="speedbtn" class="small-btn" onclick="gimbalSteady(1,read_Y);">STEADY START</button></label>
-                                <label><button name="speedbtn" class="small-btn" onclick="gimbalSteady(0,read_Y);">STEADY END</button></label>
-                            </div>
-                        </div>
+                        <!-- Gimbal functionality removed -->
                         <br>
                         <br>
                         <div>
@@ -469,21 +444,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd132');">INPUT</button>
                     </div>
                     <div>
-                        <p>CMD_GIMBAL_CTRL_SIMPLE: <span id="cmd133" class="cmd-value">{"T":133,"X":45,"Y":45,"SPD":0,"ACC":0}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd133');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_GIMBAL_CTRL_MOVE: <span id="cmd134" class="cmd-value">{"T":134,"X":45,"Y":45,"SX":300,"SY":300}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd134');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_GIMBAL_CTRL_STOP: <span id="cmd135" class="cmd-value">{"T":135}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd135');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_GIMBAL_STEADY: <span id="cmd137" class="cmd-value">{"T":137,"s":1,"y":0}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd137');">INPUT</button>
-                    </div>
+                        <!-- Gimbal functionality removed -->
                 </div>
                 <div class="info-box json-cmd-info">
                     <div>
@@ -647,9 +608,7 @@ const char index_html[] PROGMEM = R"rawliteral(
     var io4_status = 0;
     var io5_status = 0;
 
-    var gimbal_T = 135;
-    var gimbal_X = 0;
-    var gimbal_Y = 0;
+    // Gimbal functionality removed
     var read_X = 0;
     var read_Y = 0;
 
@@ -805,75 +764,8 @@ const char index_html[] PROGMEM = R"rawliteral(
         xhr.open("GET", "js?json=" + jsonString, true);
         xhr.send();
     }
-    function gimbalSteady(inputS,inputY){
-        steady_status = inputS;
-        steady_bias = inputY;
-        var jsonCmd = {
-            "T":137,
-            "s":steady_status,
-            "y":steady_bias
-        }
-        var jsonString = JSON.stringify(jsonCmd);
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "js?json=" + jsonString, true);
-        xhr.send();
-    }
-    function gimbalCtrl(inputCmd){
-        if (inputCmd == 0) {
-            gimbal_T = 135;
-        }else if (inputCmd == 1) {
-            gimbal_T = 134;
-            gimbal_X = read_X;
-            gimbal_Y = 90;
-            if (steady_status == 1) {
-                steady_bias = steady_bias + 5;
-                if (steady_bias > 90) {
-                    steady_bias = 90;
-                }
-            }
-        }else if (inputCmd == 2) {
-            gimbal_T = 134;
-            gimbal_X = read_X;
-            gimbal_Y = -45;
-            if (steady_status == 1) {
-                steady_bias = steady_bias - 5;
-                if (steady_bias < -45) {
-                    steady_bias = 45;
-                }
-            }
-        }else if (inputCmd == 3) {
-            gimbal_T = 134;
-            gimbal_X = -180;
-            gimbal_Y = read_Y;
-        }else if (inputCmd == 4) {
-            gimbal_T = 134;
-            gimbal_X = 180;
-            gimbal_Y = read_Y;
-        }else if (inputCmd == 5) {
-            gimbal_T = 134;
-            gimbal_X = 0;
-            gimbal_Y = 0;
-            if (steady_status == 1) {
-                steady_bias = 0;
-            }
-        }
-
-        if (steady_status == 0) {
-            var jsonCmd = {
-                "T":gimbal_T,
-                "X":gimbal_X,
-                "Y":gimbal_Y,
-                "SX":600,
-                "SY":600
-            }
-            var jsonString = JSON.stringify(jsonCmd);
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "js?json=" + jsonString, true);
-            xhr.send();
-        }else if (steady_status == 1) {
-            gimbalSteady(1,steady_bias);
-        }
-    }
+    // Gimbal functionality removed
+    // Gimbal functionality removed
 
     function cmdProcess(){
         if (forwardButton == 0 && backwardButton == 0 && leftButton == 0 && rightButton == 0) {
