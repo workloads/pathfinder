@@ -5,7 +5,7 @@ void jsonCmdReceiveHandler()
 	{
 	// emergency stop.
 	case CMD_EMERGENCY_STOP:
-		emergencyStopProcessing();
+		// emergencyStopProcessing(); // RoArm-M2 function removed
 		setGoalSpeed(0, 0);
 		break;
 	case CMD_SPEED_CTRL:
@@ -93,10 +93,7 @@ void jsonCmdReceiveHandler()
 			jsonCmdReceive["cmd"]);
 		break;
 	case CMD_ARM_CTRL_UI:
-		RoArmM2_uiCtrl(
-			jsonCmdReceive["E"],
-			jsonCmdReceive["Z"],
-			jsonCmdReceive["R"]);
+		// RoArm-M2 functionality removed
 		break;
 
 	case CMD_LED_CTRL:
@@ -160,91 +157,17 @@ void jsonCmdReceiveHandler()
 			jsonCmdReceive["eb"]);
 		break;
 
-	// it moves to goal position directly
-	// with interpolation.
-	case CMD_MOVE_INIT:
-		RoArmM2_moveInit();
-		break;
-	case CMD_SINGLE_JOINT_CTRL:
-		RoArmM2_singleJointAbsCtrl(
-			jsonCmdReceive["joint"],
-			jsonCmdReceive["rad"],
-			jsonCmdReceive["spd"],
-			jsonCmdReceive["acc"]);
-		break;
-	case CMD_JOINTS_RAD_CTRL:
-		RoArmM2_allJointAbsCtrl(
-			jsonCmdReceive["base"],
-			jsonCmdReceive["shoulder"],
-			jsonCmdReceive["elbow"],
-			jsonCmdReceive["hand"],
-			jsonCmdReceive["spd"],
-			jsonCmdReceive["acc"]);
-		break;
-	case CMD_SINGLE_AXIS_CTRL:
-		RoArmM2_singlePosAbsBesselCtrl(
-			jsonCmdReceive["axis"],
-			jsonCmdReceive["pos"],
-			jsonCmdReceive["spd"]);
-		break;
-	case CMD_XYZT_GOAL_CTRL:
-		RoArmM2_allPosAbsBesselCtrl(
-			jsonCmdReceive["x"],
-			jsonCmdReceive["y"],
-			jsonCmdReceive["z"],
-			jsonCmdReceive["t"],
-			jsonCmdReceive["spd"]);
-		break;
-	case CMD_XYZT_DIRECT_CTRL:
-		RoArmM2_baseCoordinateCtrl(
-			jsonCmdReceive["x"],
-			jsonCmdReceive["y"],
-			jsonCmdReceive["z"],
-			jsonCmdReceive["t"]);
-		RoArmM2_goalPosMove();
-		break;
-	case CMD_SERVO_RAD_FEEDBACK:
-		RoArmM2_getPosByServoFeedback();
-		RoArmM2_infoFeedback();
-		break;
-
-	case CMD_EOAT_HAND_CTRL:
-		RoArmM2_handJointCtrlRad(1,
-								 jsonCmdReceive["cmd"],
-								 jsonCmdReceive["spd"],
-								 jsonCmdReceive["acc"]);
-		break;
-	case CMD_EOAT_GRAB_TORQUE:
-		RoArmM2_handTorqueCtrl(
-			jsonCmdReceive["tor"]);
-		break;
-
-	case CMD_SET_JOINT_PID:
-		RoArmM2_setJointPID(
-			jsonCmdReceive["joint"],
-			jsonCmdReceive["p"],
-			jsonCmdReceive["i"]);
-		break;
-	case CMD_RESET_PID:
-		RoArmM2_resetPID();
-		break;
+	// RoArm-M2 functionality removed
 
 	// set a new x-axis.
 	case CMD_SET_NEW_X:
-		setNewAxisX(
-			jsonCmdReceive["xAxisAngle"]);
+		// setNewAxisX(); // RoArm-M2 function removed
 		break;
 	case CMD_DELAY_MILLIS:
-		RoArmM2_delayMillis(
-			jsonCmdReceive["cmd"]);
+		// RoArm-M2 functionality removed
 		break;
 	case CMD_DYNAMIC_ADAPTATION:
-		RoArmM2_dynamicAdaptation(
-			jsonCmdReceive["mode"],
-			jsonCmdReceive["b"],
-			jsonCmdReceive["s"],
-			jsonCmdReceive["e"],
-			jsonCmdReceive["h"]);
+		// RoArm-M2 functionality removed
 		break;
 	// this two funcs are NOT for UGV.
 	// case CMD_SWITCH_CTRL: switchCtrl(
@@ -258,20 +181,10 @@ void jsonCmdReceiveHandler()
 		switchEmergencyStop();
 		break;
 	case CMD_SINGLE_JOINT_ANGLE:
-		RoArmM2_singleJointAngleCtrl(
-			jsonCmdReceive["joint"],
-			jsonCmdReceive["angle"],
-			jsonCmdReceive["spd"],
-			jsonCmdReceive["acc"]);
+		// RoArm-M2 functionality removed
 		break;
 	case CMD_JOINTS_ANGLE_CTRL:
-		RoArmM2_allJointsAngleCtrl(
-			jsonCmdReceive["b"],
-			jsonCmdReceive["s"],
-			jsonCmdReceive["e"],
-			jsonCmdReceive["h"],
-			jsonCmdReceive["spd"],
-			jsonCmdReceive["acc"]);
+		// RoArm-M2 functionality removed
 		break;
 		// constant ctrl
 		// m: 0 - angle
@@ -281,11 +194,7 @@ void jsonCmdReceiveHandler()
 		// 		  2 - decrease
 		// {"T":123,"m":0,"axis":0,"cmd":0,"spd":0}
 	case CMD_CONSTANT_CTRL:
-		constantCtrl(
-			jsonCmdReceive["m"],
-			jsonCmdReceive["axis"],
-			jsonCmdReceive["cmd"],
-			jsonCmdReceive["spd"]);
+		// constantCtrl(); // RoArm-M2 function removed
 		break;
 
 	// mission & steps edit & file edit.
@@ -334,8 +243,7 @@ void jsonCmdReceiveHandler()
 		break;
 
 	case CMD_TORQUE_CTRL:
-		servoTorqueCtrl(254,
-						jsonCmdReceive["cmd"]);
+		// servoTorqueCtrl(); // RoArm-M2 function removed
 		break;
 
 	case CMD_CREATE_MISSION:
@@ -500,18 +408,13 @@ void jsonCmdReceiveHandler()
 
 	// servo settings.
 	case CMD_SET_SERVO_ID:
-		changeID(
-			jsonCmdReceive["raw"],
-			jsonCmdReceive["new"]);
+		// changeID(); // RoArm-M2 function removed
 		break;
 	case CMD_SET_MIDDLE:
-		setMiddlePos(
-			jsonCmdReceive["id"]);
+		// setMiddlePos(); // RoArm-M2 function removed
 		break;
 	case CMD_SET_SERVO_PID:
-		setServosPID(
-			jsonCmdReceive["id"],
-			jsonCmdReceive["p"]);
+		// setServosPID(); // RoArm-M2 function removed
 		break;
 
 	// esp-32 dev ctrl.

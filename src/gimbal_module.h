@@ -1,3 +1,20 @@
+#include <SCServo.h>
+
+// Instantiate a servo control object.
+SMS_STS st;
+
+// Used to store the feedback information from the servo.
+struct ServoFeedback {
+  bool status;
+  int pos;
+  int speed;
+  int load;
+  float voltage;
+  float current;
+  float temper;
+  byte mode;
+};
+
 u8 gimbalID[2] = {GIMBAL_PAN_ID, GIMBAL_TILT_ID};
 
 s16 gimbalPos[2];
@@ -9,6 +26,13 @@ ServoFeedback gimbalFeedback[2];
 // [1] TILT
 
 float steadyGoalY = 0;
+
+// ctrl the torque lock of a servo.
+// input the servo ID and command: 1-on : produce torque.
+//                                 0-off: release torque.
+void servoTorqueCtrl(byte servoID, u8 enableCMD){
+  st.EnableTorque(servoID, enableCMD);
+}
 
 float constrainFloat(float value, float min, float max) {
   if (value < min) {
@@ -87,7 +111,7 @@ void getGimbalFeedback() {
     gimbalFeedback[0].temper = st.ReadTemper(-1);
     gimbalFeedback[0].mode = st.ReadMode(GIMBAL_PAN_ID);
   } else{
-    servoFeedback[0].status = false;
+    gimbalFeedback[0].status = false;
     if(InfoPrint == 1){
       jsonInfoHttp.clear();
       jsonInfoHttp["T"] = 1005;
@@ -109,7 +133,7 @@ void getGimbalFeedback() {
     gimbalFeedback[1].temper = st.ReadTemper(-1);
     gimbalFeedback[1].mode = st.ReadMode(GIMBAL_TILT_ID);
   } else{
-    servoFeedback[1].status = false;
+    gimbalFeedback[1].status = false;
     if(InfoPrint == 1){
       jsonInfoHttp.clear();
       jsonInfoHttp["T"] = 1005;

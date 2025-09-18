@@ -551,7 +551,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd401');">INPUT</button>
                     </div>
                     <div>
-                        <p>CMD_SET_AP: <span id="cmd402" class="cmd-value">{"T":402,"ssid":"RoArm-M2","password":"12345678"}</span></p>
+                        <p>CMD_SET_AP: <span id="cmd402" class="cmd-value">{"T":402,"ssid":"Pathfinder","password":"12345678"}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd402');">INPUT</button>
                     </div>
                     <div>
@@ -559,7 +559,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd403');">INPUT</button>
                     </div>
                     <div>
-                        <p>CMD_WIFI_APSTA: <span id="cmd404" class="cmd-value">{"T":404,"ap_ssid":"RoArm-M2","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}</span></p>
+                        <p>CMD_WIFI_APSTA: <span id="cmd404" class="cmd-value">{"T":404,"ap_ssid":"Pathfinder","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd404');">INPUT</button>
                     </div>
                     <div>
@@ -571,7 +571,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd406');">INPUT</button>
                     </div>
                     <div>
-                        <p>CMD_WIFI_CONFIG_CREATE_BY_INPUT: <span id="cmd406" class="cmd-value">{"T":407,"mode":3,"ap_ssid":"RoArm-M2","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}</span></p>
+                        <p>CMD_WIFI_CONFIG_CREATE_BY_INPUT: <span id="cmd406" class="cmd-value">{"T":407,"mode":3,"ap_ssid":"Pathfinder","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd406');">INPUT</button>
                     </div>
                 </div>

@@ -143,12 +143,8 @@ void OnDataRecv(const esp_now_recv_info_t *info, const unsigned char* incomingDa
 
   switch(espNowMegsRecv.cmd) {
     case 0: {
-      RoArmM2_allJointAbsCtrl(espNowMegsRecv.base,
-                              espNowMegsRecv.shoulder,
-                              espNowMegsRecv.elbow,
-                              espNowMegsRecv.hand,
-                              0,
-                              0);break;
+      // RoArm-M2 functionality removed
+      break;
     }
     case 1: {
       DeserializationError err = deserializeJson(jsonCmdReceive, espNowMegsRecv.message);
@@ -327,10 +323,11 @@ void espNowSingleDevSend(String inputMac, byte devCodeIn, float bIn, float sIn, 
 
 
 void espNowSingleDevFlowCtrl() {
-  espNowMessage.base     = radB;
-  espNowMessage.shoulder = radS;
-  espNowMessage.elbow    = radE;
-  espNowMessage.hand     = radG;
+  // RoArm-M2 variables removed - set to default values
+  espNowMessage.base     = 0;
+  espNowMessage.shoulder = 0;
+  espNowMessage.elbow    = 0;
+  espNowMessage.hand     = 0;
 
   esp_err_t result = esp_now_send(singleFollowerDev, 
                                   (uint8_t *) &espNowMessage,
@@ -348,10 +345,11 @@ void espNowSingleDevFlowCtrl() {
 
 
 void espNowGroupDevsFlowCtrl() {
-  espNowMessage.base     = radB;
-  espNowMessage.shoulder = radS;
-  espNowMessage.elbow    = radE;
-  espNowMessage.hand     = radG;
+  // RoArm-M2 variables removed - set to default values
+  espNowMessage.base     = 0;
+  espNowMessage.shoulder = 0;
+  espNowMessage.elbow    = 0;
+  espNowMessage.hand     = 0;
 
   esp_err_t result = esp_now_send(0, (uint8_t *) &espNowMessage, sizeof(struct_message));
   jsonInfoHttp.clear();

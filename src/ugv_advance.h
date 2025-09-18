@@ -1,4 +1,4 @@
-// advance funcs for RoArm-M2 ctrl
+// advance funcs for UGV ctrl
 // place holder.
 void jsonCmdReceiveHandler();
 bool moveToStep(String inputName, int inputStepNum);
@@ -90,13 +90,13 @@ bool appendStepJson(String inputName, String inputStep) {
 // a new step at the end of the mission.
 // using feedback.
 void appendStepFB(String inputName, float inputSpd) {
-	RoArmM2_infoFeedback();
+	// RoArm-M2 functionality removed
 	jsonInfoSend.clear();
 	jsonInfoSend["T"] = 104;
-	jsonInfoSend["x"] = lastX;
-	jsonInfoSend["y"] = lastY;
-	jsonInfoSend["z"] = lastZ;
-	jsonInfoSend["t"] = lastT;
+	jsonInfoSend["x"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["y"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["z"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["t"] = 0; // Default value since RoArm-M2 removed
 	jsonInfoSend["spd"] = inputSpd;
 	String contentBuffer;
 	serializeJson(jsonInfoSend, contentBuffer);
@@ -139,13 +139,13 @@ bool insertStepJson(String inputName, int inputStepNum, String inputStep) {
 // insert a new step as the stepNum
 // using the feedback.
 void insertStepFB(String inputName, int inputStepNum, float inputSpd) {
-	RoArmM2_infoFeedback();
+	// RoArm-M2 functionality removed
 	jsonInfoSend.clear();
 	jsonInfoSend["T"] = 104;
-	jsonInfoSend["x"] = lastX;
-	jsonInfoSend["y"] = lastY;
-	jsonInfoSend["z"] = lastZ;
-	jsonInfoSend["t"] = lastT;
+	jsonInfoSend["x"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["y"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["z"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["t"] = 0; // Default value since RoArm-M2 removed
 	jsonInfoSend["spd"] = inputSpd;
 	String contentBuffer;
 	serializeJson(jsonInfoSend, contentBuffer);
@@ -188,13 +188,13 @@ bool replaceStepJson(String inputName, int inputStepNum, String inputStep) {
 // replace the cmd at stepNum.
 // using feedback.
 void replaceStepFB(String inputName, int inputStepNum, float inputSpd) {
-	RoArmM2_infoFeedback();
+	// RoArm-M2 functionality removed
 	jsonInfoSend.clear();
 	jsonInfoSend["T"] = 104;
-	jsonInfoSend["x"] = lastX;
-	jsonInfoSend["y"] = lastY;
-	jsonInfoSend["z"] = lastZ;
-	jsonInfoSend["t"] = lastT;
+	jsonInfoSend["x"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["y"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["z"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["t"] = 0; // Default value since RoArm-M2 removed
 	jsonInfoSend["spd"] = inputSpd;
 	String contentBuffer;
 	serializeJson(jsonInfoSend, contentBuffer);
@@ -276,75 +276,13 @@ void missionPlay(String inputName, int repeatTimes) {
 
 // change EEmode.
 void configEEmodeType(byte inputMode) {
-	EEMode = inputMode;
-	if (inputMode == 0){
-		l3A = ARM_L3_LENGTH_MM_A_0;
-		l3B = ARM_L3_LENGTH_MM_B_0;
-		l3  = sqrt(l3A * l3A + l3B * l3B);
-		t3rad = atan2(l3B, l3A);
-
-		initX = l3A + l2B;
-		initY = 0;
-		initZ = l2A - l3B;
-		initT = M_PI;
-	}
-	else if (inputMode == 1){
-		l3A = ARM_L3_LENGTH_MM_A_1;
-		l3B = ARM_L3_LENGTH_MM_B_1;
-		l3  = sqrt(l3A * l3A + l3B * l3B);
-		t3rad = atan2(l3B, l3A);
-
-		EoAT_A = EoAT_A;
-		EoAT_B = EoAT_B;
-		l4A = ARM_L4_LENGTH_MM_A;
-		l4B = ARM_L4_LENGTH_MM_B;
-		lEA = EoAT_A + ARM_L4_LENGTH_MM_A;
-		lEB = EoAT_B + ARM_L4_LENGTH_MM_B;
-		lE  = sqrt(lEA * lEA + lEB * lEB);
-		tErad = atan2(lEB, lEA);
-
-		initX = l3A + l2B + l4A + EoAT_A;
-		initY = 0;
-		initZ = l2A - l3B - l4B - EoAT_B;
-		initT = M_PI;
-	}
-	goalX = initX;
-	goalY = initY;
-	goalZ = initZ;
-	goalT = initT;
-
-	lastX = goalX;
-	lastY = goalY;
-	lastZ = goalZ;
-	lastT = goalT;
-	RoArmM2_baseCoordinateCtrl(initX, initY, initZ, initT);
-	RoArmM2_goalPosMove();
+	// RoArm-M2 functionality removed
 }
 
 
 // config the siza of EoAT.
 void configEoAT(byte mountPos, double inputEA, double inputEB) {
-	switch (mountPos) {
-	case 0: ARM_L4_LENGTH_MM_A = 67.85;break;
-	case 1: ARM_L4_LENGTH_MM_A = 64.16;break;
-	case 2: ARM_L4_LENGTH_MM_A = 59.07;break;
-	case 3: ARM_L4_LENGTH_MM_A = 51.07;break;
-	}
-
-	EoAT_A = inputEA;
-	EoAT_B = inputEB;
-
-	l4A = ARM_L4_LENGTH_MM_A;
-	l4B = ARM_L4_LENGTH_MM_B;
-	lEA = EoAT_A + ARM_L4_LENGTH_MM_A;
-	lEB = EoAT_B + ARM_L4_LENGTH_MM_B;
-	lE  = sqrt(lEA * lEA + lEB * lEB);
-	tErad = atan2(lEB, lEA);
-
-	initX = l3A + l2B + l4A + EoAT_A;
-	initY = 0;
-	initZ = l2A - l3B - l4B - EoAT_B;
-	initT = M_PI;
+	// RoArm-M2 functionality removed
 }
 
 
@@ -417,19 +355,6 @@ void baseInfoFeedback() {
 	jsonInfoHttp["v"] = v_int;
 
 	switch(moduleType) {
-	case 1:
-		jsonInfoHttp["ax"] = lastX;
-		jsonInfoHttp["ay"] = lastY;
-		jsonInfoHttp["az"] = lastZ;
-		jsonInfoHttp["ab"] = radB;
-		jsonInfoHttp["as"] = radS;
-		jsonInfoHttp["ae"] = radE;
-		jsonInfoHttp["at"] = lastT;
-		jsonInfoHttp["torB"] = servoFeedback[BASE_SERVO_ID - 11].load;
-		jsonInfoHttp["torS"] = servoFeedback[SHOULDER_DRIVING_SERVO_ID - 11].load - servoFeedback[SHOULDER_DRIVEN_SERVO_ID - 11].load;
-		jsonInfoHttp["torE"] = servoFeedback[ELBOW_SERVO_ID - 11].load;
-		jsonInfoHttp["torH"] = servoFeedback[GRIPPER_SERVO_ID - 11].load;
-		break;
 	case 2:
 		jsonInfoHttp["pan"]  = panAngleCompute(gimbalFeedback[0].pos);
 		jsonInfoHttp["tilt"] = tiltAngleCompute(gimbalFeedback[1].pos);

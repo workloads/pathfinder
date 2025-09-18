@@ -103,7 +103,6 @@
 
 // MODULE TYPE
 // 0: nothing
-// 1: RoArm-M2-S
 // 2: Gimbal
 // {"T":4,"cmd":0}
 #define CMD_MODULE_TYPE	4
@@ -252,8 +251,8 @@
 // SHOULDER_JOINT - 2
 // ELBOW_JOINT    - 3
 // EOAT_JOINT     - 4
-// default p:32[servo] 16[RoArm-M2]
-//         i: 0[servo]  8[RoArm-M2 PID MODE ON]
+// default p:32[servo]
+//         i: 0[servo]
 //         d: not used by default
 #define CMD_SET_JOINT_PID 108
 
@@ -512,7 +511,7 @@
 #define CMD_WIFI_ON_BOOT 401
 
 // config ap mode.
-// {"T":402,"ssid":"RoArm-M2","password":"12345678"}
+// {"T":402,"ssid":"Pathfinder","password":"12345678"}
 #define CMD_SET_AP  402
 
 // config sta mode.
@@ -520,7 +519,7 @@
 #define CMD_SET_STA 403
 
 // config ap/sta mode.
-// {"T":404,"ap_ssid":"RoArm-M2","ap_password":"12345678","sta_ssid":"JSBZY-2.4G","sta_password":"waveshare0755"}
+// {"T":404,"ap_ssid":"Pathfinder","ap_password":"12345678","sta_ssid":"JSBZY-2.4G","sta_password":"waveshare0755"}
 #define CMD_WIFI_APSTA   404
 
 // get wifi info.
@@ -534,7 +533,7 @@
 
 // create a wifiConfig.json file
 // from the args input.
-// {"T":407,"mode":3,"ap_ssid":"RoArm-M2","ap_password":"12345678","sta_ssid":"JSBZY-2.4G","sta_password":"waveshare0755"}
+// {"T":407,"mode":3,"ap_ssid":"Pathfinder","ap_password":"12345678","sta_ssid":"JSBZY-2.4G","sta_password":"waveshare0755"}
 #define CMD_WIFI_CONFIG_CREATE_BY_INPUT 407
 
 // disconnect wifi.
@@ -598,6 +597,6 @@
 // === === === mainType & moduleType settings. === === ===
 // set mainType & moduleType.
 // mainType: 1.RaspRover, 2.UGV Rover, 3.UGV Beast
-// moduleType: 0.Null, 1.RoArm, 2.PT
+// moduleType: 0.Null, 2.PT
 // {"T":900,"main":1,"module":0}
 #define CMD_MM_TYPE_SET 900
