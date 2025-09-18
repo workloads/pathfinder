@@ -54,8 +54,8 @@ DynamicJsonDocument apiResponse(1408);
 // functions for IMU ctrl.
 #include "src/IMU_ctrl.h"
 
-// functions for movtion ctrl. 
-#include "src/movtion_module.h"
+// functions for motion ctrl. 
+#include "src/motion_module.h"
 
 // functions for editing the files in flash.
 #include "src/files_ctrl.h"
@@ -189,7 +189,7 @@ void setup() {
   screenLine_3 = "Initialize 12V-switch ctrl";
   oled_update();
   if(InfoPrint == 1){Serial.println("Initialize the pins used for 12V-switch ctrl.");}
-  movtionPinInit();
+  motionPinInit();
 
   // servos power up
   screenLine_2 = screenLine_3;

@@ -6,7 +6,7 @@ float spd_rate_A = 1.0;
 float spd_rate_B = 1.0;
 bool heartbeatStopFlag = false;
 
-void movtionPinInit(){
+void motionPinInit(){
   pinMode(AIN1, OUTPUT);
   pinMode(AIN2, OUTPUT);
   pinMode(PWMA, OUTPUT);
@@ -117,7 +117,7 @@ void getSpdRate() {
 
 
 
-// movtion parts.
+// motion parts.
 // A-left, B-right
 
 ESP32Encoder encoderA;
