@@ -1,25 +1,9 @@
-
 // 2: flow feedback.
 // 1: [default]print debug info in serial.
 // 0: don't print debug info in serial.
 byte InfoPrint = 0;
 
 // devices info:
-// ESP-NOW functionality removed
-
-// set the broadcast ctrl mode.
-// broadcast mac address: FF:FF:FF:FF:FF:FF.
-// true  - [default]it can be controled by broadcast mac address.
-// false - it won't be controled by broadcast mac address.
-bool ctrlByBroadcast = true;
-
-// you can define some whitelist mac addresses here.
-uint8_t mac_whitelist_broadcast[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-
-// Multifunction End-Effector Switching System.
-// 0 - end servo as grab.
-// 1 - end servo as a joint moving in vertical plane.
-byte EEMode = 0;
 
 // run new json cmd
 bool runNewJsonCmd = false;
@@ -38,15 +22,6 @@ bool baseFeedbackFlow = 1;
 
 String thisMacStr;
 
-
-
-
-
-
-
-
-#define MAX_SERVO_ID 32 // MAX:253
-
 // the uart used to control servos.
 // GPIO 18 - S_RXD, GPIO 19 - S_TXD, as default.
 #define S_RXD 18
@@ -54,10 +29,7 @@ String thisMacStr;
 
 bool newCmdReceived = false;
 
-
-
 // --- --- --- Pneumatic Components && Lights --- --- ---
-
 const uint16_t ANALOG_WRITE_BITS = 8;
 const uint16_t MAX_PWM = pow(2, ANALOG_WRITE_BITS)-1;
 const uint16_t MIN_PWM = MAX_PWM/4;
@@ -79,27 +51,11 @@ int freq = 100000;
 int channel_A = 5;
 int channel_B = 6;
 
-
-// --- --- --- Bus Servo Settings --- --- ---
-
-#define ST_PID_P_ADDR 21
-#define ST_PID_D_ADDR 22
-#define ST_PID_I_ADDR 23
-
-#define ST_PID_DEFAULT_P 32
-
-#define ST_TORQUE_MAX 1000
-#define ST_TORQUE_MIN 50
-
-
 // --- --- --- i2c Settings --- --- ---
-
 #define S_SCL   33
 #define S_SDA   32
 
-
 //  --- --- --- web / constant moving --- --- ---
-
 #define MOVE_STOP 0
 #define MOVE_INCREASE 1
 #define MOVE_DECREASE 2
@@ -110,22 +66,17 @@ int channel_B = 6;
 float const_spd;
 byte  const_mode;
 
-
 unsigned long prev_time = 0;
 
 String jsonFeedbackWeb = "";
 
-
 //  --- --- --- pid controller --- --- ---
-
 float __kp = 20.0;
 float __ki = 2000.0;
 float __kd = 0;
 float windup_limits = 255;
 
-
 //  --- --- --- ugv base --- --- ---
-
 #define THRESHOLD_PWM 23
 
 // mainType:01 RaspRover
@@ -151,7 +102,6 @@ int ONE_CIRCLE_PLUSES = 660;
 double TRACK_WIDTH = 0.172;
 bool SET_MOTOR_DIR = false;
 
-
 #define IO4_PIN 4
 #define IO5_PIN 5
 
@@ -163,17 +113,21 @@ const uint16_t FREQ = 200;
 int feedbackFlowExtraDelay = 50;
 bool uartCmdEcho = 0;
 
-
 #define SERVO_STOP_DELAY 3
 
 int HEART_BEAT_DELAY = 3000;
 unsigned long lastCmdRecvTime = millis();
 
-
 // --- --- --- ugv imu --- --- ---
 double icm_pitch = 0;
 double icm_roll = 0;
 double icm_yaw = 0;
+
+// IMU scale factors
+#define IMU_ACCEL_SCALE_FACTOR 16384.0  // Scale factor for ±2g range (16-bit values)
+
+// IMU safety limits
+#define IMU_PITCH_LIMIT_RADIANS 0.6  // Maximum allowed pitch angle in radians (≈34.4°)
 
 float icm_temp;
 unsigned long last_imu_update = 0;

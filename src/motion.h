@@ -23,7 +23,6 @@ void motionPinInit(){
   digitalWrite(BIN2, LOW);
 }
 
-
 void switchEmergencyStop(){
   digitalWrite(AIN1, LOW);
   digitalWrite(AIN2, LOW);
@@ -31,7 +30,6 @@ void switchEmergencyStop(){
   digitalWrite(BIN1, LOW);
   digitalWrite(BIN2, LOW);
 }
-
 
 void switchPortCtrlA(float pwmInputA){
   int pwmIntA = round(pwmInputA * spd_rate_A);
@@ -53,7 +51,6 @@ void switchPortCtrlA(float pwmInputA){
   }
 }
 
-
 void switchPortCtrlB(float pwmInputB){
   int pwmIntB = round(pwmInputB * spd_rate_B);
   if(abs(pwmIntB) < 1e-6){
@@ -74,7 +71,6 @@ void switchPortCtrlB(float pwmInputB){
   }
 }
 
-
 void switchCtrl(int pwmIntA, int pwmIntB) {
     switch_pwm_A = pwmIntA;
     switch_pwm_B = pwmIntB;
@@ -82,12 +78,10 @@ void switchCtrl(int pwmIntA, int pwmIntB) {
     switchPortCtrlB(switch_pwm_B);
 }
 
-
 void lightCtrl(int pwmIn) {
   switch_pwm_A = pwmIn;
   switchPortCtrlA(-abs(switch_pwm_A));
 }
-
 
 void setSpdRate(float inputL, float inputR) {
   inputL = abs(inputL);
@@ -102,7 +96,6 @@ void setSpdRate(float inputL, float inputR) {
   spd_rate_B = inputR;
 }
 
-
 void getSpdRate() {
   jsonInfoHttp.clear();
   jsonInfoHttp["T"] = CMD_GET_SPD_RATE;
@@ -116,10 +109,8 @@ void getSpdRate() {
 }
 
 
-
 // motion parts.
 // A-left, B-right
-
 ESP32Encoder encoderA;
 ESP32Encoder encoderB;
 
@@ -133,7 +124,6 @@ double speedGetA;
 double speedGetB;
 
 double plusesRate = 3.14159265359 * WHEEL_D / ONE_CIRCLE_PLUSES;
-
 
 void initEncoders() {
   encoderA.attachHalfQuad(AENCA, AENCB);
@@ -171,9 +161,7 @@ void getRightSpeed() {
 }
 
 
-
 // --- PID Controller ---
-
 PID_v2 pidA(__kp, __ki, __kd, PID::Direct);
 PID_v2 pidB(__kp, __ki, __kd, PID::Direct);
 

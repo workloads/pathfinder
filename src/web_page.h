@@ -10,15 +10,17 @@ const char index_html[] PROGMEM = R"rawliteral(
         text-align: center;
         font-family: sans-serif;
     }
+
     body {
         background-image: -webkit-linear-gradient(#3F424F, #1E212E);
-        font-family: "roboto",helt "sans-serif";
+        font-family: "Helvetica Neue", "sans-serif";
         font-weight: lighter;
         background-position: center 0;
         background-attachment: fixed;
-        color: rgba(255, 255, 255, 0.6);
+        color: #FED70F;
         font-size: 14px;
     }
+
     .cc-btn {
         border: 0;
         cursor: pointer;
@@ -34,18 +36,22 @@ const char index_html[] PROGMEM = R"rawliteral(
         -ms-user-select: none;
         user-select: none; 
     }
+
     .cc-middle{
         width: 100px;
         height: 100px;
         border-radius: 50%;
         background-color: rgba(94,98,112,0.8);
     }
+
     .cc-btn:hover svg, .cc-middle:hover {
         opacity: 0.5;
     }
+
     .cc-btn:active svg, .cc-middle:hover{
         opacity: 0.5;
     }
+
     .controlor-c > div{
         width: 300px;
         height: 300px; 
@@ -54,28 +60,34 @@ const char index_html[] PROGMEM = R"rawliteral(
         box-shadow: 10px 10px 10px rgba(0,0,0,0.05);
         margin: auto;
     }
+
     .controlor-c > div > div{
         display: flex;
     }
+
     main {
         width: 960px;
         margin: auto;
     }
+
     section{margin: 40px 0;}
     .for-move {
         display: flex;
         align-items: center;
     }
+
     .for-move-a, .for-move-b{
         flex: 1;
         margin: 0 20px;
     }
+
     .h2-tt {
         font-size: 2em;
         font-weight: normal;
         color: rgba(255, 255, 255, 0.8);
         text-transform: uppercase;
     }
+
     .info-device-box .info-box{display: flex;}
     .info-device-box .info-box{padding: 20px 0;}
     .num-box-big > div, .num-box-sma > div{flex: 1;}
@@ -84,13 +96,16 @@ const char index_html[] PROGMEM = R"rawliteral(
         flex-wrap: wrap;
         justify-content: space-between;
     }
+
     .num-box-mid div{
         width:33.3333%;
         margin: 20px 0;
     }
+
     .info-device-box .info-box > div > span {
         display: block;
     }
+
     .info-box {
         background-image: linear-gradient(to right, rgba(94, 98, 112, 0.3), rgba(75, 80, 95, 0.3)) ;
         margin: 20px auto;
@@ -99,6 +114,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         border-radius: 4px;
         color: rgba(255,255,255,0.5);
     }
+
     .big-num{font-size: 3em;}
     .mid-num{font-size: 2em;}
     .sma-num{font-size: 1.2em;}
@@ -113,6 +129,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         line-height: 1em;
         margin: 0.5em 0;
     }
+
     .num-color-red{
         background-image: linear-gradient(rgba(181,104,108,1),rgba(181,104,108,0.5));
         background-clip: text;
@@ -124,23 +141,28 @@ const char index_html[] PROGMEM = R"rawliteral(
         line-height: 1em;
         margin: 0.5em 0;
     }
+
     .controlor > div {margin: 80px 0;}
     .json-cmd-info{
         display: flex;
         flex-wrap: wrap;
     }
+
     .json-cmd-info > div {
         width: 33.33333%;
         padding: 10px 0;
     }
+
     .json-cmd-info p{
         line-height: 30px;
         margin: 0;
     }
+
     .json-cmd-info p span {
         display: block;
         color: rgba(255,255,255,0.8);
     }
+
     .small-btn{
         color: rgba(255,255,255,0.8);
         background-color: #5E6270;
@@ -148,6 +170,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         height: 48px;
         border-radius: 4px;
     }
+
     .small-btn-active{
         background-color: rgba(38,152,234,0.1);
         color: #2698EA;
@@ -155,6 +178,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         height: 48px;
         border-radius: 4px;
     }
+
     .feedb-p input{
         width: 100%;
         height: 46px;
@@ -166,19 +190,23 @@ const char index_html[] PROGMEM = R"rawliteral(
         font-size: 1.2em;
         margin-right: 10px;
     }
+
     .control-speed > div {
         width: 290px;
         margin: auto;
     }
+
     .control-speed > div > div{display: flex;}
     .control-speed label {flex: 1;}
     .small-btn, .small-btn-active{
         width: 90px;
     }
+
     .feedb-p{ display: flex;}
     .fb-input-info{
         margin: 0 20px;
     }
+
     .fb-info {margin: 20px;}
     .fb-info > span{line-height: 2.4em;}
     .btn-send:hover, .small-btn:hover{background-color: #2698EA;}
@@ -189,6 +217,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         padding: 10px;
         border: none;
     }
+        
     .w-btn:hover{color: #2698EA;}
     .w-btn:active{color: #1b87d4;}
     @media screen and (min-width: 768px) and (max-width: 1200px){
@@ -213,6 +242,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         .control-speed > div{width: 600px;}
         section{margin: 20px 0;}
     }
+    
     @media screen and (min-width: 360px) and (max-width: 767px){
         main {
             width: 100%;
@@ -257,52 +287,48 @@ const char index_html[] PROGMEM = R"rawliteral(
                     <div class="info-device-box">
                         <div class="info-box num-box-big">
                             <div >
-                                <span class="big-num num-color" id="V">-1.01</span>
+                                <span class="big-num num-color" id="V">12.00</span>
                                 <span id="Vn">VOLTAGE</span>
                             </div>
                             <div>
-                                <span class="big-num num-color" id="RSSI">-1.01</span>
+                                <span class="big-num num-color" id="RSSI">-50</span>
                                 <span id="RSSIn">RSSI</span>
                             </div>
                         </div>
                     </div>
                     <div class="info-device-box">
                         <div class="info-box num-box-mid">
-                            <!-- <div>
-                                <span class="num-color mid-num" id="r">-1.01</span>
+                            <div>
+                                <span class="num-color mid-num" id="r">0.00</span>
                                 <span id="rn">ROLL</span>
                             </div>
                             <div>
-                                <span class="num-color mid-num" id="p">-1.01</span>
+                                <span class="num-color mid-num" id="p">0.00</span>
                                 <span id="pn">PITCH</span>
                             </div>
                             <div>
-                                <span class="num-color mid-num" id="y">-1.01</span>
+                                <span class="num-color mid-num" id="y">0.00</span>
                                 <span id="yn">YAW</span>
                             </div>
                             <div>
-                                <span class="num-color mid-num" id="mX">-1.01</span>
-                                <span id="mXn">PAN</span>
+                                <span class="num-color mid-num" id="mX">0.00</span>
+                                <span id="mXn">LEFT</span>
                             </div>
                             <div>
-                                <span class="num-color mid-num" id="mY">-1.01</span>
-                                <span id="mYn">TILT</span>
+                                <span class="num-color mid-num" id="mY">0.00</span>
+                                <span id="mYn">RIGHT</span>
                             </div>
                             <div>
-                                <span class="num-color mid-num" id="mZ">-1.01</span>
+                                <span class="num-color mid-num" id="mZ">1.00</span>
                                 <span id="mZn">SPD_R</span>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                     <div class="info-device-box">
                         <div class="info-box num-box-sma">
                             <div>
-                                <span class="num-color sma-num" id="IP">192.168.10.67</span>
+                                <span class="num-color sma-num" id="IP">192.168.4.1</span>
                                 <span id="IPn">IP</span>
-                            </div>
-                            <div>
-                                <span class="num-color sma-num" id="MAC">44:17:93:EE:F8:F8</span>
-                                <span id="MACn">MAC</span>
                             </div>
                         </div>
                     </div>
@@ -338,22 +364,13 @@ const char index_html[] PROGMEM = R"rawliteral(
                                 <label><button name="speedbtn" class="small-btn" onclick="changeSpeed(1.0);">FAST</button></label>
                             </div>
                         </div>
-                        <br>
-                        <div>
-                            <div id="device-led-btn">
-                                <label><button name="speedbtn" class="small-btn" onclick="ledCtrl(1);">IO4</button></label>
-                                <label><button name="speedbtn" class="small-btn" onclick="ledCtrl(2);">IO5</button></label>
-                                <label><button name="speedbtn" class="small-btn" onclick="ledCtrl(0);">OFF</button></label>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
         <section>
             <div class="fb-info">
-                <h2 class="h2-tt" id="deviceInfo">Feedback infomation</h2>
-                <span id="fbInfo" word-wrap="break-all">Json feedback infomation shows here.</span>
+                <h2 class="h2-tt" id="deviceInfo">Feedback</h2>
             </div>
             <div class="fb-input-info">
                 <div class="feedb-p">
@@ -381,11 +398,8 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <p>CMD_PWM_INPUT: <span id="cmd11" class="cmd-value">{"T":11,"L":164,"R":164}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd11');">INPUT</button>
                     </div>
-                    <div>
-                        <p>CMD_ROS_CTRL: <span id="cmd13" class="cmd-value">{"T":13,"X":0.1,"Z":0.3}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd13');">INPUT</button>
-                    </div>
                 </div>
+
                 <div class="info-box json-cmd-info">
                     <div>
                         <p>OLED_SET: <span id="cmd3" class="cmd-value">{"T":3,"lineNum":0,"Text":"putYourTextHere"}</span></p>
@@ -396,20 +410,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd-3');">INPUT</button>
                     </div>
                 </div>
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_MODULE_TYPE: <span id="cmd4" class="cmd-value">{"T":4,"cmd":1}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd4');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_EOAT_TYPE: <span id="cmd-124" class="cmd-value">{"T":124,"mode":0}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd-124');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_CONFIG_EOAT: <span id="cmd-125" class="cmd-value">{"T":125,"pos":3,"ea":0,"eb":20}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd-125');">INPUT</button>
-                    </div>
-                </div>
+
                 <div class="info-box json-cmd-info">
                     <div>
                         <p>CMD_GET_IMU_DATA: <span id="cmd126" class="cmd-value">{"T":126}</span></p>
@@ -428,6 +429,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd129');">INPUT</button>
                     </div>
                 </div>
+
                 <div class="info-box json-cmd-info">
                     <div>
                         <p>CMD_BASE_FEEDBACK: <span id="cmd130" class="cmd-value">{"T":130}</span></p>
@@ -438,91 +440,7 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd131');">INPUT</button>
                     </div>
                 </div>
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_LED_CTRL: <span id="cmd132" class="cmd-value">{"T":132,"IO4":255,"IO5":255}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd132');">INPUT</button>
-                    </div>
-                    <div>
-                        <!-- Gimbal functionality removed -->
-                </div>
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_HEART_BEAT_SET: <span id="cmd136" class="cmd-value">{"T":136,"cmd":3000}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd136');">INPUT</button>
-                    </div>
-                </div>
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_SET_SPD_RATE: <span id="cmd138" class="cmd-value">{"T":138,"L":1,"R":1}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd138');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_GET_SPD_RATE: <span id="cmd139" class="cmd-value">{"T":139}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd139');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_SAVE_SPD_RATE: <span id="cmd140" class="cmd-value">{"T":140}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd140');">INPUT</button>
-                    </div>
-                </div>
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_MISSION_CONTENT: <span id="cmd221" class="cmd-value">{"T":221,"name":"mission_a"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd221');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_APPEND_STEP_JSON: <span id="cmd222" class="cmd-value">{"T":222,"name":"mission_a","step":"{\"T\":137,\"s\":1,\"y\":0}"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd222');">INPUT</button>
-                    </div>
-                </div>
-                <div class="info-box json-cmd-info">
-                    <!-- ESP-NOW functionality removed -->
-                </div>
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_WIFI_ON_BOOT: <span id="cmd401" class="cmd-value">{"T":401,"cmd":3}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd401');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_SET_AP: <span id="cmd402" class="cmd-value">{"T":402,"ssid":"Pathfinder","password":"12345678"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd402');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_SET_STA: <span id="cmd403" class="cmd-value">{"T":403,"ssid":"na","password":"ps"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd403');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_WIFI_APSTA: <span id="cmd404" class="cmd-value">{"T":404,"ap_ssid":"Pathfinder","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd404');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_WIFI_INFO: <span id="cmd405" class="cmd-value">{"T":405}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd405');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_WIFI_CONFIG_CREATE_BY_STATUS: <span id="cmd406" class="cmd-value">{"T":406}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd406');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_WIFI_CONFIG_CREATE_BY_INPUT: <span id="cmd406" class="cmd-value">{"T":407,"mode":3,"ap_ssid":"Pathfinder","ap_password":"12345678","sta_ssid":"na","sta_password":"ps"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd406');">INPUT</button>
-                    </div>
-                </div>
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_SET_SERVO_ID: <span id="cmd501" class="cmd-value">{"T":501,"raw":1,"new":11}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd501');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_SET_MIDDLE: <span id="cmd502" class="cmd-value">{"T":502,"id":11}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd502');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_SET_SERVO_PID: <span id="cmd503" class="cmd-value">{"T":503,"id":14,"p":16}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd503');">INPUT</button>
-                    </div>
-                </div>
+
                 <div class="info-box json-cmd-info">
                     <div>
                         <p>CMD_REBOOT: <span id="cmd600" class="cmd-value">{"T":600}</span></p>
@@ -533,20 +451,8 @@ const char index_html[] PROGMEM = R"rawliteral(
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd601');">INPUT</button>
                     </div>
                     <div>
-                        <p>CMD_BOOT_MISSION_INFO: <span id="cmd602" class="cmd-value">{"T":602}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd602');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_RESET_BOOT_MISSION: <span id="cmd603" class="cmd-value">{"T":603}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd603');">INPUT</button>
-                    </div>
-                    <div>
                         <p>CMD_NVS_CLEAR: <span id="cmd604" class="cmd-value">{"T":604}</span></p>
                         <button class="w-btn" onclick="cmdFill('jsonData', 'cmd604');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_INFO_PRINT: <span id="cmd605" class="cmd-value">{"T":605,"cmd":1}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd605');">INPUT</button>
                     </div>
                 </div>
             </div>
@@ -605,6 +511,7 @@ const char index_html[] PROGMEM = R"rawliteral(
     function cmdFill(rawInfo, fillInfo) {
         document.getElementById(rawInfo).value = document.getElementById(fillInfo).innerHTML;
     }
+
     function jsonSend() {
         send_heartbeat = 0;
         var xhttp = new XMLHttpRequest();
@@ -617,6 +524,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         xhttp.open("GET", "js?json="+document.getElementById('jsonData').value, true);
         xhttp.send();
     }
+
     function infoUpdate() {
         var jsonCmd = {
             "T": 130
@@ -627,7 +535,7 @@ const char index_html[] PROGMEM = R"rawliteral(
             if (this.readyState == 4 && this.status == 200) {
                 var jsonResponse = JSON.parse(this.responseText);
                 document.getElementById("V").innerHTML = jsonResponse.v.toFixed(2)/100;
-                if (jsonResponse.V<11.06) {
+                if (jsonResponse.v<11.06) {
                     document.getElementById("V").classList.remove("num-color");
                     document.getElementById("V").classList.add("num-color-red");
                 }else{
@@ -635,29 +543,23 @@ const char index_html[] PROGMEM = R"rawliteral(
                     document.getElementById("V").classList.add("num-color");
                 }
 
-                // document.getElementById("r").innerHTML = jsonResponse.r.toFixed(2);
-                // document.getElementById("p").innerHTML = jsonResponse.p.toFixed(2);
-                // document.getElementById("y").innerHTML = jsonResponse.y.toFixed(2);
-                // document.getElementById("mZ").innerHTML = speed_rate;
+                // Display IMU orientation data
+                document.getElementById("r").innerHTML = jsonResponse.r.toFixed(2);
+                document.getElementById("p").innerHTML = jsonResponse.p.toFixed(2);
+                document.getElementById("y").innerHTML = jsonResponse.y.toFixed(2);
+                document.getElementById("mZ").innerHTML = speed_rate;
 
-                // if (jsonResponse.hasOwnProperty('pan')) {
-                //     document.getElementById("mX").innerHTML = jsonResponse.pan.toFixed(2);
-                //     document.getElementById("mY").innerHTML = jsonResponse.tilt.toFixed(2);
-
-                //     read_X = jsonResponse.pan;
-                //     read_Y = jsonResponse.tilt;
-                // } else{
-                //     document.getElementById("mX").innerHTML = "null";
-                //     document.getElementById("mY").innerHTML = "null";
-
-                //     read_X = 0;
-                //     read_Y = 0;
-                // }
+                // Display motor speeds
+                document.getElementById("mX").innerHTML = jsonResponse.L.toFixed(2);
+                document.getElementById("mY").innerHTML = jsonResponse.R.toFixed(2);
+                document.getElementById("mXn").innerHTML = "LEFT";
+                document.getElementById("mYn").innerHTML = "RIGHT";
             }
         };
         xhttp.open("GET", "js?json=" + jsonString, true);
         xhttp.send();
     }
+
     function getDevInfo() {
         var jsonCmd = {
             "T": 405
@@ -676,9 +578,11 @@ const char index_html[] PROGMEM = R"rawliteral(
         xhttp.open("GET", "js?json=" + jsonString, true);
         xhttp.send();
     }
+
     function changeSpeed(inputSpd) {
         speed_rate = inputSpd;
     }
+
     function heartBeat() {
         if (send_heartbeat == 1) {
             var jsonCmd = {
@@ -692,6 +596,7 @@ const char index_html[] PROGMEM = R"rawliteral(
             xhr.send();
         }
     }
+
     function motionButton(spdL, spdR){
         left_speed  = spdL;
         right_speed = spdR;
@@ -706,6 +611,7 @@ const char index_html[] PROGMEM = R"rawliteral(
         xhr.open("GET", "js?json=" + jsonString, true);
         xhr.send();
     }
+
     function ledCtrl(inputCmd){
         if (inputCmd == 0) {
             io4_status = 0;
@@ -737,8 +643,6 @@ const char index_html[] PROGMEM = R"rawliteral(
         xhr.open("GET", "js?json=" + jsonString, true);
         xhr.send();
     }
-    // Gimbal functionality removed
-    // Gimbal functionality removed
 
     function cmdProcess(){
         if (forwardButton == 0 && backwardButton == 0 && leftButton == 0 && rightButton == 0) {

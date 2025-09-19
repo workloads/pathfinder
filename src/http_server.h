@@ -11,11 +11,11 @@ void webCtrlServer() {
   server.on("/", handleRoot);
 
   server.on("/js", []() {
-    String jsonCmdWebString = server.arg(0);
+    String jsonCmdWebString = server.arg("json");
     deserializeJson(jsonCmdReceive, jsonCmdWebString);
     jsonCmdReceiveHandler();
-    serializeJson(jsonInfoHttp, jsonFeedbackWeb);
-    server.send(200, "text/plain", jsonFeedbackWeb);
+    // jsonFeedbackWeb is populated by the command handler
+    server.send(200, "application/json", jsonFeedbackWeb);
     jsonFeedbackWeb = "";
     jsonInfoHttp.clear();
     jsonCmdReceive.clear();

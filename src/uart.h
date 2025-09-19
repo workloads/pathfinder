@@ -78,7 +78,7 @@ void jsonCmdReceiveHandler()
 			jsonCmdReceive["cz"]);
 		break;
 	case CMD_BASE_FEEDBACK:
-		baseInfoFeedback();
+		baseInfoFeedbackHttp();
 		break;
 	case CMD_BASE_FEEDBACK_FLOW:
 		setBaseInfoFeedbackMode(
@@ -91,6 +91,9 @@ void jsonCmdReceiveHandler()
 	case CMD_UART_ECHO_MODE:
 		setCmdEcho(
 			jsonCmdReceive["cmd"]);
+		break;
+	case CMD_IMU_SAFETY_STATUS:
+		getIMUSafetyStatus();
 		break;
 	case CMD_ARM_CTRL_UI:
 		// RoArm-M2 functionality removed

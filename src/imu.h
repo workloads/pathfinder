@@ -34,14 +34,14 @@ void imuCalibration() {
     }
 
     myICM.setBiasGyroX(-store.biasGyroX);
-    myICM.setBiasGyroX(-store.biasGyroY);
-    myICM.setBiasGyroX(-store.biasGyroZ);
+    myICM.setBiasGyroY(-store.biasGyroY);
+    myICM.setBiasGyroZ(-store.biasGyroZ);
     myICM.setBiasAccelX(-store.biasAccelX);
-    myICM.setBiasAccelX(-store.biasAccelY);
-    myICM.setBiasAccelX(-store.biasAccelZ);
+    myICM.setBiasAccelY(-store.biasAccelY);
+    myICM.setBiasAccelZ(-store.biasAccelZ);
     myICM.setBiasCPassX(-store.biasCPassX);
-    myICM.setBiasCPassX(-store.biasCPassY);
-    myICM.setBiasCPassX(-store.biasCPassZ);
+    myICM.setBiasCPassY(-store.biasCPassY);
+    myICM.setBiasCPassZ(-store.biasCPassZ);
 
     jsonInfoHttp.clear();
     jsonInfoHttp["T"] = FEEDBACK_IMU_OFFSET;
@@ -225,14 +225,14 @@ void setIMUOffset(int32_t inGX, int32_t inGY, int32_t inGZ, int32_t inAX, int32_
   store.biasCPassZ = inCZ;
 
   myICM.setBiasGyroX(store.biasGyroX);
-  myICM.setBiasGyroX(store.biasGyroY);
-  myICM.setBiasGyroX(store.biasGyroZ);
+  myICM.setBiasGyroY(store.biasGyroY);
+  myICM.setBiasGyroZ(store.biasGyroZ);
   myICM.setBiasAccelX(store.biasAccelX);
-  myICM.setBiasAccelX(store.biasAccelY);
-  myICM.setBiasAccelX(store.biasAccelZ);
+  myICM.setBiasAccelY(store.biasAccelY);
+  myICM.setBiasAccelZ(store.biasAccelZ);
   myICM.setBiasCPassX(store.biasCPassX);
-  myICM.setBiasCPassX(store.biasCPassY);
-  myICM.setBiasCPassX(store.biasCPassZ);
+  myICM.setBiasCPassY(store.biasCPassY);
+  myICM.setBiasCPassZ(store.biasCPassZ);
 
   jsonInfoHttp.clear();
   jsonInfoHttp["T"] = FEEDBACK_IMU_OFFSET;

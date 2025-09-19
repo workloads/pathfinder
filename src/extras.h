@@ -14,7 +14,6 @@ bool serialMissionAbort() {
 	}
 }
 
-
 // input the mission name and the intro to create a mission file.
 bool createMission(String inputName, String inputIntro) {
 	jsonInfoSend.clear();
@@ -61,9 +60,6 @@ int missionContent(String inputName) {
 
 	return _LineNum;
 }
-
-
-
 
 // input the mission name and the step to append 
 // a new step at the end of the mission.
@@ -113,9 +109,6 @@ void appendDelayCmd(String inputName, int delayTime) {
 	appendLine(inputName + ".mission", contentBuffer);
 }
 
-
-
-
 // insert a new step as the stepNum
 // using the json string input.
 bool insertStepJson(String inputName, int inputStepNum, String inputStep) {
@@ -161,9 +154,6 @@ void insertDelayCmd(String inputName, int inputStepNum, int delayTime) {
 	serializeJson(jsonInfoSend, contentBuffer);
 	insertLine(inputName + ".mission", inputStepNum + 1, contentBuffer);
 }
-
-
-
 
 // replace the cmd at stepNum.
 // using the step json string input.
@@ -211,12 +201,10 @@ void replaceDelayCmd(String inputName, int inputStepNum, int delayTime) {
 	replaceLine(inputName + ".mission", inputStepNum + 1, contentBuffer);
 }
 
-
 // delete a step
 void deleteStep(String inputName, int inputStepNum) {
 	deleteSingleLine(inputName + ".mission", inputStepNum + 1);
 }
-
 
 // input the mission name and the stepNum.
 // it will process the cmd.
@@ -246,7 +234,6 @@ bool moveToStep(String inputName, int inputStepNum) {
 	}
 }
 
-
 // input the mission name and the repeat times.
 // when repeatTimes = -1, it will loop forever.
 // play a mission file.
@@ -273,18 +260,15 @@ void missionPlay(String inputName, int repeatTimes) {
 	}
 }
 
-
 // change EEmode.
 void configEEmodeType(byte inputMode) {
 	// RoArm-M2 functionality removed
 }
 
-
 // config the siza of EoAT.
 void configEoAT(byte mountPos, double inputEA, double inputEB) {
 	// RoArm-M2 functionality removed
 }
-
 
 // set the InfoPrint.
 void configInfoPrint(byte inputCmd) {
@@ -298,7 +282,6 @@ void configInfoPrint(byte inputCmd) {
 	}
 }
 
-
 // set the baseInfoFeedback.
 void setBaseInfoFeedbackMode(bool inputCmd) {
 	if (inputCmd == 1) {
@@ -307,7 +290,6 @@ void setBaseInfoFeedbackMode(bool inputCmd) {
 		baseFeedbackFlow = 0;
 	}
 }
-
 
 // baseInfoFeedback.
 void baseInfoFeedback() {
@@ -324,9 +306,9 @@ void baseInfoFeedback() {
 	jsonInfoHttp["L"] = speedGetA;
 	jsonInfoHttp["R"] = speedGetB;
 
-	// jsonInfoHttp["r"] = icm_roll;
-	// jsonInfoHttp["p"] = icm_pitch;
-	// jsonInfoHttp["y"] = icm_yaw;
+	jsonInfoHttp["r"] = icm_roll;
+	jsonInfoHttp["p"] = icm_pitch;
+	jsonInfoHttp["y"] = icm_yaw;
 
 	// jsonInfoHttp["q0"] = q0;
 	// jsonInfoHttp["q1"] = q1;
@@ -359,24 +341,104 @@ void baseInfoFeedback() {
 	String getInfoJsonString;
 	serializeJson(jsonInfoHttp, getInfoJsonString);
 	Serial.println(getInfoJsonString);
+	
+	// Copy to jsonFeedbackWeb for HTTP response
+	jsonFeedbackWeb = getInfoJsonString;
 }
 
+// baseInfoFeedback for HTTP requests (no serial output)
+void baseInfoFeedbackHttp() {
+	jsonInfoHttp.clear();
+	jsonInfoHttp["T"] = FEEDBACK_BASE_INFO;
+
+	jsonInfoHttp["L"] = speedGetA;
+	jsonInfoHttp["R"] = speedGetB;
+
+	jsonInfoHttp["r"] = icm_roll;
+	jsonInfoHttp["p"] = icm_pitch;
+	jsonInfoHttp["y"] = icm_yaw;
+
+	jsonInfoHttp["ax"] = ax;
+	jsonInfoHttp["ay"] = ay;
+	jsonInfoHttp["az"] = az;
+
+	jsonInfoHttp["gx"] = gx;
+	jsonInfoHttp["gy"] = gy;
+	jsonInfoHttp["gz"] = gz;
+
+	jsonInfoHttp["mx"] = mx;
+	jsonInfoHttp["my"] = my;
+	jsonInfoHttp["mz"] = mz;
+
+	long int odl_cm = (en_odom_l * 100);
+	jsonInfoHttp["odl"] = odl_cm;
+
+	long int odr_cm = (en_odom_r * 100);
+	jsonInfoHttp["odr"] = odr_cm;
+
+    int v_int = (int)(loadVoltage_V * 100);
+	jsonInfoHttp["v"] = v_int;
+
+	String getInfoJsonString;
+	serializeJson(jsonInfoHttp, getInfoJsonString);
+	jsonFeedbackWeb = getInfoJsonString;
+}
 
 // change module type.
 void changeModuleType(byte inputCmd) {
 	moduleType = inputCmd;
 }
 
+// IMU safety check - stops all movement if pitch exceeds limit
+bool checkIMUSafety() {
+	// Check if absolute pitch exceeds the safety limit
+	if (abs(icm_pitch) > IMU_PITCH_LIMIT_RADIANS) {
+		// Emergency stop - set all motor speeds to 0
+		setGoalSpeed(0, 0);
+		
+		// Optional: Set emergency flag or send warning
+		if (InfoPrint == 1) {
+			Serial.print("IMU SAFETY: Pitch limit exceeded! Pitch: ");
+			Serial.print(icm_pitch * 180.0 / PI, 2);
+			Serial.print("° (Limit: ");
+			Serial.print(IMU_PITCH_LIMIT_RADIANS * 180.0 / PI, 2);
+			Serial.println("°) - Movement stopped!");
+		}
+		
+		return false; // Unsafe - movement stopped
+	}
+	
+	return true; // Safe - movement allowed
+}
+
+// Get IMU safety status
+void getIMUSafetyStatus() {
+	jsonInfoHttp.clear();
+	jsonInfoHttp["T"] = CMD_IMU_SAFETY_STATUS;
+	
+	// Current pitch values
+	jsonInfoHttp["pitch_rad"] = icm_pitch;
+	jsonInfoHttp["pitch_deg"] = icm_pitch * 180.0 / PI;
+	jsonInfoHttp["pitch_limit_rad"] = IMU_PITCH_LIMIT_RADIANS;
+	jsonInfoHttp["pitch_limit_deg"] = IMU_PITCH_LIMIT_RADIANS * 180.0 / PI;
+	
+	// Safety status
+	bool is_safe = (abs(icm_pitch) <= IMU_PITCH_LIMIT_RADIANS);
+	jsonInfoHttp["is_safe"] = is_safe;
+	jsonInfoHttp["movement_allowed"] = is_safe;
+	
+	String getInfoJsonString;
+	serializeJson(jsonInfoHttp, getInfoJsonString);
+	jsonFeedbackWeb = getInfoJsonString;
+}
 
 void setFeedbackFlowInterval(int inputCmd) {
 	feedbackFlowExtraDelay = abs(inputCmd);
 }
 
-
 void setCmdEcho(bool inputCmd) {
 	uartCmdEcho = inputCmd;
 }
-
 
 void saveSpdRate() {
 	jsonInfoHttp.clear();
@@ -387,7 +449,6 @@ void saveSpdRate() {
 	serializeJson(jsonInfoHttp, getInfoJsonString);
 	appendStepJson("boot", getInfoJsonString);
 }
-
 
 // check the main & module type.
 void saveMainTypeModuleTpye(byte inputMain, byte inputModule) {

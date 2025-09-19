@@ -89,7 +89,7 @@ String jsonAPIHandler(String stringInput)
     break;
 
   case CMD_BASE_FEEDBACK:
-    baseInfoFeedback();
+    baseInfoFeedbackHttp();
     break;
 
   case CMD_BASE_FEEDBACK_FLOW:
@@ -102,6 +102,10 @@ String jsonAPIHandler(String stringInput)
 
   case CMD_UART_ECHO_MODE:
     setCmdEcho(jsonInput["cmd"]);
+    break;
+
+  case CMD_IMU_SAFETY_STATUS:
+    getIMUSafetyStatus();
     break;
 
 

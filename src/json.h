@@ -124,6 +124,10 @@
 // {"T":142,"cmd":0}
 #define CMD_FEEDBACK_FLOW_INTERVAL	142	// dev
 
+// IMU safety status query
+// {"T":145}
+#define CMD_IMU_SAFETY_STATUS	145
+
 // set the echo mode of recving new cmd.
 // 0: [default]off
 // 1: on
