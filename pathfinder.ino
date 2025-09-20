@@ -435,6 +435,9 @@ void loop() {
   serialCtrl();
   server.handleClient();
 
+  // Check WiFi status and attempt reconnection if needed
+  checkWifiAndReconnect();
+
   if(runNewJsonCmd) {
     jsonCmdReceiveHandler();
     jsonCmdReceive.clear();

@@ -48,9 +48,28 @@ IPAddress localIP;
 DynamicJsonDocument wifiDoc(256);
 bool wifiConfigFound = false;
 
+// Auto-reconnection variables
+unsigned long lastWifiCheck = 0;
+unsigned long wifiCheckInterval = 30000; // Check WiFi status every 30 seconds
+bool autoReconnectEnabled = true;
+int reconnectAttempts = 0;
+int maxReconnectAttempts = 5;
+
 
 // update oled accroding to wifi settings.
 void updateOledWifiInfo() {
+  wl_status_t wifiStatus = WiFi.status();
+  String statusIndicator = "";
+  
+  // Add connection status indicator
+  if (wifiStatus == WL_CONNECTED) {
+    statusIndicator = " ✓";
+  } else if (reconnectAttempts > 0) {
+    statusIndicator = " ⚠";
+  } else {
+    statusIndicator = " ✗";
+  }
+  
   switch(WIFI_CURRENT_MODE) {
   case 0: 
     screenLine_0 = "AP: OFF";
@@ -63,11 +82,21 @@ void updateOledWifiInfo() {
     break;
   case 2:
     screenLine_0 = "AP: OFF";
-    screenLine_1 = String("ST:") + localIP.toString();
+    screenLine_1 = String("ST:") + localIP.toString() + statusIndicator;
+    if (wifiStatus == WL_CONNECTED) {
+      screenLine_2 = String("RSSI: ") + WiFi.RSSI() + "dBm";
+    } else {
+      screenLine_2 = "Disconnected";
+    }
     break;
   case 3:
     screenLine_0 = String("AP:") + ap_ssid;
-    screenLine_1 = String("ST:") + localIP.toString();
+    screenLine_1 = String("ST:") + localIP.toString() + statusIndicator;
+    if (wifiStatus == WL_CONNECTED) {
+      screenLine_2 = String("RSSI: ") + WiFi.RSSI() + "dBm";
+    } else {
+      screenLine_2 = "Disconnected";
+    }
     break;
   }
   oled_update();
@@ -446,6 +475,139 @@ void initHostname() {
 	}
 	idString[16] = '\0'; // Ensure null termination
 	hostname = String("pathfinder-") + String(idString);
+}
+
+// Check WiFi status and attempt reconnection if needed
+void checkWifiAndReconnect() {
+	if (!autoReconnectEnabled) return;
+	
+	unsigned long currentTime = millis();
+	
+	// Check if it's time to check WiFi status
+	if (currentTime - lastWifiCheck >= wifiCheckInterval) {
+		lastWifiCheck = currentTime;
+		
+		// Check current WiFi status
+		wl_status_t wifiStatus = WiFi.status();
+		
+		if (wifiStatus != WL_CONNECTED) {
+			if (InfoPrint == 1) {
+				Serial.print("WiFi disconnected. Status: ");
+				Serial.println(wifiStatus);
+			}
+			
+			// Only attempt reconnection if we have valid credentials and haven't exceeded max attempts
+			if (strlen(sta_ssid) > 0 && strlen(sta_password) > 0 && reconnectAttempts < maxReconnectAttempts) {
+				reconnectAttempts++;
+				
+				if (InfoPrint == 1) {
+					Serial.print("Attempting WiFi reconnection (attempt ");
+					Serial.print(reconnectAttempts);
+					Serial.print("/");
+					Serial.print(maxReconnectAttempts);
+					Serial.println(")");
+				}
+				
+				// Attempt to reconnect based on current mode
+				bool reconnectSuccess = false;
+				switch(WIFI_MODE_ON_BOOT) {
+					case 2: // STA mode
+						reconnectSuccess = wifiModeSTA(sta_ssid, sta_password);
+						break;
+					case 3: // AP+STA mode
+						reconnectSuccess = wifiModeAPSTA(ap_ssid, ap_password, sta_ssid, sta_password);
+						break;
+					default:
+						// For other modes, try STA connection
+						reconnectSuccess = wifiModeSTA(sta_ssid, sta_password);
+						break;
+				}
+				
+				if (reconnectSuccess) {
+					reconnectAttempts = 0; // Reset counter on successful connection
+					if (InfoPrint == 1) {
+						Serial.println("WiFi reconnection successful!");
+					}
+					updateOledWifiInfo(); // Update display on successful reconnection
+				} else {
+					if (InfoPrint == 1) {
+						Serial.println("WiFi reconnection failed.");
+					}
+					updateOledWifiInfo(); // Update display on failed reconnection
+				}
+			} else {
+				if (InfoPrint == 1) {
+					Serial.println("WiFi reconnection disabled or max attempts reached.");
+				}
+			}
+		} else {
+			// WiFi is connected, reset reconnect attempts counter
+			if (reconnectAttempts > 0) {
+				reconnectAttempts = 0;
+				if (InfoPrint == 1) {
+					Serial.println("WiFi connection restored.");
+				}
+			}
+		}
+	}
+}
+
+// Enable/disable auto-reconnection
+void setAutoReconnect(bool enabled) {
+	autoReconnectEnabled = enabled;
+	if (InfoPrint == 1) {
+		Serial.print("WiFi auto-reconnection ");
+		Serial.println(enabled ? "enabled" : "disabled");
+	}
+}
+
+// Set WiFi check interval
+void setWifiCheckInterval(unsigned long interval) {
+	wifiCheckInterval = interval;
+	if (InfoPrint == 1) {
+		Serial.print("WiFi check interval set to ");
+		Serial.print(interval / 1000);
+		Serial.println(" seconds");
+	}
+}
+
+// Get current WiFi connection status
+bool isWifiConnected() {
+	return WiFi.status() == WL_CONNECTED;
+}
+
+// Get WiFi signal strength
+int getWifiRSSI() {
+	return WiFi.RSSI();
+}
+
+// Get WiFi connection info as string
+String getWifiStatusString() {
+	wl_status_t status = WiFi.status();
+	String statusText = "";
+	
+	switch(status) {
+		case WL_CONNECTED:
+			statusText = "Connected";
+			break;
+		case WL_NO_SSID_AVAIL:
+			statusText = "No SSID Available";
+			break;
+		case WL_CONNECT_FAILED:
+			statusText = "Connection Failed";
+			break;
+		case WL_CONNECTION_LOST:
+			statusText = "Connection Lost";
+			break;
+		case WL_DISCONNECTED:
+			statusText = "Disconnected";
+			break;
+		default:
+			statusText = "Unknown Status";
+			break;
+	}
+	
+	return statusText;
 }
 
 // wifi init.
