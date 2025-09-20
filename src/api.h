@@ -116,14 +116,10 @@ String jsonAPIHandler(String stringInput)
 
     break;
 
-  // Gimbal functionality removed
-
   case CMD_HEART_BEAT_SET:
     changeHeartBeatDelay(
         jsonInput["cmd"]);
     break;
-
-  // Gimbal functionality removed
 
   case CMD_SET_SPD_RATE:
     setSpdRate(
@@ -139,29 +135,19 @@ String jsonAPIHandler(String stringInput)
     saveSpdRate();
     break;
 
-  // Gimbal functionality removed
-
   // EoAT type settings.
   case CMD_EOAT_TYPE:
     configEEmodeType(
         jsonInput["mode"]);
     break;
-  case CMD_CONFIG_EOAT:
+
+    case CMD_CONFIG_EOAT:
     configEoAT(
         jsonInput["pos"],
         jsonInput["ea"],
         jsonInput["eb"]);
     break;
 
-
-  // this two funcs are NOT for UGV.
-  // case CMD_SWITCH_CTRL: switchCtrl(
-  // 											jsonInput["pwm_a"],
-  // 											jsonInput["pwm_b"]
-  // 											);break;
-  // case CMD_LIGHT_CTRL:	lightCtrl(
-  // 											jsonInput["led"]
-  // 											);break;
   case CMD_SWITCH_OFF:
     switchEmergencyStop();
     break;

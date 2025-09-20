@@ -213,8 +213,6 @@ void setup() {
   
   initHttpWebServer();
 
-  // ESP-NOW functionality removed
-
   screenLine_3 = "IMU Calibrating";
   oled_update();
   
