@@ -110,7 +110,7 @@ int IO5_CH = 8;
 
 const uint16_t FREQ = 200;
 
-int feedbackFlowExtraDelay = 50;
+int feedbackFlowExtraDelay = 1000;
 bool uartCmdEcho = 0;
 
 #define SERVO_STOP_DELAY 3

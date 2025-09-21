@@ -7,13 +7,9 @@
 // {"T":1002,"gx":0,"gy":0,"gz":0,"ax":0,"ay":0,"az":0,"mx":0,"my":0,"mz":0}
 #define FEEDBACK_IMU_DATA   1002
 
-// ESP-NOW functionality removed
-
 // get imu bias
 // {"T":129,"gx":0,"gy":0,"gz":0,"ax":0,"ay":0,"az":0,"cx":0,"cy":0,"cz":0}
 #define FEEDBACK_IMU_OFFSET 129
-
-// ESP-NOW functionality removed
 
 // bus servos error feedback
 // {"T":1005,"id":1,"status":1}
@@ -134,19 +130,13 @@
 // {"T":143,"cmd":0}
 #define CMD_UART_ECHO_MODE	143
 
-
-
 // LIGHT/MOTION CTRL
 // {"T":132,"IO4":255,"IO5":255}
 #define CMD_LED_CTRL	132
 
-// Gimbal functionality removed
-
 // CHANGE HEART BEAT DELAY
 // {"T":136,"cmd":3000}
 #define CMD_HEART_BEAT_SET	136
-
-// Gimbal functionality removed
 
 // SET SPEED RATE
 // {"T":138,"L":1,"R":1}
@@ -159,9 +149,6 @@
 // SAVE SPEED RATE
 // {"T":140}
 #define CMD_SAVE_SPD_RATE	140
-
-// Gimbal functionality removed
-
 
 // ---===< Arm ctrl. >===---
 
@@ -419,12 +406,6 @@
 // if repeatTimes = -1, it will loop forever.
 // {"T":242,"name":"mission_a","times":3}
 #define CMD_MISSION_PLAY 242
-
-
-
-// ESP-NOW functionality removed
-
-
 
 // === === === wifi settings. === === ===
 

@@ -86,13 +86,12 @@ bool appendStepJson(String inputName, String inputStep) {
 // a new step at the end of the mission.
 // using feedback.
 void appendStepFB(String inputName, float inputSpd) {
-	// RoArm-M2 functionality removed
 	jsonInfoSend.clear();
 	jsonInfoSend["T"] = 104;
-	jsonInfoSend["x"] = 0; // Default value since RoArm-M2 removed
-	jsonInfoSend["y"] = 0; // Default value since RoArm-M2 removed
-	jsonInfoSend["z"] = 0; // Default value since RoArm-M2 removed
-	jsonInfoSend["t"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["x"] = 0;
+	jsonInfoSend["y"] = 0;
+	jsonInfoSend["z"] = 0; 
+	jsonInfoSend["t"] = 0;
 	jsonInfoSend["spd"] = inputSpd;
 	String contentBuffer;
 	serializeJson(jsonInfoSend, contentBuffer);
@@ -132,13 +131,12 @@ bool insertStepJson(String inputName, int inputStepNum, String inputStep) {
 // insert a new step as the stepNum
 // using the feedback.
 void insertStepFB(String inputName, int inputStepNum, float inputSpd) {
-	// RoArm-M2 functionality removed
 	jsonInfoSend.clear();
 	jsonInfoSend["T"] = 104;
-	jsonInfoSend["x"] = 0; // Default value since RoArm-M2 removed
-	jsonInfoSend["y"] = 0; // Default value since RoArm-M2 removed
-	jsonInfoSend["z"] = 0; // Default value since RoArm-M2 removed
-	jsonInfoSend["t"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["x"] = 0; 
+	jsonInfoSend["y"] = 0; 
+	jsonInfoSend["z"] = 0; 
+	jsonInfoSend["t"] = 0;
 	jsonInfoSend["spd"] = inputSpd;
 	String contentBuffer;
 	serializeJson(jsonInfoSend, contentBuffer);
@@ -178,13 +176,12 @@ bool replaceStepJson(String inputName, int inputStepNum, String inputStep) {
 // replace the cmd at stepNum.
 // using feedback.
 void replaceStepFB(String inputName, int inputStepNum, float inputSpd) {
-	// RoArm-M2 functionality removed
 	jsonInfoSend.clear();
 	jsonInfoSend["T"] = 104;
-	jsonInfoSend["x"] = 0; // Default value since RoArm-M2 removed
-	jsonInfoSend["y"] = 0; // Default value since RoArm-M2 removed
-	jsonInfoSend["z"] = 0; // Default value since RoArm-M2 removed
-	jsonInfoSend["t"] = 0; // Default value since RoArm-M2 removed
+	jsonInfoSend["x"] = 0; 
+	jsonInfoSend["y"] = 0; 
+	jsonInfoSend["z"] = 0; 
+	jsonInfoSend["t"] = 0;
 	jsonInfoSend["spd"] = inputSpd;
 	String contentBuffer;
 	serializeJson(jsonInfoSend, contentBuffer);
@@ -335,8 +332,6 @@ void baseInfoFeedback() {
 
     int v_int = (int)(loadVoltage_V * 100);
 	jsonInfoHttp["v"] = v_int;
-
-	// No additional modules (gimbal functionality removed)
 
 	String getInfoJsonString;
 	serializeJson(jsonInfoHttp, getInfoJsonString);

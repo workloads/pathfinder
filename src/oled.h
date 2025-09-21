@@ -1,5 +1,9 @@
 // <<<<<<<<<<=== === ===SSD1306: 0x3C=== === ===>>>>>>>>>>
 // 0.91inch OLED
+
+// Forward declaration for WiFi function
+void updateOledWifiInfo();
+
 bool screenDefaultMode = true;
 
 unsigned long currentTimeMillis = millis();

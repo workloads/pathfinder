@@ -8,7 +8,6 @@ String jsonAPIHandler(String stringInput)
   {
 	// emergency stop.
 	case CMD_EMERGENCY_STOP:
-		// emergencyStopProcessing(); // RoArm-M2 function removed
 		setGoalSpeed(0, 0);
 		break;
 
@@ -158,9 +157,6 @@ String jsonAPIHandler(String stringInput)
     // 		  1 - increase
     // 		  2 - decrease
     // {"T":123,"m":0,"axis":0,"cmd":0,"spd":0}
-  case CMD_CONSTANT_CTRL:
-    // constantCtrl(); // RoArm-M2 function removed
-    break;
 
   // mission & steps edit & file edit.
   case CMD_SCAN_FILES:
@@ -179,86 +175,97 @@ String jsonAPIHandler(String stringInput)
     deleteFile(
         jsonInput["name"]);
     break;
+
   case CMD_APPEND_LINE:
     appendLine(
         jsonInput["name"],
         jsonInput["content"]);
     break;
+
   case CMD_INSERT_LINE:
     insertLine(
         jsonInput["name"],
         jsonInput["lineNum"],
         jsonInput["content"]);
     break;
+
   case CMD_REPLACE_LINE:
     replaceLine(
         jsonInput["name"],
         jsonInput["lineNum"],
         jsonInput["content"]);
     break;
+
   case CMD_READ_LINE:
     readSingleLine(
         jsonInput["name"],
         jsonInput["lineNum"]);
     break;
+
   case CMD_DELETE_LINE:
     deleteSingleLine(
         jsonInput["name"],
         jsonInput["lineNum"]);
     break;
 
-  case CMD_TORQUE_CTRL:
-    // servoTorqueCtrl(); // RoArm-M2 function removed
-    break;
 
   case CMD_CREATE_MISSION:
     createMission(
         jsonInput["name"],
         jsonInput["intro"]);
     break;
+
   case CMD_MISSION_CONTENT:
     missionContent(
         jsonInput["name"]);
     break;
+
   case CMD_APPEND_STEP_JSON:
     appendStepJson(
         jsonInput["name"],
         jsonInput["step"]);
     break;
+
   case CMD_APPEND_STEP_FB:
     appendStepFB(
         jsonInput["name"],
         jsonInput["spd"]);
     break;
+
   case CMD_APPEND_DELAY:
     appendDelayCmd(
         jsonInput["name"],
         jsonInput["delay"]);
     break;
+
   case CMD_INSERT_STEP_JSON:
     insertStepJson(
         jsonInput["name"],
         jsonInput["stepNum"],
         jsonInput["step"]);
     break;
+
   case CMD_INSERT_STEP_FB:
     insertStepFB(
         jsonInput["name"],
         jsonInput["stepNum"],
         jsonInput["spd"]);
     break;
+
   case CMD_INSERT_DELAY:
     insertDelayCmd(
         jsonInput["name"],
         jsonInput["stepNum"],
         jsonInput["spd"]);
     break;
+
   case CMD_REPLACE_STEP_JSON:
     replaceStepJson(
         jsonInput["name"],
         jsonInput["stepNum"],
         jsonInput["step"]);
     break;
+
   case CMD_REPLACE_STEP_FB:
     replaceStepFB(
         jsonInput["name"],
@@ -286,17 +293,6 @@ String jsonAPIHandler(String stringInput)
     missionPlay(
         jsonInput["name"],
         jsonInput["times"]);
-    break;
-
-  // servo settings.
-  case CMD_SET_SERVO_ID:
-    // changeID(); // RoArm-M2 function removed
-    break;
-  case CMD_SET_MIDDLE:
-    // setMiddlePos(); // RoArm-M2 function removed
-    break;
-  case CMD_SET_SERVO_PID:
-    // setServosPID(); // RoArm-M2 function removed
     break;
 
   // esp-32 dev ctrl.

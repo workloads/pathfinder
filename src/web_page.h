@@ -354,9 +354,6 @@ const char index_html[] PROGMEM = R"rawliteral(
                         </div>
                     </div>
                     <div class="control-speed">
-                        <!-- Gimbal functionality removed -->
-                        <br>
-                        <br>
                         <div>
                             <div id="device-speed-btn">
                                 <label><button name="speedbtn" class="small-btn" onclick="changeSpeed(0.3);">SLOW</button></label>
@@ -487,7 +484,6 @@ const char index_html[] PROGMEM = R"rawliteral(
     var io4_status = 0;
     var io5_status = 0;
 
-    // Gimbal functionality removed
     var read_X = 0;
     var read_Y = 0;
 
