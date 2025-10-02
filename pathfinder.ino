@@ -13,11 +13,11 @@
 #endif
 
 #include <ArduinoJson.h>
-StaticJsonDocument<256> jsonCmdReceive;
-StaticJsonDocument<256> jsonInfoSend;
-StaticJsonDocument<1024> jsonInfoHttp;
+JsonDocument jsonCmdReceive;
+JsonDocument jsonInfoSend;
+JsonDocument jsonInfoHttp;
 
-DynamicJsonDocument apiResponse(1408);
+JsonDocument apiResponse;
 
 #include <SCServo.h>
 #include <nvs_flash.h>
@@ -149,7 +149,7 @@ void setup() {
 
   init_oled();
   screenLine_0 = "Pathfinder";
-  screenLine_1 = "version: 1.3.5";
+  screenLine_1 = "version: 1.3.6";
   screenLine_2 = "starting...";
   screenLine_3 = "";
   oled_update();

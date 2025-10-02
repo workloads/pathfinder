@@ -8,9 +8,9 @@ void jsonCmdReceiveHandler()
 			break;
 			
 		case CMD_SPEED_CTRL:
-			if (jsonCmdReceive.containsKey("T") &&
-				jsonCmdReceive.containsKey("L") &&
-				jsonCmdReceive.containsKey("R"))
+			if (jsonCmdReceive["T"].is<int>() &&
+				jsonCmdReceive["L"].is<int>() &&
+				jsonCmdReceive["R"].is<int>())
 			{
 				if (jsonCmdReceive["L"].is<float>() &&
 					jsonCmdReceive["R"].is<float>())

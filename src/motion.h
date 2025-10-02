@@ -114,7 +114,7 @@ void getSpdRate() {
 ESP32Encoder encoderA;
 ESP32Encoder encoderB;
 
-static unsigned long lastTime = 0;
+// static unsigned long lastTime = 0;
 static unsigned long lastLeftSpdTime = 0;
 static unsigned long lastRightSpdTime = 0;
 int lastEncoderA = 0;

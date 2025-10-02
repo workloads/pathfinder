@@ -45,7 +45,7 @@ unsigned long connectionStartTime;
 unsigned long connectionTimeout = 15000;
 byte WIFI_CURRENT_MODE = -1;
 IPAddress localIP;
-DynamicJsonDocument wifiDoc(256);
+JsonDocument wifiDoc;
 bool wifiConfigFound = false;
 
 // Auto-reconnection variables
@@ -162,7 +162,7 @@ IPAddress getIPAddress(byte inputMode) {
 // create a wifiConfig.json file
 // from the args already be using.
 bool createWifiConfigFileByStatus() {
-	if (WIFI_MODE_ON_BOOT != 0 || WIFI_MODE_ON_BOOT != -1){
+	if (WIFI_MODE_ON_BOOT != 0){
 		wifiDoc.clear();
 		wifiDoc["wifi_mode_on_boot"] = WIFI_MODE_ON_BOOT;
 		wifiDoc["sta_ssid"] = sta_ssid;
