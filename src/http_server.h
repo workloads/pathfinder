@@ -1,14 +1,19 @@
-#include "web_page.h"
-
+#if WEB_PAGE
+  #include "web_page.h"
+#endif
 // Create AsyncWebServer object on port 80
 WebServer server(80);
 
-void handleRoot() {
-  server.send(200, "text/html", index_html);
-}
+#if WEB_PAGE
+  void handleRoot() {
+    server.send(200, "text/html", index_html);
+  }
+#endif
 
 void webCtrlServer() {
-  server.on("/", handleRoot);
+  #if WEB_PAGE
+    server.on("/", handleRoot);
+  #endif
 
   server.on("/js", []() {
     String jsonCmdWebString = server.arg("json");
