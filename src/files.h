@@ -5,11 +5,15 @@ bool flashStatus = false;
 // initialize littleFS for flash file system ctrl.
 void initFS() {
 	if (!LittleFS.begin(true)){
-		if (InfoPrint == 1) {Serial.println("LittleFS mount failed.");}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {Serial.println("LittleFS mount failed.");}
+		#endif
 		flashStatus = false;
 	}
 	else {
-		if (InfoPrint == 1) {Serial.println("LittleFS mount succeed.");}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {Serial.println("LittleFS mount succeed.");}
+		#endif
 		flashStatus = true;
 	}
 }
@@ -20,13 +24,14 @@ uint32_t freeFlashSpace(){
   size_t total = LittleFS.totalBytes();
   size_t used = LittleFS.usedBytes();
   uint32_t freeSpace = total - used;
-  if (InfoPrint == 1) {
-  	Serial.print("totalBytes:\t");Serial.print(total);
-  	Serial.println(" bytes");
-  	Serial.print("free flash memory:\t");Serial.print(freeSpace);
-		Serial.println(" bytes");
-  }
-
+	#if INFO_PRINT
+		if (InfoPrint == 1) {
+			Serial.print("totalBytes:\t");Serial.print(total);
+			Serial.println(" bytes");
+			Serial.print("free flash memory:\t");Serial.print(freeSpace);
+			Serial.println(" bytes");
+		}
+	#endif
   jsonInfoHttp.clear();
   jsonInfoHttp["info"] = "free flash space";
   jsonInfoHttp["total"] = total;
@@ -41,13 +46,15 @@ void scanFlashContents() {
 		jsonInfoHttp.clear();
     
     File root = LittleFS.open("/");
-    if (!root.isDirectory()) {
-    	if (InfoPrint == 1) {
-    		Serial.println("error: not a directory.");
-    		jsonInfoHttp["info"] = "error: not a directory.";
-    		return;
-    	}
-    }
+    #if INFO_PRINT
+			if (!root.isDirectory()) {
+				if (InfoPrint == 1) {
+					Serial.println("error: not a directory.");
+					jsonInfoHttp["info"] = "error: not a directory.";
+					return;
+				}
+			}
+		#endif
 
     jsonInfoHttp["info"] = "reading files and the first line";
     File file = root.openNextFile();
@@ -81,13 +88,17 @@ void scanFlashContents() {
 bool createFile(String fileName, String fileContent) {
 	jsonInfoHttp.clear();
 	if (!flashStatus) {
-		if (InfoPrint == 1) {Serial.println("LittleFS mount failed.");}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {Serial.println("LittleFS mount failed.");}
+		#endif
   	jsonInfoHttp["info"] = "LittleFS mount failed.";
 		return false;
 	}
 
 	if (LittleFS.exists("/"+fileName)) {
-		if (InfoPrint == 1) {Serial.println("file already exists.");}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {Serial.println("file already exists.");}
+		#endif
 		jsonInfoHttp["info"] = "file already exists.";
 		return false;
 	}
@@ -97,11 +108,15 @@ bool createFile(String fileName, String fileContent) {
 		// file.println("{\"name\":\"" + fileName + "\",\"intro\":\"" + fileContent + "\"}");
 		file.println(fileContent);
 		file.close();
-		if (InfoPrint == 1) {Serial.println("file created successfully.");}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {Serial.println("file created successfully.");}
+		#endif
 		jsonInfoHttp["info"] = "file created successfully.";
 		return true;
 	} else {
-		if (InfoPrint == 1) {Serial.println("file creation failed.");}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {Serial.println("file creation failed.");}
+		#endif
 		jsonInfoHttp["info"] = "file creation failed.";
 		return false;
 	}
@@ -145,19 +160,25 @@ int readFile(String fileName) {
 bool deleteFile(String inputName) {
 	jsonInfoHttp.clear();
 	if (!flashStatus) {
-		if (InfoPrint == 1) {Serial.println("LittleFS mount failed.");}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {Serial.println("LittleFS mount failed.");}
+		#endif
 		jsonInfoHttp["info"] = "LittleFS mount failed.";
 		return false;
 	}
 
 	if (!LittleFS.exists("/" + inputName)) {
-		if (InfoPrint == 1) {Serial.println("file already deleted.");}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {Serial.println("file already deleted.");}
+		#endif
 		jsonInfoHttp["info"] = "file already deleted.";
 		return false;
 	}
 
 	LittleFS.remove("/" + inputName);
-	if (InfoPrint == 1) {Serial.println("file deleted successfully.");}
+	#if INFO_PRINT
+		if (InfoPrint == 1) {Serial.println("file deleted successfully.");}
+	#endif
 	jsonInfoHttp["info"] = "file deleted successfully.";
 	return true;
 }
@@ -270,19 +291,23 @@ String readSingleLine(String filename, int lineNum) {
 		line = file.readStringUntil('\n');
 		if (i == lineNum-1) {
 			file.close();
-			if (InfoPrint == 1) {
-				Serial.println(line);
-				jsonInfoHttp["filename"] = filename;
-				jsonInfoHttp["lineNum"]  = lineNum;
-			}
+			#if INFO_PRINT
+				if (InfoPrint == 1) {
+					Serial.println(line);
+					jsonInfoHttp["filename"] = filename;
+					jsonInfoHttp["lineNum"]  = lineNum;
+				}
+			#endif
 			return line;
 		}
 		i++;
 	}
 	file.close();
-	if (InfoPrint == 1) {
-		Serial.println("[line not found]");
-	}
+	#if INFO_PRINT
+		if (InfoPrint == 1) {
+			Serial.println("[line not found]");
+		}
+	#endif
 	return "";
 }
 

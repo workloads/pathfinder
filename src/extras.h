@@ -7,7 +7,9 @@ bool moveToStep(String inputName, int inputStepNum);
 // mission abort after serial received anything.
 bool serialMissionAbort() {
 	if (Serial.available()) {
-		if (InfoPrint == 1) {Serial.println("[missionPlay abort.]");}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {Serial.println("[missionPlay abort.]");}
+		#endif
 		return true;
 	} else {
 		return false;
@@ -67,17 +69,21 @@ int missionContent(String inputName) {
 bool appendStepJson(String inputName, String inputStep) {
 	DeserializationError err = deserializeJson(jsonInfoSend, inputStep);
 	if (err == DeserializationError::Ok) {
-		if (InfoPrint == 1) {
-			Serial.println("[json parsing succeed.]");
-		}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {
+				Serial.println("[json parsing succeed.]");
+			}
+		#endif
 		appendLine(inputName + ".mission", inputStep);
 		jsonInfoSend.clear();
 		return true;
 	} else {
 		jsonInfoSend.clear();
-		if (InfoPrint == 1) {
-			Serial.println("[deserializeJson err]");
-		}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {
+				Serial.println("[deserializeJson err]");
+			}
+		#endif
 		return false;
 	}
 }
@@ -113,17 +119,21 @@ void appendDelayCmd(String inputName, int delayTime) {
 bool insertStepJson(String inputName, int inputStepNum, String inputStep) {
 	DeserializationError err = deserializeJson(jsonInfoSend, inputStep);
 	if (err == DeserializationError::Ok) {
-		if (InfoPrint == 1) {
-			Serial.println("[json parsing succeed.]");
-		}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {
+				Serial.println("[json parsing succeed.]");
+			}
+		#endif
 		insertLine(inputName + ".mission", inputStepNum + 1, inputStep);
 		jsonInfoSend.clear();
 		return true;
 	} else {
 		jsonInfoSend.clear();
-		if (InfoPrint == 1) {
-			Serial.println("[deserializeJson err]");
-		}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {
+				Serial.println("[deserializeJson err]");
+			}
+		#endif
 		return false;
 	}
 }
@@ -158,17 +168,21 @@ void insertDelayCmd(String inputName, int inputStepNum, int delayTime) {
 bool replaceStepJson(String inputName, int inputStepNum, String inputStep) {
 	DeserializationError err = deserializeJson(jsonInfoSend, inputStep);
 	if (err == DeserializationError::Ok) {
-		if (InfoPrint == 1) {
-			Serial.println("[json parsing succeed.]");
-		}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {
+				Serial.println("[json parsing succeed.]");
+			}
+		#endif
 		replaceLine(inputName + ".mission", inputStepNum + 1, inputStep);
 		jsonInfoSend.clear();
 		return true;
 	} else {
 		jsonInfoSend.clear();
-		if (InfoPrint == 1) {
-			Serial.println("[deserializeJson err]");
-		}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {
+				Serial.println("[deserializeJson err]");
+			}
+		#endif
 		return false;
 	}
 }
@@ -209,24 +223,30 @@ bool moveToStep(String inputName, int inputStepNum) {
 	String stepStringBuffer = readSingleLine(inputName + ".mission", inputStepNum + 1);
 	DeserializationError err = deserializeJson(jsonCmdReceive, stepStringBuffer);
 	if (err == DeserializationError::Ok) {
-		if (InfoPrint == 1) {
-			Serial.println("[json parsing succeed.]");
-			Serial.println("[import a step]");
-			Serial.print("[mission name]: ");Serial.println(inputName);
-			Serial.print("[stepNum]: ");Serial.println(inputStepNum);
-			Serial.print("[cmd]: ");Serial.println(stepStringBuffer);
-		}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {
+				Serial.println("[json parsing succeed.]");
+				Serial.println("[import a step]");
+				Serial.print("[mission name]: ");Serial.println(inputName);
+				Serial.print("[stepNum]: ");Serial.println(inputStepNum);
+				Serial.print("[cmd]: ");Serial.println(stepStringBuffer);
+			}
+		#endif
 		jsonCmdReceiveHandler();
-		if (InfoPrint == 1) {
-			Serial.println("[step finished]");
-		}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {
+				Serial.println("[step finished]");
+			}
+		#endif
 		jsonInfoSend.clear();
 		return true;
 	} else {
 		jsonInfoSend.clear();
-		if (InfoPrint == 1) {
-			Serial.println("[deserializeJson err]");
-		}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {
+				Serial.println("[deserializeJson err]");
+			}
+		#endif
 		return false;
 	}
 }
@@ -240,13 +260,17 @@ void missionPlay(String inputName, int repeatTimes) {
 	while (1) {
 		currentTimes++;
 		if (currentTimes > repeatTimes && repeatTimes != -1) {
-			if (InfoPrint == 1) {Serial.println("[missionPlay finished.]");}
+			#if INFO_PRINT
+				if (InfoPrint == 1) {Serial.println("[missionPlay finished.]");}
+			#endif
 			return;
 		}
-		if (InfoPrint == 1) {
-			Serial.print("---\n[currentTimes: ");Serial.print(currentTimes);
-			Serial.println(" ]");
-		}
+		#if INFO_PRINT
+			if (InfoPrint == 1) {
+				Serial.print("---\n[currentTimes: ");Serial.print(currentTimes);
+				Serial.println(" ]");
+			}
+		#endif
 
 		for (int i = 1; i<=_LineNum; i++) {
 			if (serialMissionAbort()) {
@@ -267,6 +291,7 @@ void configEoAT(byte mountPos, double inputEA, double inputEB) {
 	// RoArm-M2 functionality removed
 }
 
+#if INFO_PRINT
 // set the InfoPrint.
 void configInfoPrint(byte inputCmd) {
 	switch (inputCmd) {
@@ -278,7 +303,9 @@ void configInfoPrint(byte inputCmd) {
 			break;
 	}
 }
+#endif
 
+#if BASE_FEEDBACK_FLOW
 // set the baseInfoFeedback.
 void setBaseInfoFeedbackMode(bool inputCmd) {
 	if (inputCmd == 1) {
@@ -287,6 +314,7 @@ void setBaseInfoFeedbackMode(bool inputCmd) {
 		baseFeedbackFlow = 0;
 	}
 }
+#endif
 
 // baseInfoFeedback.
 void baseInfoFeedback() {
@@ -391,15 +419,16 @@ bool checkIMUSafety() {
 		// Emergency stop - set all motor speeds to 0
 		setGoalSpeed(0, 0);
 		
-		// Optional: Set emergency flag or send warning
-		if (InfoPrint == 1) {
-			Serial.print("IMU SAFETY: Pitch limit exceeded! Pitch: ");
-			Serial.print(icm_pitch * 180.0 / PI, 2);
-			Serial.print("° (Limit: ");
-			Serial.print(IMU_PITCH_LIMIT_RADIANS * 180.0 / PI, 2);
-			Serial.println("°) - Movement stopped!");
-		}
-		
+		#if INFO_PRINT
+			// Optional: Set emergency flag or send warning
+			if (InfoPrint == 1) {
+				Serial.print("IMU SAFETY: Pitch limit exceeded! Pitch: ");
+				Serial.print(icm_pitch * 180.0 / PI, 2);
+				Serial.print("° (Limit: ");
+				Serial.print(IMU_PITCH_LIMIT_RADIANS * 180.0 / PI, 2);
+				Serial.println("°) - Movement stopped!");
+			}
+		#endif
 		return false; // Unsafe - movement stopped
 	}
 	

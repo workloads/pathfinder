@@ -1,7 +1,21 @@
-// 2: flow feedback.
-// 1: [default]print debug info in serial.
-// 0: don't print debug info in serial.
-byte InfoPrint = 0;
+//compile time flags
+#define PROD 0
+#define INFO_PRINT 0
+#define WEB_PAGE 0
+#define BASE_FEEDBACK_FLOW 0
+#if PROD
+  #define INFO_PRINT 0
+  #define WEB_PAGE 0
+  #define BASE_FEEDBACK_FLOW 0
+#endif
+
+#if INFO_PRINT
+  // 2: flow feedback.
+  // 1: [default]print debug info in serial.
+  // 0: don't print debug info in serial.
+  byte InfoPrint = 0;
+#endif
+
 
 // devices info:
 
@@ -16,9 +30,11 @@ byte mainType = 2;
 // 0: [Base default] without additional modules.
 byte moduleType = 0;
 
+#if BASE_FEEDBACK_FLOW
 // 0: turn off base info feedback flow.
 // 1: [default] turn on base info feedback flow.
 bool baseFeedbackFlow = 1;
+#endif
 
 String thisMacStr;
 

@@ -90,10 +90,11 @@ String jsonAPIHandler(String stringInput)
   case CMD_BASE_FEEDBACK:
     baseInfoFeedbackHttp();
     break;
-
+  #if BASE_FEEDBACK_FLOW
   case CMD_BASE_FEEDBACK_FLOW:
     setBaseInfoFeedbackMode(jsonInput["cmd"]);
     break;
+  #endif
 
   case CMD_FEEDBACK_FLOW_INTERVAL:
     setFeedbackFlowInterval(jsonInput["cmd"]);
@@ -315,11 +316,12 @@ String jsonAPIHandler(String stringInput)
     delay(1000);
     nvs_flash_init();
     break;
-
-  case CMD_INFO_PRINT:
-    configInfoPrint(
-        jsonInput["cmd"]);
-    break;
+  #if INFO_PRINT
+    case CMD_INFO_PRINT:
+      configInfoPrint(
+          jsonInput["cmd"]);
+      break;
+  #endif
   // case CMD_PID_RESET_A: PID_v2 pidA(__kp, __ki, __kd, PID::Direct);
   // 											PID_v2 pidB(__kp, __ki, __kd, PID::Direct);
   // 											pidControllerInit();break;

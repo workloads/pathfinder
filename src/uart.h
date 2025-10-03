@@ -88,12 +88,12 @@ void jsonCmdReceiveHandler()
 		case CMD_BASE_FEEDBACK:
 			baseInfoFeedbackHttp();
 			break;
-
+		#if BASE_FEEDBACK_FLOW
 		case CMD_BASE_FEEDBACK_FLOW:
 			setBaseInfoFeedbackMode(
 				jsonCmdReceive["cmd"]);
 			break;
-
+		#endif
 		case CMD_FEEDBACK_FLOW_INTERVAL:
 			setFeedbackFlowInterval(
 				jsonCmdReceive["cmd"]);
@@ -362,10 +362,13 @@ void jsonCmdReceiveHandler()
 			nvs_flash_init();
 			break;
 
-		case CMD_INFO_PRINT:
-			configInfoPrint(
-				jsonCmdReceive["cmd"]);
-			break;
+
+		#if INFO_PRINT
+			case CMD_INFO_PRINT:
+				configInfoPrint(
+					jsonCmdReceive["cmd"]);
+				break;
+		#endif
 
 		// mainType & moduleType settings.
 		case CMD_MM_TYPE_SET:
@@ -395,10 +398,12 @@ void serialCtrl()
 			DeserializationError err = deserializeJson(jsonCmdReceive, receivedData);
 			if (err == DeserializationError::Ok)
 			{
-				if (InfoPrint == 1 && uartCmdEcho)
-				{
-					Serial.print(receivedData);
-				}
+				#if INFO_PRINT
+					if (InfoPrint == 1 && uartCmdEcho)
+					{
+						Serial.print(receivedData);
+					}
+				#endif
 				jsonCmdReceiveHandler();
 			}
 			else
