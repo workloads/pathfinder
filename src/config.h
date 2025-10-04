@@ -3,10 +3,14 @@
 #define INFO_PRINT 0
 #define WEB_PAGE 0
 #define BASE_FEEDBACK_FLOW 0
+#define MOVEMENT_INFO 0
+#define WIFI_INFO 0
 #if PROD
   #define INFO_PRINT 0
   #define WEB_PAGE 0
   #define BASE_FEEDBACK_FLOW 0
+  #define MOVEMENT_INFO 0
+  #define WIFI_INFO 0
 #endif
 
 #if INFO_PRINT

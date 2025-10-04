@@ -434,9 +434,11 @@ void planStepToCommand(String movementPlanStep)
 
   while (millis() - startTime < movementDuration)
   {
-    Serial.println(startTime);
-    Serial.println(movementDuration);
-    Serial.println(AUTO_STOP_DELAY);
+    #if MOVEMENT_INFO
+      Serial.println("StartTime: " + startTime);
+      Serial.println("movementDuration: " + movementDuration);
+      Serial.println("AUTO_STOP_DELAY: " + AUTO_STOP_DELAY);
+    #endif
     // Check if we need to send a new command to prevent auto-stop
     if (millis() - lastCommandTime >= AUTO_STOP_DELAY - 100)
     { // Send command 100ms before auto-stop
