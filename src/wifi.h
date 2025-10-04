@@ -26,7 +26,11 @@ const char* sta_password = "workloads";
 const char* ap_ssid = "pathfinder";
 const char* ap_password = "pathfinder";
 
+const char* wifiConfig_file = "/wifiConfig.json";
+
 String hostname;
+
+
 
 // true: change the WIFI_MODE_ON_BOOT to 3 when first STA mode succeed.
 bool defaultModeToAPSTA = true;
@@ -106,10 +110,12 @@ void updateOledWifiInfo() {
 // load the wifiConfig.json form Flash.
 // the file name is wifiConfig.json in root path.
 bool loadWifiConfig() {
-	wifiConfigYaml = LittleFS.open("/wifiConfig.json", "r");
+	
+	wifiConfigYaml = LittleFS.open(wifiConfig_file, "r");
 	if (wifiConfigYaml) {
-		#if INFO_PRINT
-			if (InfoPrint == 1) {Serial.println("/wifiConfig.json load succeed.");}
+		#if WIFI_INFO
+			Serial.print(wifiConfig_file);
+			Serial.println(" load succeed.");
 		#endif
 		String line = wifiConfigYaml.readStringUntil('\n');
 
@@ -122,16 +128,14 @@ bool loadWifiConfig() {
 		sta_password = wifiDoc["sta_password"];
 		ap_ssid = wifiDoc["ap_ssid"];
 		ap_password = wifiDoc["ap_password"];
-		#if INFO_PRINT
-			if (InfoPrint == 1) {
-				Serial.println(line);
-			}
+		#if WIFI_INFO
+			Serial.println(line);
 		#endif
 
 		wifiConfigYaml.close();
 		wifiConfigFound = true;
 		jsonInfoHttp.clear();
-  	jsonInfoHttp["ip"] = "/wifiConfig.json load succeed.";
+  	jsonInfoHttp["ip"] = "file load succeed.";
  		jsonInfoHttp["wifi_mode_on_boot"] = WIFI_MODE_ON_BOOT;
  		jsonInfoHttp["sta_ssid"] = sta_ssid;
  		jsonInfoHttp["sta_password"] = sta_password;
@@ -140,8 +144,9 @@ bool loadWifiConfig() {
 		return true;
 
 	} else {
-		#if INFO_PRINT
-			if (InfoPrint == 1) {Serial.println("cound not found wifiConfig.json.");}
+		#if WIFI_INFO
+			Serial.print("couldn't not found ");
+			Serial.println(wifiConfig_file);
 		#endif
 		wifiConfigFound = false;
 		return false;
@@ -152,11 +157,9 @@ bool loadWifiConfig() {
 // get the ip address.
 IPAddress getIPAddress(byte inputMode) {
 	localIP = WiFi.localIP();
-	#if INFO_PRINT
-		if (InfoPrint == 1) {
+	#if WIFI_INFO
 			Serial.print("IP: ");
 			Serial.println(localIP.toString());
-		}
 	#endif
 
 	jsonInfoHttp.clear();
@@ -176,17 +179,16 @@ bool createWifiConfigFileByStatus() {
 		wifiDoc["ap_ssid"] = ap_ssid;
 		wifiDoc["ap_password"] = ap_password;
 
-		File configFile = LittleFS.open("/wifiConfig.json", "w");
+		File configFile = LittleFS.open(wifiConfig_file, "w");
 		if (configFile) {
 			serializeJson(wifiDoc, configFile);
 			configFile.close();
-			#if INFO_PRINT
-				if (InfoPrint == 1) {
-					Serial.println("/wifiConfig.json created.");
-				}
+			#if WIFI_INFO
+			  Serial.print(wifiConfig_file);
+				Serial.println(" created.");
 			#endif
 			jsonInfoHttp.clear();
-  		jsonInfoHttp["info"] = "/wifiConfig.json created.";
+  		jsonInfoHttp["info"] = "file created.";
 			jsonInfoHttp["wifi_mode_on_boot"] = WIFI_MODE_ON_BOOT;
 			jsonInfoHttp["sta_ssid"] = sta_ssid;
 			jsonInfoHttp["sta_password"] = sta_password;
@@ -195,7 +197,7 @@ bool createWifiConfigFileByStatus() {
 			return true;
 		} else {
 			jsonInfoHttp.clear();
-  		jsonInfoHttp["info"] = "/wifiConfig.json open failed.";
+  		jsonInfoHttp["info"] = + " open failed.";
 			return false;
 		}
 	} else {
@@ -209,21 +211,19 @@ bool createWifiConfigFileByStatus() {
 // set wifi as AP mode.
 bool wifiModeAP(const char* input_ssid, const char* input_password) {
 	WiFi.disconnect();
-	#if INFO_PRINT
-		if (InfoPrint == 1) {Serial.println("wifi mode on boot: AP");}
+	#if WIFI_INFO
+		Serial.println("wifi mode on boot: AP");
 	#endif
 	// WiFi.mode(WIFI_AP);
 	WiFi.mode(WIFI_AP_STA);
 	WiFi.softAP(input_ssid, input_password);
-	#if INFO_PRINT
-		if (InfoPrint == 1) {
-			Serial.println("AP mode starts...");
-			Serial.print("SSID: ");
-			Serial.println(input_ssid);
-			Serial.print("Password: ");
-			Serial.println(input_password);
-			Serial.println("AP Address: 192.168.4.1");
-		}
+	#if WIFI_INFO
+		Serial.println("AP mode starts...");
+		Serial.print("SSID: ");
+		Serial.println(input_ssid);
+		Serial.print("Password: ");
+		Serial.println(input_password);
+		Serial.println("AP Address: 192.168.4.1");
 	#endif
 	WIFI_CURRENT_MODE = 1;
 	localIP = WiFi.localIP();
@@ -244,29 +244,29 @@ bool wifiModeAP(const char* input_ssid, const char* input_password) {
 // set wifi as STA mode.
 bool wifiModeSTA(const char* input_ssid, const char* input_password) {
 	WiFi.disconnect();
-	#if INFO_PRINT
-		if (InfoPrint == 1) {Serial.println("wifi mode on boot: STA");}
+	#if WIFI_INFO
+		Serial.println("wifi mode on boot: STA");
 	#endif
 	// WiFi.mode(WIFI_STA);
 	WiFi.mode(WIFI_AP_STA);
 	WiFi.begin(input_ssid, input_password);
 	connectionStartTime = millis();
 
-	#if INFO_PRINT
-		if (InfoPrint == 1) {Serial.println("STA mode starts: connecting to "); Serial.println(input_ssid);}
+	#if WIFI_INFO
+		Serial.println("STA mode starts: connecting to "); Serial.println(input_ssid);
 	#endif
 	
 	while (WiFi.status() != WL_CONNECTED) {
 		unsigned long currentTime = millis();
-		#if INFO_PRINT
-			if (InfoPrint == 1) {Serial.print(".");}
+		#if WIFI_INFO
+			Serial.print(".");
 		#endif
 		delay(500);
 
 		if (currentTime - connectionStartTime >= connectionTimeout) {
 			WIFI_CURRENT_MODE = -1;
-			#if INFO_PRINT
-				if (InfoPrint == 1) {Serial.println(".");Serial.println("STA connection timeout.");}
+			#if WIFI_INFO
+				Serial.println(".");Serial.println("STA connection timeout.");
 			#endif
 			wifiModeAP(ap_ssid, ap_password);
 			updateOledWifiInfo();
@@ -278,8 +278,8 @@ bool wifiModeSTA(const char* input_ssid, const char* input_password) {
 			break;
 		}
 	}
-	#if INFO_PRINT
-		if (InfoPrint == 1) {Serial.println(".");Serial.println("STA connection succeed.");}
+	#if WIFI_INFO
+		Serial.println(".");Serial.println("STA connection succeed.");
 	#endif
 	WIFI_CURRENT_MODE = 2;
 	getIPAddress(WIFI_CURRENT_MODE);
@@ -296,8 +296,8 @@ bool wifiModeSTA(const char* input_ssid, const char* input_password) {
 
 	if (defaultModeToAPSTA && !wifiConfigFound) {
 		WIFI_MODE_ON_BOOT = 3;
-		#if INFO_PRINT
-			if (InfoPrint == 1) {Serial.println("[default] wifi mode on boot: AP+STA");}
+		#if WIFI_INFO
+			Serial.println("[default] wifi mode on boot: AP+STA");
 		#endif
 		jsonInfoHttp["info"] = "[default] wifi mode on boot: AP+STA";
 		createWifiConfigFileByStatus();
@@ -311,41 +311,39 @@ bool wifiModeSTA(const char* input_ssid, const char* input_password) {
 // set wifi as AP+STA mode.
 bool wifiModeAPSTA(const char* input_ap_ssid, const char* input_ap_password, const char* input_sta_ssid, const char* input_sta_password) {
 	WiFi.disconnect();
-	#if INFO_PRINT
-		if (InfoPrint == 1) {Serial.println("wifi mode on boot: AP+STA");}
+	#if WIFI_INFO
+		Serial.println("wifi mode on boot: AP+STA");
 	#endif
 	WiFi.mode(WIFI_AP_STA);
 	WiFi.softAP(input_ap_ssid, input_ap_password);
 	WiFi.setHostname(hostname.c_str());
-	#if INFO_PRINT
-		if (InfoPrint == 1) {
+	#if WIFI_INFO
 			Serial.println("AP/AP+STA mode starts...");
 			Serial.print("AP SSID: ");
 			Serial.println(input_ap_ssid);
 			Serial.print("AP Password: ");
 			Serial.println(input_ap_password);
 			Serial.println("AP Address: 192.168.4.1");
-		}
 	#endif
 	ap_ssid = input_ap_ssid;
 	ap_password = input_ap_password;
 	
 	WiFi.begin(input_sta_ssid, input_sta_password);
 	connectionStartTime = millis();
-	#if INFO_PRINT
-		if (InfoPrint == 1) {Serial.print("STA/AP+STA mode starts: connecting to "); Serial.println(input_sta_ssid);}
+	#if WIFI_INFO
+		Serial.print("STA/AP+STA mode starts: connecting to "); Serial.println(input_sta_ssid);
 	#endif
 	while (WiFi.status() != WL_CONNECTED) {
 		unsigned long currentTime = millis();
-		#if INFO_PRINT
-			if (InfoPrint == 1) {Serial.print(".");}
+		#if WIFI_INFO
+			Serial.print(".");
 		#endif
 		delay(500);
 
 		if (currentTime - connectionStartTime >= connectionTimeout) {
 			WIFI_CURRENT_MODE = -1;
-			#if INFO_PRINT
-				if (InfoPrint == 1) {Serial.println(".");Serial.println("STA connection timeout.");}
+			#if WIFI_INFO
+				Serial.println(".");Serial.println("STA connection timeout.");
 			#endif
 			wifiModeAP(ap_ssid, ap_password);
 			updateOledWifiInfo();
@@ -357,8 +355,8 @@ bool wifiModeAPSTA(const char* input_ap_ssid, const char* input_ap_password, con
 			break;
 		}
 	}
-	#if INFO_PRINT
-		if (InfoPrint == 1) {Serial.println("STA connection succeed.");}
+	#if WIFI_INFO
+		Serial.println("STA connection succeed.");
 	#endif
 	WIFI_CURRENT_MODE = 3;
 	getIPAddress(WIFI_CURRENT_MODE);
@@ -366,8 +364,8 @@ bool wifiModeAPSTA(const char* input_ap_ssid, const char* input_ap_password, con
 	sta_password = input_sta_password;
 	if (defaultModeToAPSTA && !wifiConfigFound) {
 		WIFI_MODE_ON_BOOT = 3;
-		#if INFO_PRINT
-			if (InfoPrint == 1) {Serial.println("[default] wifi mode on boot: AP+STA");}
+		#if WIFI_INFO
+			Serial.println("[default] wifi mode on boot: AP+STA");
 		#endif
 		createWifiConfigFileByStatus();
 	}
@@ -399,10 +397,8 @@ bool wifiModeOnBoot() {
 	bool funcStatus = false;
 	switch(WIFI_MODE_ON_BOOT) {
 	case 0: 
-		#if INFO_PRINT
-			if (InfoPrint == 1) {
-				Serial.println("wifi mode on boot: OFF");
-			}
+		#if WIFI_INFO
+			Serial.println("wifi mode on boot: OFF");
 		#endif
 		funcStatus = true;
 		WIFI_CURRENT_MODE = 0;
@@ -425,11 +421,9 @@ bool wifiModeOnBoot() {
 // change the WIFI_MODE_ON_BOOT.
 void configWifiModeOnBoot(byte inputMode) {
 	WIFI_MODE_ON_BOOT = inputMode;
-	#if INFO_PRINT
-		if (InfoPrint == 1) {
-			Serial.print("wifi_mode_on_boot: ");
-			Serial.println(WIFI_MODE_ON_BOOT);
-		}
+	#if WIFI_INFO
+		Serial.print("wifi_mode_on_boot: ");
+		Serial.println(WIFI_MODE_ON_BOOT);
 	#endif
 	createWifiConfigFileByStatus();
 }
@@ -440,11 +434,9 @@ void configWifiModeOnBoot(byte inputMode) {
 void createWifiConfigFileByInput(byte inputMode, const char* inputApSsid, const char* inputApPassword, const char* inputStaSsid, const char* inputStaPassword) {
 	WIFI_MODE_ON_BOOT = inputMode;
 	wifiModeAPSTA(inputApSsid, inputApPassword, inputStaSsid, inputStaPassword);
-	#if INFO_PRINT
-		if (InfoPrint == 1) {
+	#if WIFI_INFO
 			Serial.print("wifi_mode_on_boot: ");
 			Serial.println(WIFI_MODE_ON_BOOT);
-		}
 	#endif
 	createWifiConfigFileByStatus();
 }
@@ -531,24 +523,22 @@ void checkWifiAndReconnect() {
 		wl_status_t wifiStatus = WiFi.status();
 		
 		if (wifiStatus != WL_CONNECTED) {
-			#if INFO_PRINT
-				if (InfoPrint == 1) {
-					Serial.print("WiFi disconnected. Status: ");
-					Serial.println(wifiStatus);
-				}
+			#if WIFI_INFO
+				Serial.print("WiFi disconnected. Status: ");
+				Serial.println(wifiStatus);
+				
 			#endif
 			
 			// Only attempt reconnection if we have valid credentials and haven't exceeded max attempts
 			if (strlen(sta_ssid) > 0 && strlen(sta_password) > 0 && reconnectAttempts < maxReconnectAttempts) {
 				reconnectAttempts++;
-				#if INFO_PRINT
-					if (InfoPrint == 1) {
-						Serial.print("Attempting WiFi reconnection (attempt ");
-						Serial.print(reconnectAttempts);
-						Serial.print("/");
-						Serial.print(maxReconnectAttempts);
-						Serial.println(")");
-					}
+				#if WIFI_INFO
+					Serial.print("Attempting WiFi reconnection (attempt ");
+					Serial.print(reconnectAttempts);
+					Serial.print("/");
+					Serial.print(maxReconnectAttempts);
+					Serial.println(")");
+
 				#endif
 				
 				// Attempt to reconnect based on current mode
@@ -568,35 +558,30 @@ void checkWifiAndReconnect() {
 				
 				if (reconnectSuccess) {
 					reconnectAttempts = 0; // Reset counter on successful connection
-					#if INFO_PRINT
-						if (InfoPrint == 1) {
-							Serial.println("WiFi reconnection successful!");
-						}
+					#if WIFI_INFO
+						Serial.println("WiFi reconnection successful!");
+						
 					#endif
 					updateOledWifiInfo(); // Update display on successful reconnection
 				} else {
-					#if INFO_PRINT
-						if (InfoPrint == 1) {
-							Serial.println("WiFi reconnection failed.");
-						}
+					#if WIFI_INFO
+						Serial.println("WiFi reconnection failed.");
+						
 					#endif
 					updateOledWifiInfo(); // Update display on failed reconnection
 				}
 			} else {
-				#if INFO_PRINT
-					if (InfoPrint == 1) {
-						Serial.println("WiFi reconnection disabled or max attempts reached.");
-					}
+				#if WIFI_INFO
+					Serial.println("WiFi reconnection disabled or max attempts reached.");
+					
 				#endif
 			}
 		} else {
 			// WiFi is connected, reset reconnect attempts counter
 			if (reconnectAttempts > 0) {
 				reconnectAttempts = 0;
-				#if INFO_PRINT
-					if (InfoPrint == 1) {
-						Serial.println("WiFi connection restored.");
-					}
+				#if WIFI_INFO
+					Serial.println("WiFi connection restored.");
 				#endif
 			}
 		}
@@ -606,23 +591,19 @@ void checkWifiAndReconnect() {
 // Enable/disable auto-reconnection
 void setAutoReconnect(bool enabled) {
 	autoReconnectEnabled = enabled;
-	#if INFO_PRINT
-		if (InfoPrint == 1) {
-			Serial.print("WiFi auto-reconnection ");
-			Serial.println(enabled ? "enabled" : "disabled");
-		}
+	#if WIFI_INFO
+		Serial.print("WiFi auto-reconnection ");
+		Serial.println(enabled ? "enabled" : "disabled");
 	#endif
 }
 
 // Set WiFi check interval
 void setWifiCheckInterval(unsigned long interval) {
 	wifiCheckInterval = interval;
-	#if INFO_PRINT
-		if (InfoPrint == 1) {
-			Serial.print("WiFi check interval set to ");
-			Serial.print(interval / 1000);
-			Serial.println(" seconds");
-		}
+	#if WIFI_INFO
+		Serial.print("WiFi check interval set to ");
+		Serial.print(interval / 1000);
+		Serial.println(" seconds");
 	#endif
 }
 
