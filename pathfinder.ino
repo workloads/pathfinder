@@ -76,29 +76,34 @@ void setup() {
 
   // Enable the DMP orientation sensor
   success &= (myICM.enableDMPSensor(INV_ICM20948_SENSOR_ORIENTATION) == ICM_20948_Stat_Ok);
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.print("Orientation sensor: ");
     Serial.println(myICM.statusString());
   }
-
+  #endif
   success &= (myICM.enableDMPSensor(INV_ICM20948_SENSOR_RAW_GYROSCOPE) == ICM_20948_Stat_Ok);
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.print("Raw gyroscope sensor: ");
     Serial.println(myICM.statusString());
   }
-  
+  #endif
   success &= (myICM.enableDMPSensor(INV_ICM20948_SENSOR_RAW_ACCELEROMETER) == ICM_20948_Stat_Ok);
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.print("Raw accelerometer sensor: ");
     Serial.println(myICM.statusString());
   }
-  
+  #endif
   // +
   // Temporarily disable magnetometer sensor to focus on accel/gyro
   // success &= (myICM.enableDMPSensor(INV_ICM20948_SENSOR_MAGNETIC_FIELD_UNCALIBRATED) == ICM_20948_Stat_Ok);
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.println("Magnetometer sensor: DISABLED for now");
   }
+  #endif
 
   // Configuring DMP to output data at multiple ODRs:
   // DMP is capable of outputting multiple sensor data at different rates to FIFO.
@@ -166,69 +171,67 @@ void setup() {
   screenLine_2 = screenLine_3;
   screenLine_3 = "Initialize LittleFS";
   oled_update();
-  
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.println("Initialize LittleFS for Flash files ctrl.");
   }
-  
+  #endif
   initFS();
 
   // init the funcs in switch_module.h
   screenLine_2 = screenLine_3;
   screenLine_3 = "Initialize 12V-switch ctrl";
   oled_update();
-
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.println("Initialize the pins used for 12V-switch ctrl.");
   }
-  
+  #endif
   motionPinInit();
 
   // servos power up
   screenLine_2 = screenLine_3;
   screenLine_3 = "Power up the servos";
   oled_update();
-  
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.println("Power up the servos.");
   }
-  
+  #endif
   delay(500);
 
   screenLine_3 = "WiFi init";
   oled_update();
-  
-  if (InfoPrint == 1) {
+  #if WIFI_INFO
     Serial.println("WiFi init.");
-  }
-  
+  #endif
   initWifi();
 
   screenLine_3 = "http & web init";
   oled_update();
-  
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.println("http & web init.");
   }
-  
+  #endif
   initHttpWebServer();
 
   screenLine_3 = "IMU Calibrating";
   oled_update();
-  
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.println("IMU Calibrating");
   }
-  
+  #endif
   imuCalibration();
 
   screenLine_3 = "Pathfinder started";
   oled_update();
-  
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.println("Pathfinder started.");
   }
-
+  #endif
   updateOledWifiInfo();
 
   initEncoders();
@@ -239,11 +242,11 @@ void setup() {
   oled_update();
 
   led_pwm_ctrl(0, 0);
-
+  #if INFO_PRINT
   if (InfoPrint == 1) {
     Serial.println("Application initialization settings.");
   }
-  
+  #endif
   createMission("boot", "these cmds run automatically at boot.");
   missionPlay("boot", 1);
 }
@@ -254,6 +257,7 @@ void loop() {
 
   if ((myICM.status == ICM_20948_Stat_Ok) || (myICM.status == ICM_20948_Stat_FIFOMoreDataAvail)) {
     // Debug: Print which data types are available
+    #if INFO_PRINT
     if (InfoPrint == 1) {
       Serial.print("DMP Header: 0x");
       Serial.print(data.header, HEX);
@@ -266,7 +270,7 @@ void loop() {
       Serial.print(" Compass: ");
       Serial.println((data.header & DMP_header_bitmap_Compass) > 0 ? "YES" : "NO");
     }
-    
+    #endif
     // Try to read raw sensor data directly (not from DMP)
     if (myICM.dataReady()) {
       myICM.getAGMT();
@@ -297,7 +301,7 @@ void loop() {
       
       // Check IMU safety - stop movement if pitch exceeds limit
       checkIMUSafety();
-      
+      #if INFO_PRINT
       if (InfoPrint == 1) {
         Serial.print("Raw Accel: X=");
         Serial.print(ax);
@@ -325,6 +329,7 @@ void loop() {
         Serial.print(icm_yaw * 180.0 / PI, 2);
         Serial.println("°");
       }
+      #endif
     }
     if ((data.header & DMP_header_bitmap_Quat9) > 0) {
       // Scale to +/- 1
@@ -338,7 +343,7 @@ void loop() {
       } else {
         q0 = 0.0; // Handle invalid quaternion
       }
-
+      #if INFO_PRINT
       if (InfoPrint == 1) {
         Serial.print("Raw Quat: Q0=");
         Serial.print(q0, 6);
@@ -351,7 +356,7 @@ void loop() {
         Serial.print("Quat sum sq: ");
         Serial.println(quat_sum_sq, 6);
       }
-
+      #endif
       // Check for valid quaternion before calculating angles
       if (!isnan(q0) && !isnan(q1) && !isnan(q2) && !isnan(q3)) {
         q2sqr = q2 * q2;
@@ -375,23 +380,27 @@ void loop() {
         icm_roll = 0.0;
         icm_pitch = 0.0;
         icm_yaw = 0.0;
+        #if INFO_PRINT
         if (InfoPrint == 1) {
           Serial.println("Invalid quaternion - setting angles to 0");
         }
+        #endif
       }
-
+      #if INFO_PRINT
       Serial.print(F("r:"));
       Serial.print(icm_roll, 2);
       Serial.print(F(" p:"));
       Serial.print(icm_pitch, 2);
       Serial.print(F(" y:"));
       Serial.println(icm_yaw, 2);
+      #endif
     }
 
     if ((data.header & DMP_header_bitmap_Accel) > 0) {
       ax = data.Raw_Accel.Data.X;
       ay = data.Raw_Accel.Data.Y;
       az = data.Raw_Accel.Data.Z;
+      #if INFO_PRINT
       if (InfoPrint == 1) {
         Serial.print("Accel: X=");
         Serial.print(ax);
@@ -400,11 +409,13 @@ void loop() {
         Serial.print(" Z=");
         Serial.println(az);
       }
+      #endif
     }
     if ((data.header & DMP_header_bitmap_Gyro) > 0) {
       gx = data.Raw_Gyro.Data.X;
       gy = data.Raw_Gyro.Data.Y;
       gz = data.Raw_Gyro.Data.Z;
+      #if INFO_PRINT
       if (InfoPrint == 1) {
         Serial.print("Gyro: X=");
         Serial.print(gx);
@@ -413,6 +424,7 @@ void loop() {
         Serial.print(" Z=");
         Serial.println(gz);
       }
+      #endif
     }
     // Temporarily disable magnetometer data reading
     /*
@@ -455,9 +467,11 @@ void loop() {
   oledInfoUpdate();
 
   // Send sensor data to web interface
+  #if BASE_FEEDBACK_FLOW
   if (baseFeedbackFlow) {
     baseInfoFeedback();
   }
+  #endif
 
   heartBeatCtrl();
 }
