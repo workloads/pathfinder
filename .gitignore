@@ -5,7 +5,15 @@ cmake-build-debug
 ### Arduino ###
 .theia/
 .arduino/
+libraries/
+tools
 
 ### Project-specific ###
 .doxygen/theme
 docs/
+
+### vcsode ###
+.vscode/
+
+### python ###
+tests/__pycache__/
