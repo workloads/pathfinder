@@ -1,1 +1,1 @@
-uv run python3 -m pytest -s
+uv run python3 -m pytest $* -s
