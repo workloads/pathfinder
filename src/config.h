@@ -1,8 +1,10 @@
 //compile time flags
 #define PROD 0
-#define INFO_PRINT 0
+#define INFO_PRINT 1
 #define WEB_PAGE 0
-#define BASE_FEEDBACK_FLOW 0
+#define BASE_FEEDBACK_FLOW 1
+#define API_V1 0
+#define API_V2 1
 #if PROD
   #define INFO_PRINT 0
   #define WEB_PAGE 0
@@ -33,7 +35,7 @@ byte moduleType = 0;
 #if BASE_FEEDBACK_FLOW
 // 0: turn off base info feedback flow.
 // 1: [default] turn on base info feedback flow.
-bool baseFeedbackFlow = 1;
+bool baseFeedbackFlow = 0;
 #endif
 
 String thisMacStr;

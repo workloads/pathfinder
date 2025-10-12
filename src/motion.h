@@ -1,3 +1,5 @@
+#include "modles.h"
+
 // switch parts
 int switch_pwm_A = 0;
 int switch_pwm_B = 0;
@@ -246,6 +248,12 @@ void rightCtrl(float pwmInputB){
       ledcWrite(PWMB, abs(pwmIntB));
     }
   }
+}
+
+void setAPIGoalSpeed(vector *movement) {
+  usePIDCompute = false;
+  leftCtrl(movement->l * 512 * 0.5);
+  rightCtrl(movement->r * 512 * 0.5);
 }
 
 void setAPIGoalSpeed(float inputLeft, float inputRight) {

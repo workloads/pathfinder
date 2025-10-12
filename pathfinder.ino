@@ -45,6 +45,7 @@ JsonDocument apiResponse;
 #include "src/extras.h"
 #include "src/wifi.h"
 #include "src/api.h"
+#include "src/api_v2.h"
 #include "src/uart.h"
 #include "src/http_server.h"
 
