@@ -9,3 +9,4 @@ cmake-build-debug
 ### Project-specific ###
 .doxygen/theme
 docs/
+.task/checksum/build-fs

@@ -1,0 +1,223 @@
+---
+
+# Taskfile for Pathfinder
+# see https://taskfile.dev/reference/schema/
+
+version: "3"
+
+vars:
+  # path to the Arduino CLI configuration file
+  ARDUINO_SKETCH_CONFIG: config.yml
+
+  # path to the (primary) Arduino sketch file
+  ARDUINO_SKETCH_FILE: pathfinder.ino
+
+  # profile to be used for compiling the sketch (see `sketch.yml`)
+  ARDUINO_SKETCH_PROFILE: '{{.ARDUINO_SKETCH_PROFILE | default "default"}}'
+
+  # timeout for the board discovery process
+  ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT: 1s
+
+  # number of parallel jobs to use for compiling the sketch (0 = all cores)
+  ARDUINO_CLI_COMPILE_JOBS: '{{.ARDUINO_CLI_COMPILE_JOBS | default "0"}}'
+
+  # output directory for compiled artifacts
+  ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY: ./build
+
+  # warning level for the compile process
+  ARDUINO_CLI_COMPILE_WARNINGS: default
+
+  # baudrate for the serial monitor
+  ARDUINO_CLI_MONITOR_BAUDRATE: '{{.ARDUINO_CLI_MONITOR_BAUDRATE | default "115200"}}'
+
+  # serial port of the board; override with `task upload PORT=/dev/cu.usbserial-XXXX`
+  PORT:
+    sh: ls /dev/cu.usbserial-* 2>/dev/null | head -n 1 || true
+
+  # LittleFS image built from `data/`, written to the `spiffs` partition of the compiled partition table
+  FS_IMAGE: '{{.ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY}}/littlefs.bin'
+  FS_PARTITIONS: '{{.ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY}}/esp32.esp32.esp32/partitions.csv'
+  FS_OFFSET:
+    sh: awk -F', *' '/^spiffs/ {print $4}' "{{.FS_PARTITIONS}}" 2>/dev/null || true
+  FS_SIZE:
+    sh: awk -F', *' '/^spiffs/ {print $5}' "{{.FS_PARTITIONS}}" 2>/dev/null || true
+
+  # linting and documentation configuration
+  CONFIG_DOXYGEN: Doxyfile
+  CONFIG_VALE: '{{.CONFIG_VALE | default "../tooling/.vale.ini"}}'
+  CONFIG_YAMLLINT: .yaml-lint.yml
+  DOXYGEN_THEME_PATH: .doxygen/theme
+  DOXYGEN_THEME_URL: https://github.com/jothepro/doxygen-awesome-css.git
+
+tasks:
+  default:
+    desc: display a list of tasks
+    silent: true
+    cmds:
+      - task --list
+
+  attach:
+    desc: attach Arduino Board using arduino-cli
+    preconditions: &port
+      - sh: '[ -n "{{.PORT}}" ]'
+        msg: "No board found at /dev/cu.usbserial-*. Specify one with `PORT=/dev/cu.usbserial-XXXX`."
+    cmds:
+      # see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_board_attach/
+      - >-
+        arduino-cli board attach
+        --config-file "{{.ARDUINO_SKETCH_CONFIG}}"
+        --port "{{.PORT}}"
+
+  clean:
+    desc: clean Arduino cache using arduino-cli
+    cmds:
+      # see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_cache_clean/
+      - arduino-cli cache clean --config-file "{{.ARDUINO_SKETCH_CONFIG}}"
+
+  compile:
+    desc: compile Arduino Sketch using arduino-cli
+    cmds:
+      # see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_compile/
+      # and https://arduino.github.io/arduino-cli/1.0/sketch-build-process/
+      # `--profile` installs the platforms and libraries pinned in `sketch.yml`
+      - >-
+        arduino-cli compile
+        --clean
+        --config-file "{{.ARDUINO_SKETCH_CONFIG}}"
+        --discovery-timeout "{{.ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT}}"
+        --jobs "{{.ARDUINO_CLI_COMPILE_JOBS}}"
+        --output-dir "{{.ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY}}"
+        --profile "{{.ARDUINO_SKETCH_PROFILE}}"
+        --quiet
+        --warnings "{{.ARDUINO_CLI_COMPILE_WARNINGS}}"
+        "{{.ARDUINO_SKETCH_FILE}}"
+
+  upload:
+    desc: upload binary artifact using arduino-cli
+    preconditions: *port
+    cmds:
+      # see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_upload/
+      - >-
+        arduino-cli upload
+        --config-file "{{.ARDUINO_SKETCH_CONFIG}}"
+        --discovery-timeout "{{.ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT}}"
+        --input-dir "{{.ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY}}"
+        --port "{{.PORT}}"
+        --profile "{{.ARDUINO_SKETCH_PROFILE}}"
+        --verify
+
+  build-fs:
+    desc: build LittleFS image from `data/` using mklittlefs
+    vars:
+      MKLITTLEFS:
+        sh: ls .arduino/data/internal/esp32_mklittlefs_*/mklittlefs 2>/dev/null | sort -V | tail -n 1
+    preconditions:
+      - sh: '[ -n "{{.FS_SIZE}}" ]'
+        msg: "No partition table found. Run `task compile` first."
+      - sh: '[ -x "{{.MKLITTLEFS}}" ]'
+        msg: "mklittlefs not found. Run `task compile` first to install the ESP32 core tools."
+    sources:
+      - data/**/*
+    generates:
+      - '{{.FS_IMAGE}}'
+    cmds:
+      # see https://github.com/earlephilhower/mklittlefs
+      - >-
+        "{{.MKLITTLEFS}}"
+        -c data
+        -b 4096
+        -p 256
+        -s "{{.FS_SIZE}}"
+        "{{.FS_IMAGE}}"
+
+  upload-fs:
+    desc: upload LittleFS image from `data/` using esptool (replaces all files on the board)
+    deps: [build-fs]
+    vars:
+      ESPTOOL:
+        sh: ls .arduino/data/internal/esp32_esptool_py_*/esptool 2>/dev/null | sort -V | tail -n 1
+    preconditions: *port
+    cmds:
+      # see https://docs.espressif.com/projects/esptool/en/latest/esp32/esptool/basic-commands.html#write-binary-data-to-flash-write-flash
+      - >-
+        "{{.ESPTOOL}}"
+        --chip esp32
+        --port "{{.PORT}}"
+        write-flash
+        "{{.FS_OFFSET}}"
+        "{{.FS_IMAGE}}"
+
+  monitor:
+    desc: monitor binary output using arduino-cli
+    preconditions: *port
+    cmds:
+      # see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_monitor/
+      - >-
+        arduino-cli monitor
+        --config "baudrate={{.ARDUINO_CLI_MONITOR_BAUDRATE}}"
+        --config-file "{{.ARDUINO_SKETCH_CONFIG}}"
+        --discovery-timeout "{{.ARDUINO_CLI_COMPILE_DISCOVERY_TIMEOUT}}"
+        --port "{{.PORT}}"
+        --timestamp
+
+  list-libs:
+    desc: list Arduino libraries using arduino-cli
+    cmds:
+      # see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_lib_list/
+      - arduino-cli lib list --all --config-file "{{.ARDUINO_SKETCH_CONFIG}}"
+
+  lint:
+    desc: run all linters
+    cmds:
+      - task: lint-arduino
+      - task: lint-cpp
+      - task: lint-yaml
+
+  lint-arduino:
+    desc: lint Arduino code using arduino-lint
+    cmds:
+      - >-
+        arduino-lint
+        --compliance strict
+        --format text
+        --library-manager update
+        --project-type all
+
+  lint-cpp:
+    desc: lint C++ code using cpplint and format it using clang-format
+    vars:
+      TARGET_FILES:
+        sh: ls *.ino src/*.cpp src/*.h 2>/dev/null | tr '\n' ' '
+    cmds:
+      - cpplint {{.TARGET_FILES}}
+      - clang-format -i {{.TARGET_FILES}}
+
+  lint-yaml:
+    desc: lint YAML files using yamllint
+    cmds:
+      - yamllint --config-file "{{.CONFIG_YAMLLINT}}" --format colored --strict .
+
+  lint-vale:
+    desc: lint prose using vale
+    cmds:
+      - vale --config="{{.CONFIG_VALE}}" *.md
+
+  vale-sync:
+    desc: sync Vale dependencies
+    cmds:
+      - vale sync --config="{{.CONFIG_VALE}}"
+
+  docs:
+    desc: create docs using doxygen
+    cmds:
+      - doxygen "{{.CONFIG_DOXYGEN}}"
+
+  docs-get-theme:
+    desc: retrieve Doxygen theme using git
+    cmds:
+      - >-
+        if [ ! -d "{{.DOXYGEN_THEME_PATH}}" ]; then
+        git clone "{{.DOXYGEN_THEME_URL}}" "{{.DOXYGEN_THEME_PATH}}";
+        else
+        git -C "{{.DOXYGEN_THEME_PATH}}" pull;
+        fi
