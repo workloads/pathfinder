@@ -5,7 +5,7 @@
 //compile time flags
 #define PROD 0
 #define INFO_PRINT 0
-#define WEB_PAGE 0
+#define WEB_PAGE 1
 #define BASE_FEEDBACK_FLOW 0
 #if PROD
   #define INFO_PRINT 0
