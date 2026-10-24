@@ -1,3 +1,7 @@
+// firmware and API versions
+#define PATHFINDER_VERSION "1.4.0"
+#define PATHFINDER_API_VERSION "0.10.0"
+
 // 2: flow feedback.
 // 1: [default]print debug info in serial.
 // 0: don't print debug info in serial.

@@ -3,7 +3,7 @@
  * @file pathfinder.ino
  * @brief ESP32-based mobile edge computing platform
  * @url https://go.workloads.io/pathfinder
- * @version 1.3.5
+ * @version see `PATHFINDER_VERSION` in src/config.h
  *
 */
 
@@ -149,7 +149,7 @@ void setup() {
 
   init_oled();
   screenLine_0 = "Pathfinder";
-  screenLine_1 = "version: 1.3.5";
+  screenLine_1 = "version: " PATHFINDER_VERSION;
   screenLine_2 = "starting...";
   screenLine_3 = "";
   oled_update();
