@@ -18,7 +18,7 @@
 // 1: AP (default mode as a brand new product)
 // 2: STA
 // 3: AP+STA (default mode after first wifi connection succeed)
-byte WIFI_MODE_ON_BOOT = 3;
+byte WIFI_MODE_ON_BOOT = 2;
 
 const char* sta_ssid = "workloads";
 const char* sta_password = "workloads";
@@ -138,7 +138,7 @@ bool loadWifiConfig() {
 		return true;
 
 	} else {
-		if (InfoPrint == 1) {Serial.println("cound not found wifiConfig.json.");}
+		if (InfoPrint == 1) {Serial.println("could not find wifiConfig.json.");}
 		wifiConfigFound = false;
 		return false;
 	}
@@ -328,12 +328,14 @@ bool wifiModeAPSTA(const char* input_ap_ssid, const char* input_ap_password, con
 	}
 
 	if (InfoPrint == 1) {Serial.println("STA connection succeed.");}
-	WIFI_CURRENT_MODE = 3;
+	// TODO: update to 3
+	WIFI_CURRENT_MODE = 2;
 	getIPAddress(WIFI_CURRENT_MODE);
 	sta_ssid = input_sta_ssid;
 	sta_password = input_sta_password;
 	if (defaultModeToAPSTA && !wifiConfigFound) {
-		WIFI_MODE_ON_BOOT = 3;
+		// TODO: revert 
+		WIFI_MODE_ON_BOOT = 2;
 		if (InfoPrint == 1) {Serial.println("[default] wifi mode on boot: AP+STA");}
 		createWifiConfigFileByStatus();
 	}
