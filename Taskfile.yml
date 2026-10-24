@@ -30,9 +30,9 @@ vars:
   # baudrate for the serial monitor
   ARDUINO_CLI_MONITOR_BAUDRATE: '{{.ARDUINO_CLI_MONITOR_BAUDRATE | default "115200"}}'
 
-  # serial port of the board; override with `task upload PORT=/dev/cu.usbserial-XXXX`
+  # serial port of the board; override with `task upload PORT=/dev/cu.XXXX`
   PORT:
-    sh: ls /dev/cu.usbserial-* 2>/dev/null | head -n 1 || true
+    sh: ls /dev/cu.usbserial-* /dev/cu.wchusbserial* 2>/dev/null | head -n 1 || true
 
   # LittleFS image built from `data/`, written to the `spiffs` partition of the compiled partition table
   FS_IMAGE: '{{.ARDUINO_CLI_COMPILE_OUTPUT_DIRECTORY}}/littlefs.bin'
@@ -60,7 +60,7 @@ tasks:
     desc: attach Arduino Board using arduino-cli
     preconditions: &port
       - sh: '[ -n "{{.PORT}}" ]'
-        msg: "No board found at /dev/cu.usbserial-*. Specify one with `PORT=/dev/cu.usbserial-XXXX`."
+        msg: "No board found at /dev/cu.usbserial-* or /dev/cu.wchusbserial*. Specify one with `PORT=/dev/cu.XXXX`."
     cmds:
       # see https://arduino.github.io/arduino-cli/1.0/commands/arduino-cli_board_attach/
       - >-

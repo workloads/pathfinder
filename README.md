@@ -93,7 +93,7 @@ This repository provides a [Taskfile](./Taskfile.yml)-based workflow.
 The web UI is served from LittleFS: edit [data/index.html](./data/index.html), then run `task upload-fs`.
 This writes the whole `data/` directory, so it also replaces `wifiConfig.json` on the board.
 
-`attach`, `upload`, `upload-fs` and `monitor` use the first `/dev/cu.usbserial-*` port; override it with `PORT=/dev/cu.usbserial-XXXX`.
+`attach`, `upload`, `upload-fs` and `monitor` use the first `/dev/cu.usbserial-*` or `/dev/cu.wchusbserial*` port; override it with `PORT=/dev/cu.XXXX`.
 
 ## Notes
 

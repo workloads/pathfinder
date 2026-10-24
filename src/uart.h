@@ -8,19 +8,15 @@ void jsonCmdReceiveHandler()
 			break;
 			
 		case CMD_SPEED_CTRL:
-			if (jsonCmdReceive["T"].is<int>() &&
-				jsonCmdReceive["L"].is<int>() &&
-				jsonCmdReceive["R"].is<int>())
+			// `is<float>()` also accepts integers; `is<int>()` would reject speeds like 0.5
+			if (jsonCmdReceive["L"].is<float>() &&
+				jsonCmdReceive["R"].is<float>())
 			{
-				if (jsonCmdReceive["L"].is<float>() &&
-					jsonCmdReceive["R"].is<float>())
-				{
-					heartbeatStopFlag = false;
-					lastCmdRecvTime = millis();
-					setGoalSpeed(
-						jsonCmdReceive["L"],
-						jsonCmdReceive["R"]);
-				}
+				heartbeatStopFlag = false;
+				lastCmdRecvTime = millis();
+				setGoalSpeed(
+					jsonCmdReceive["L"],
+					jsonCmdReceive["R"]);
 			}
 			break;
 

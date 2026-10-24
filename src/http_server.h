@@ -23,7 +23,11 @@ void webCtrlServer() {
     String jsonCmdWebString = server.arg("json");
     deserializeJson(jsonCmdReceive, jsonCmdWebString);
     jsonCmdReceiveHandler();
-    // jsonFeedbackWeb is populated by the command handler
+    // jsonFeedbackWeb is populated by the base feedback commands;
+    // other commands (such as `{"T":405}`) only fill jsonInfoHttp
+    if (jsonFeedbackWeb.length() == 0 && jsonInfoHttp.size() > 0) {
+      serializeJson(jsonInfoHttp, jsonFeedbackWeb);
+    }
     server.send(200, "application/json", jsonFeedbackWeb);
     jsonFeedbackWeb = "";
     jsonInfoHttp.clear();
