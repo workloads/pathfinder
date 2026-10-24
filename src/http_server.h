@@ -1,19 +1,23 @@
 // Create AsyncWebServer object on port 80
 WebServer server(80);
 
-// serve the web UI from LittleFS (see `data/index.html` and `task upload-fs`)
-void handleRoot() {
-  File file = LittleFS.open("/index.html", "r");
-  if (!file) {
-    server.send(404, "text/plain", "/index.html not found on LittleFS");
-    return;
+#if WEB_PAGE
+  // serve the web UI from LittleFS (see `data/index.html` and `task upload-fs`)
+  void handleRoot() {
+    File file = LittleFS.open("/index.html", "r");
+    if (!file) {
+      server.send(404, "text/plain", "/index.html not found on LittleFS");
+      return;
+    }
+    server.streamFile(file, "text/html");
+    file.close();
   }
-  server.streamFile(file, "text/html");
-  file.close();
-}
+#endif
 
 void webCtrlServer() {
-  server.on("/", handleRoot);
+  #if WEB_PAGE
+    server.on("/", handleRoot);
+  #endif
 
   server.on("/js", []() {
     String jsonCmdWebString = server.arg("json");

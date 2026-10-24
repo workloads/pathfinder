@@ -1,7 +1,7 @@
 
 String jsonAPIHandler(String stringInput)
 {
-  StaticJsonDocument<512> jsonInput;
+  JsonDocument jsonInput;
   deserializeJson(jsonInput, stringInput);
   int cmdType = jsonInput["T"].as<int>();
   switch (cmdType)
@@ -12,7 +12,7 @@ String jsonAPIHandler(String stringInput)
 		break;
 
   case CMD_SPEED_CTRL:
-    if (jsonInput.containsKey("T") && jsonInput.containsKey("L") && jsonInput.containsKey("R"))
+    if (jsonInput["T"].is<int>())
     {
       if (jsonInput["L"].is<float>() && jsonInput["R"].is<float>())
       {
@@ -90,10 +90,11 @@ String jsonAPIHandler(String stringInput)
   case CMD_BASE_FEEDBACK:
     baseInfoFeedbackHttp();
     break;
-
+  #if BASE_FEEDBACK_FLOW
   case CMD_BASE_FEEDBACK_FLOW:
     setBaseInfoFeedbackMode(jsonInput["cmd"]);
     break;
+  #endif
 
   case CMD_FEEDBACK_FLOW_INTERVAL:
     setFeedbackFlowInterval(jsonInput["cmd"]);
@@ -315,11 +316,12 @@ String jsonAPIHandler(String stringInput)
     delay(1000);
     nvs_flash_init();
     break;
-
-  case CMD_INFO_PRINT:
-    configInfoPrint(
-        jsonInput["cmd"]);
-    break;
+  #if INFO_PRINT
+    case CMD_INFO_PRINT:
+      configInfoPrint(
+          jsonInput["cmd"]);
+      break;
+  #endif
   // case CMD_PID_RESET_A: PID_v2 pidA(__kp, __ki, __kd, PID::Direct);
   // 											PID_v2 pidB(__kp, __ki, __kd, PID::Direct);
   // 											pidControllerInit();break;
@@ -350,7 +352,7 @@ unsigned long lastCommandTime = 0;
 
 void planStepToCommand(String movementPlanStep)
 {
-  StaticJsonDocument<128> step;
+  JsonDocument step;
   deserializeJson(step, movementPlanStep);
 
   int angle = step["angle"].as<int>();
@@ -473,7 +475,7 @@ void planStepToCommand(String movementPlanStep)
 
 //     String command = "";
 //     String direction = "";
-//     StaticJsonDocument<128> step;
+//     JsonDocument step;
 
 //     /*
 //     else if direction == "left" {
@@ -558,7 +560,7 @@ String checkPlanSchema(JsonArray steps)
 
 String apiMovementPlanHandler(String jsonInput)
 {
-  StaticJsonDocument<1408> input;
+  JsonDocument input;
 
   // parse the JSON file using ArduinoJson.
   deserializeJson(input, jsonInput);

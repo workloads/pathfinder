@@ -493,11 +493,13 @@
 // {"T":604}
 #define CMD_NVS_CLEAR	604
 
-// 2: flow feedback.
-// 1: [default]print debug info in serial.
-// 0: don't print debug info in serial.
-// {"T":605,"cmd":1}
-#define CMD_INFO_PRINT	605
+#if INFO_PRINT
+  // 2: flow feedback.
+  // 1: [default]print debug info in serial.
+  // 0: don't print debug info in serial.
+  // {"T":605,"cmd":1}
+  #define CMD_INFO_PRINT	605
+#endif
 
 
 
