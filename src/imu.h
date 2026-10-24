@@ -1,14 +1,6 @@
 #define AD0_VAL 0
 ICM_20948_I2C myICM;
 
-// SimpleKalmanFilter  kf_ax(kf_accel_q, kf_accel_r, kf_accel_p);
-// SimpleKalmanFilter  kf_ay(kf_accel_q, kf_accel_r, kf_accel_p);
-// SimpleKalmanFilter  kf_az(kf_accel_q, kf_accel_r, kf_accel_p);
-
-// SimpleKalmanFilter  kf_gx(kf_accel_q, kf_accel_r, kf_accel_p);
-// SimpleKalmanFilter  kf_gy(kf_accel_q, kf_accel_r, kf_accel_p);
-// SimpleKalmanFilter  kf_gz(kf_accel_q, kf_accel_r, kf_accel_p);
-
 void imu_init() {
 }
 

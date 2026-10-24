@@ -33,7 +33,7 @@ set(ARDUINO_LIBRARY_VERSION 1.8.6)
 # set ESP32 library version
 # ⚠️ If this value is updated, it MUST be updated project-wide
 # see https://cmake.org/cmake/help/v3.30/command/set.html
-set(ESP32_LIBRARY_VERSION 2.0.17)
+set(ESP32_LIBRARY_VERSION 3.3.12)
 
 # see https://cmake.org/cmake/help/v3.30/command/include_directories.html
 include_directories(

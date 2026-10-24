@@ -30,7 +30,6 @@ DynamicJsonDocument apiResponse(1408);
 #include <INA219_WE.h>
 #include <ESP32Encoder.h>
 #include <PID_v2.h>
-#include <SimpleKalmanFilter.h>
 #include <math.h>
 #include "ICM_20948.h"
 

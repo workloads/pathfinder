@@ -151,10 +151,6 @@ double gy_offset = 0;
 double gz_offset = 0;
 double gyro_h = 0.04;
 
-float kf_accel_q = 1.0;
-float kf_accel_r = 0.1;
-float kf_accel_p = 0.1;
-
 double ax_offset = 0;
 double ay_offset = 0;
 double az_offset = 0;
