@@ -1,10 +1,15 @@
-#include "web_page.h"
-
 // Create AsyncWebServer object on port 80
 WebServer server(80);
 
+// serve the web UI from LittleFS (see `data/index.html` and `task upload-fs`)
 void handleRoot() {
-  server.send(200, "text/html", index_html);
+  File file = LittleFS.open("/index.html", "r");
+  if (!file) {
+    server.send(404, "text/plain", "/index.html not found on LittleFS");
+    return;
+  }
+  server.streamFile(file, "text/html");
+  file.close();
 }
 
 void webCtrlServer() {
