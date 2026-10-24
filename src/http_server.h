@@ -17,6 +17,7 @@ WebServer server(80);
 void webCtrlServer() {
   #if WEB_PAGE
     server.on("/", handleRoot);
+    server.serveStatic("/style.css", LittleFS, "/style.css");
   #endif
 
   server.on("/js", []() {

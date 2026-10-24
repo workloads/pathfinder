@@ -1,803 +1,341 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Pathfinder</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <style type="text/css">
-    html {
-        display: inline-block;
-        text-align: center;
-        font-family: sans-serif;
-    }
-
-    body {
-        background-image: -webkit-linear-gradient(#3F424F, #1E212E);
-        font-family: "Helvetica Neue", "sans-serif";
-        font-weight: lighter;
-        background-position: center 0;
-        background-attachment: fixed;
-        color: #FED70F;
-        font-size: 14px;
-    }
-
-    .cc-btn {
-        border: 0;
-        cursor: pointer;
-        color: #fff;
-        background: rgba(164,169,186,0);
-        font-size: 1em;
-        width: 100px;
-        height: 100px;
-         -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none; 
-    }
-
-    .cc-middle{
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        background-color: rgba(94,98,112,0.8);
-    }
-
-    .cc-btn:hover svg, .cc-middle:hover {
-        opacity: 0.5;
-    }
-
-    .cc-btn:active svg, .cc-middle:hover{
-        opacity: 0.5;
-    }
-
-    .controlor-c > div{
-        width: 300px;
-        height: 300px; 
-        background-color: rgba(94,98,112,0.2);
-        border-radius: 40px;
-        box-shadow: 10px 10px 10px rgba(0,0,0,0.05);
-        margin: auto;
-    }
-
-    .controlor-c > div > div{
-        display: flex;
-    }
-
-    main {
-        width: 960px;
-        margin: auto;
-    }
-
-    section{margin: 40px 0;}
-    .for-move {
-        display: flex;
-        align-items: center;
-    }
-
-    .for-move-a, .for-move-b{
-        flex: 1;
-        margin: 0 20px;
-    }
-
-    .h2-tt {
-        font-size: 2em;
-        font-weight: normal;
-        color: rgba(255, 255, 255, 0.8);
-        text-transform: uppercase;
-    }
-
-    .info-device-box .info-box{display: flex;}
-    .info-device-box .info-box{padding: 20px 0;}
-    .num-box-big > div, .num-box-sma > div{flex: 1;}
-    .num-box-big > div:first-child{border-right: 1px solid rgba(216,216,216,0.1);}
-    .num-box-mid {
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-
-    .num-box-mid div{
-        width:33.3333%;
-        margin: 20px 0;
-    }
-
-    .info-device-box .info-box > div > span {
-        display: block;
-    }
-
-    .info-box {
-        background-image: linear-gradient(to right, rgba(94, 98, 112, 0.3), rgba(75, 80, 95, 0.3)) ;
-        margin: 20px auto;
-        border: 1px solid rgba(216, 216, 216, 0.1);
-        box-shadow: 10px 10px 10px rgba(0,0,0,0.05);
-        border-radius: 4px;
-        color: rgba(255,255,255,0.5);
-    }
-
-    .big-num{font-size: 3em;}
-    .mid-num{font-size: 2em;}
-    .sma-num{font-size: 1.2em;}
-    .num-color{
-        background-image: linear-gradient(rgba(255,255,255,1),rgba(255,255,255,0.5));
-        background-clip: text;
-        color:transparent;
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -ms-background-clip: text;
-        font-weight: 900;
-        line-height: 1em;
-        margin: 0.5em 0;
-    }
-
-    .num-color-red{
-        background-image: linear-gradient(rgba(181,104,108,1),rgba(181,104,108,0.5));
-        background-clip: text;
-        color:transparent;
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        -ms-background-clip: text;
-        font-weight: 900;
-        line-height: 1em;
-        margin: 0.5em 0;
-    }
-
-    .controlor > div {margin: 80px 0;}
-    .json-cmd-info{
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .json-cmd-info > div {
-        width: 33.33333%;
-        padding: 10px 0;
-    }
-
-    .json-cmd-info p{
-        line-height: 30px;
-        margin: 0;
-    }
-
-    .json-cmd-info p span {
-        display: block;
-        color: rgba(255,255,255,0.8);
-    }
-
-    .small-btn{
-        color: rgba(255,255,255,0.8);
-        background-color: #5E6270;
-        border: none;
-        height: 48px;
-        border-radius: 4px;
-    }
-
-    .small-btn-active{
-        background-color: rgba(38,152,234,0.1);
-        color: #2698EA;
-        border: 1px solid #2698EA;
-        height: 48px;
-        border-radius: 4px;
-    }
-
-    .feedb-p input{
-        width: 100%;
-        height: 46px;
-        background-color: rgba(0,0,0,0);
-        padding: 0 10px;
-        border: 1px solid rgba(194,196,201,0.15);
-        border-radius: 4px;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 1.2em;
-        margin-right: 10px;
-    }
-
-    .control-speed > div {
-        width: 290px;
-        margin: auto;
-    }
-
-    .control-speed > div > div{display: flex;}
-    .control-speed label {flex: 1;}
-    .small-btn, .small-btn-active{
-        width: 90px;
-    }
-
-    .feedb-p{ display: flex;}
-    .fb-input-info{
-        margin: 0 20px;
-    }
-
-    .fb-info {margin: 20px;}
-    .fb-info > span{line-height: 2.4em;}
-    .btn-send:hover, .small-btn:hover{background-color: #2698EA;}
-    .btn-send:active, .small-btn:active{background-color: #1b87d4;}
-    .w-btn{
-        color: #2698EA;
-        background: transparent;
-        padding: 10px;
-        border: none;
-    }
-        
-    .w-btn:hover{color: #2698EA;}
-    .w-btn:active{color: #1b87d4;}
-    @media screen and (min-width: 768px) and (max-width: 1200px){
-        body{font-size: 16px;}
-        main {
-            width: 100%;
-        }
-        .for-move {
-            display: block;
-        }
-        /* .controlor-c > div{width: 600px;height: 600px;}
-        .cc-btn{width: 200px;height: 200px;} */
-        .json-cmd-info{display: block;}
-        .json-cmd-info p span{display: inline;}
-        .json-cmd-info > div{
-            display: flex;
-            width: auto;
-            padding: 20px;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-        .control-speed > div{width: 600px;}
-        section{margin: 20px 0;}
-    }
-    
-    @media screen and (min-width: 360px) and (max-width: 767px){
-        main {
-            width: 100%;
-        }
-        .for-move {
-            display: block;
-        }
-        .json-cmd-info{display: block;}
-        .json-cmd-info p span{display: inline;}
-        .json-cmd-info > div{
-            display: flex;
-            width: auto;
-            padding: 20px;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-        section{margin: 10px 0;}
-        .info-box{margin: 10px auto;}
-        .info-device-box .info-box{padding: 10px;}
-        .num-box-mid div{margin: 10px 0;}
-        .controlor-c > div{
-            width: 270px;
-            height: 270px;
-        }
-        .cc-btn{
-            width: 90px;
-            height: 90px;;
-        }
-        .big-num{font-size: 2em;}
-        .controlor > div{margin: 40px 0;}
-    }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Pathfinder</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="chevron" viewBox="0 0 24 24">
+      <path d="M5 15.5l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="arrow" viewBox="0 0 24 24">
+      <path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
+
+  <header class="bar">
+    <h1>Pathfinder</h1>
+    <dl class="stats">
+      <div>
+        <dt>Robot</dt>
+        <dd class="link" id="link">Connecting</dd>
+      </div>
+      <div>
+        <dt>Signal</dt>
+        <dd id="rssi">–</dd>
+      </div>
+      <div>
+        <dt>Battery</dt>
+        <dd id="voltage">–</dd>
+      </div>
+    </dl>
+  </header>
+
+  <main>
+    <div class="drive-area">
+      <section class="panel drive" aria-label="Drive">
+        <div class="pad" id="pad">
+          <button type="button" class="is-diagonal" data-dir="fl" aria-label="Forward left"><svg style="--a:-45deg"><use href="#arrow"/></svg></button>
+          <button type="button" data-dir="f" aria-label="Forward"><svg><use href="#chevron"/></svg></button>
+          <button type="button" class="is-diagonal" data-dir="fr" aria-label="Forward right"><svg style="--a:45deg"><use href="#arrow"/></svg></button>
+          <button type="button" data-dir="l" aria-label="Turn left"><svg style="--a:-90deg"><use href="#chevron"/></svg></button>
+          <button type="button" class="stop" data-dir="stop">Stop</button>
+          <button type="button" data-dir="r" aria-label="Turn right"><svg style="--a:90deg"><use href="#chevron"/></svg></button>
+          <button type="button" class="is-diagonal" data-dir="bl" aria-label="Back left"><svg style="--a:-135deg"><use href="#arrow"/></svg></button>
+          <button type="button" data-dir="b" aria-label="Back"><svg style="--a:180deg"><use href="#chevron"/></svg></button>
+          <button type="button" class="is-diagonal" data-dir="br" aria-label="Back right"><svg style="--a:135deg"><use href="#arrow"/></svg></button>
+        </div>
+
+        <div class="segmented" role="group" aria-label="Speed" id="rate">
+          <button type="button" data-rate="0.3" aria-pressed="false">Slow</button>
+          <button type="button" data-rate="0.6" aria-pressed="false">Medium</button>
+          <button type="button" data-rate="1" aria-pressed="true">Fast</button>
+        </div>
+
+        <p class="hint">Hold a direction to drive.<br>Keyboard: <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> or arrow keys.</p>
+      </section>
+
+      <section class="panel telemetry" aria-label="Telemetry">
+        <div class="tracks">
+          <div class="track">
+            <div class="gauge" id="gauge-l"><span></span></div>
+            <div class="readout"><strong id="speed-l">0.00</strong><small>Left track, m/s</small></div>
+          </div>
+          <div class="track">
+            <div class="gauge" id="gauge-r"><span></span></div>
+            <div class="readout"><strong id="speed-r">0.00</strong><small>Right track, m/s</small></div>
+          </div>
+        </div>
+
+        <dl class="attitude">
+          <div><dt>Roll</dt><dd id="roll">0.0°</dd></div>
+          <div><dt>Pitch</dt><dd id="pitch">0.0°</dd></div>
+          <div><dt>Yaw</dt><dd id="yaw">0.0°</dd></div>
+        </dl>
+      </section>
+    </div>
+
+    <section class="panel console" aria-labelledby="console-title">
+      <header>
+        <h2 id="console-title">Commands</h2>
+        <p>Send a JSON command to the robot. Pick a preset to fill it in.</p>
+      </header>
+
+      <form class="send" id="send">
+        <input id="cmd" name="cmd" autocomplete="off" spellcheck="false" placeholder='{"T":130}' aria-label="JSON command">
+        <button type="submit">Send</button>
+      </form>
+
+      <output id="response" for="cmd">Responses appear here.</output>
+
+      <div class="presets" id="presets">
         <section>
-            <div>
-                <h2 class="h2-tt" id="deviceInfo">Control Panel</h2>
-            </div>
-            <div class="for-move">
-                <div class="for-move-a">
-                    <div class="info-device-box">
-                        <div class="info-box num-box-big">
-                            <div >
-                                <span class="big-num num-color" id="V">12.00</span>
-                                <span id="Vn">VOLTAGE</span>
-                            </div>
-                            <div>
-                                <span class="big-num num-color" id="RSSI">-50</span>
-                                <span id="RSSIn">RSSI</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="info-device-box">
-                        <div class="info-box num-box-mid">
-                            <div>
-                                <span class="num-color mid-num" id="r">0.00</span>
-                                <span id="rn">ROLL</span>
-                            </div>
-                            <div>
-                                <span class="num-color mid-num" id="p">0.00</span>
-                                <span id="pn">PITCH</span>
-                            </div>
-                            <div>
-                                <span class="num-color mid-num" id="y">0.00</span>
-                                <span id="yn">YAW</span>
-                            </div>
-                            <div>
-                                <span class="num-color mid-num" id="mX">0.00</span>
-                                <span id="mXn">LEFT</span>
-                            </div>
-                            <div>
-                                <span class="num-color mid-num" id="mY">0.00</span>
-                                <span id="mYn">RIGHT</span>
-                            </div>
-                            <div>
-                                <span class="num-color mid-num" id="mZ">1.00</span>
-                                <span id="mZn">SPD_R</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="info-device-box">
-                        <div class="info-box num-box-sma">
-                            <div>
-                                <span class="num-color sma-num" id="IP">192.168.4.1</span>
-                                <span id="IPn">IP</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="for-move-b controlor">
-                    <div class="controlor-c">
-                        <div>
-                            <div>
-                                <label><button class="cc-btn" onmousedown="motionButton(0.3,0.5);" ontouchstart="motionButton(0.3,0.5);" onmouseup="motionButton(0,0);" ontouchend="motionButton(0,0);"><svg fill="none" version="1.1" width="23" height="23" viewBox="0 0 23 23"><g style="mix-blend-mode:passthrough"><path d="M0,2L0,18.1716C0,19.9534,2.15428,20.8457,3.41421,19.5858L19.5858,3.41421C20.8457,2.15428,19.9534,0,18.1716,0L2,0C0.895431,0,0,0.895431,0,2Z" fill="#D8D8D8" fill-opacity="0.20000000298023224"/></g></svg></button></label>
-                                <label><button class="cc-btn" onmousedown="motionButton(0.5,0.5);" ontouchstart="motionButton(0.5,0.5);" onmouseup="motionButton(0,0);" ontouchend="motionButton(0,0);"><svg fill="none" version="1.1" width="26.87807685863504" height="15.435028109846826" viewBox="0 0 26.87807685863504 15.435028109846826"><g style="mix-blend-mode:passthrough" transform="matrix(0.9999999403953552,0,0,0.9999999403953552,0,0)"><path d="M12.0248,0.585787L0.589796,12.0208C-0.670133,13.2807,0.222199,15.435,2.00401,15.435L24.8741,15.435C26.6559,15.435,27.5482,13.2807,26.2883,12.0208L14.8533,0.585787C14.0722,-0.195262,12.8059,-0.195262,12.0248,0.585787Z" fill="#D8D8D8" fill-opacity="0.800000011920929"/></g></svg></button></label>
-                                <label><button class="cc-btn" onmousedown="motionButton(0.5,0.3);" ontouchstart="motionButton(0.5,0.3);" onmouseup="motionButton(0,0);" ontouchend="motionButton(0,0);"><svg fill="none" version="1.1" width="23" height="23" viewBox="0 0 23 23"><g style="mix-blend-mode:passthrough" transform="matrix(0,1,-1,0,23,-23)"><path d="M23,2L23,18.1716C23,19.9534,25.15428,20.8457,26.41421,19.5858L42.5858,3.41421C43.8457,2.15428,42.9534,0,41.1716,0L25,0C23.895431,0,23,0.895431,23,2Z" fill="#D8D8D8" fill-opacity="0.20000000298023224"/></g></svg></button></label>
-                            </div>
-                            <div>
-                                <label><button class="cc-btn" onmousedown="motionButton(-0.5,0.5);" ontouchstart="motionButton(-0.5,0.5);" onmouseup="motionButton(0,0);" ontouchend="motionButton(0,0);"><svg fill="none" version="1.1" width="15.435028109846769" height="26.87807685863504" viewBox="0 0 15.435028109846769 26.87807685863504"><g style="mix-blend-mode:passthrough" transform="matrix(0.9999999403953552,0,0,0.9999999403953552,0,0)"><path d="M0.585787,14.8533L12.0208,26.2883C13.2807,27.5482,15.435,26.6559,15.435,24.8741L15.435,2.00401C15.435,0.222199,13.2807,-0.670133,12.0208,0.589795L0.585787,12.0248C-0.195262,12.8059,-0.195262,14.0722,0.585787,14.8533Z" fill="#D8D8D8" fill-opacity="0.800000011920929"/></g></svg></button></label>
-                                <label><button class="cc-btn cc-middle" onmousedown="motionButton(0,0);" ontouchstart="motionButton(0,0);" onmouseup="motionButton(0,0);" ontouchend="motionButton(0,0);">STOP</button></label>
-                                <label><button class="cc-btn" onmousedown="motionButton(0.5,-0.5);" ontouchstart="motionButton(0.5,-0.5);" onmouseup="motionButton(0,0);" ontouchend="motionButton(0,0);"><svg fill="none" version="1.1" width="15.435030017195288" height="26.87807685863504" viewBox="0 0 15.435030017195288 26.87807685863504"><g style="mix-blend-mode:passthrough" transform="matrix(0.9999999403953552,0,0,0.9999999403953552,0,0)"><path d="M14.8492,12.0248L3.41422,0.589796C2.15429,-0.670133,-9.53674e-7,0.222199,9.53674e-7,2.00401L9.53674e-7,24.8741C-9.53674e-7,26.6559,2.15429,27.5482,3.41421,26.2883L14.8492,14.8533C15.6303,14.0722,15.6303,12.8059,14.8492,12.0248Z" fill="#D8D8D8" fill-opacity="0.800000011920929"/></g></svg></button></label>
-                            </div>
-                            <div>
-                                <label><button class="cc-btn" onmousedown="motionButton(-0.3,-0.5);" ontouchstart="motionButton(-0.3,-0.5);" onmouseup="motionButton(0,0);" ontouchend="motionButton(0,0);"><svg fill="none" version="1.1" width="23" height="23" viewBox="0 0 23 23"><g style="mix-blend-mode:passthrough" transform="matrix(0,-1,1,0,-23,23)"><path d="M0,25L0,41.1716C0,42.9534,2.15428,43.8457,3.41421,42.5858L19.5858,26.41421C20.8457,25.15428,19.9534,23,18.1716,23L2,23C0.895431,23,0,23.895431,0,25Z" fill="#D8D8D8" fill-opacity="0.20000000298023224"/></g></svg></button></label>
-                                <label><button class="cc-btn" onmousedown="motionButton(-0.5,-0.5);" ontouchstart="motionButton(-0.5,-0.5);" onmouseup="motionButton(0,0);" ontouchend="motionButton(0,0);"><svg fill="none" version="1.1" width="26.87807685863504" height="15.435030017195231" viewBox="0 0 26.87807685863504 15.435030017195231"><g style="mix-blend-mode:passthrough" transform="matrix(0.9999999403953552,0,0,0.9999999403953552,0,0)"><path d="M14.8533,14.8492L26.2883,3.41422C27.5482,2.15429,26.6559,-9.53674e-7,24.8741,9.53674e-7L2.00401,9.53674e-7C0.222199,-9.53674e-7,-0.670133,2.15429,0.589795,3.41421L12.0248,14.8492C12.8059,15.6303,14.0722,15.6303,14.8533,14.8492Z" fill="#D8D8D8" fill-opacity="0.800000011920929"/></g></svg></button></label>
-                                <label><button class="cc-btn" onmousedown="motionButton(-0.5,-0.3);" ontouchstart="motionButton(-0.5,-0.3);" onmouseup="motionButton(0,0);" ontouchend="motionButton(0,0);"><svg fill="none" version="1.1" width="23" height="23" viewBox="0 0 23 23"><g style="mix-blend-mode:passthrough" transform="matrix(-1,0,0,-1,46,46)"><path d="M23,25L23,41.1716C23,42.9534,25.15428,43.8457,26.41421,42.5858L42.5858,26.41421C43.8457,25.15428,42.9534,23,41.1716,23L25,23C23.895431,23,23,23.895431,23,25Z" fill="#D8D8D8" fill-opacity="0.20000000298023224"/></g></svg></button></label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="control-speed">
-                        <div>
-                            <div id="device-speed-btn">
-                                <label><button name="speedbtn" class="small-btn" onclick="changeSpeed(0.3);">SLOW</button></label>
-                                <label><button name="speedbtn" class="small-btn" onclick="changeSpeed(0.6);">MIDDLE</button></label>
-                                <label><button name="speedbtn" class="small-btn" onclick="changeSpeed(1.0);">FAST</button></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <h3>Motion</h3>
+          <button type="button" class="is-danger" data-cmd='{"T":0}'><span>Emergency stop</span><code>{"T":0}</code></button>
+          <button type="button" data-cmd='{"T":999}'><span>Clear emergency stop</span><code>{"T":999}</code></button>
+          <button type="button" data-cmd='{"T":1,"L":0.5,"R":0.5}'><span>Set track speeds</span><code>{"T":1,"L":0.5,"R":0.5}</code></button>
+          <button type="button" data-cmd='{"T":11,"L":164,"R":164}'><span>Set motor PWM</span><code>{"T":11,"L":164,"R":164}</code></button>
+          <button type="button" data-cmd='{"T":2,"P":200,"I":2500,"D":0,"L":255}'><span>Tune PID</span><code>{"T":2,"P":200,"I":2500,"D":0,"L":255}</code></button>
         </section>
+
         <section>
-            <div class="fb-info">
-                <h2 class="h2-tt" id="deviceInfo">Feedback</h2>
-            </div>
-            <div class="fb-input-info">
-                <div class="feedb-p">
-                    <input type="text" id="jsonData" placeholder="Input json cmd here.">
-                    <label><button class="small-btn btn-send" onclick="jsonSend();">SEND</button></label>
-                </div>
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>EMERGENCY_STOP: <span id="cmd0" class="cmd-value">{"T":0}</span> </p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd0');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_RESET_EMERGENCY: <span id="cmd999" class="cmd-value">{"T":999}</span> </p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd999');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>SPEED_CTRL: <span id="cmd1" class="cmd-value">{"T":1,"L":0.5,"R":0.5}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd1');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>PID_SET: <span id="cmd2" class="cmd-value">{"T":2,"P":200,"I":2500,"D":0,"L":255}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd2');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_PWM_INPUT: <span id="cmd11" class="cmd-value">{"T":11,"L":164,"R":164}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd11');">INPUT</button>
-                    </div>
-                </div>
-
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>OLED_SET: <span id="cmd3" class="cmd-value">{"T":3,"lineNum":0,"Text":"putYourTextHere"}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd3');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>OLED_DEFAULT: <span id="cmd-3" class="cmd-value">{"T":-3}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd-3');">INPUT</button>
-                    </div>
-                </div>
-
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_GET_IMU_DATA: <span id="cmd126" class="cmd-value">{"T":126}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd126');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_CALI_IMU_STEP: <span id="cmd127" class="cmd-value">{"T":127,"step":0}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd127');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_GET_IMU_OFFSET: <span id="cmd128" class="cmd-value">{"T":128}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd128');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_SET_IMU_OFFSET: <span id="cmd129" class="cmd-value">{"T":129,"x":-12,"y":0,"z":0}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd129');">INPUT</button>
-                    </div>
-                </div>
-
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_BASE_FEEDBACK: <span id="cmd130" class="cmd-value">{"T":130}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd130');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_BASE_FEEDBACK_FLOW: <span id="cmd131" class="cmd-value">{"T":131,"cmd":0}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd131');">INPUT</button>
-                    </div>
-                </div>
-
-                <div class="info-box json-cmd-info">
-                    <div>
-                        <p>CMD_REBOOT: <span id="cmd600" class="cmd-value">{"T":600}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd600');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_FREE_FLASH_SPACE: <span id="cmd601" class="cmd-value">{"T":601}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd601');">INPUT</button>
-                    </div>
-                    <div>
-                        <p>CMD_NVS_CLEAR: <span id="cmd604" class="cmd-value">{"T":604}</span></p>
-                        <button class="w-btn" onclick="cmdFill('jsonData', 'cmd604');">INPUT</button>
-                    </div>
-                </div>
-            </div>
+          <h3>Sensors</h3>
+          <button type="button" data-cmd='{"T":130}'><span>Read status</span><code>{"T":130}</code></button>
+          <button type="button" data-cmd='{"T":131,"cmd":0}'><span>Stream status over serial</span><code>{"T":131,"cmd":0}</code></button>
+          <button type="button" data-cmd='{"T":126}'><span>Read IMU</span><code>{"T":126}</code></button>
+          <button type="button" data-cmd='{"T":127,"step":0}'><span>Calibrate IMU</span><code>{"T":127,"step":0}</code></button>
+          <button type="button" data-cmd='{"T":128}'><span>Read IMU offsets</span><code>{"T":128}</code></button>
+          <button type="button" data-cmd='{"T":129,"x":-12,"y":0,"z":0}'><span>Set IMU offsets</span><code>{"T":129,"x":-12,"y":0,"z":0}</code></button>
         </section>
-    </main>
-<script>
-    var cmdA;
-    var cmdB;
-    var cmdC;
 
-    var forwardButton;   // 1
-    var backwardButton;  // 2
-    var fbNewer;
+        <section>
+          <h3>Display</h3>
+          <button type="button" data-cmd='{"T":3,"lineNum":0,"Text":"Hello"}'><span>Write a display line</span><code>{"T":3,"lineNum":0,"Text":"Hello"}</code></button>
+          <button type="button" data-cmd='{"T":-3}'><span>Reset display</span><code>{"T":-3}</code></button>
+        </section>
 
-    var leftButton;      // 1
-    var rightButton;     // 2
-    var lrNewer;
+        <section>
+          <h3>System</h3>
+          <button type="button" data-cmd='{"T":405}'><span>Read WiFi status</span><code>{"T":405}</code></button>
+          <button type="button" data-cmd='{"T":601}'><span>Show free flash</span><code>{"T":601}</code></button>
+          <button type="button" class="is-danger" data-cmd='{"T":600}'><span>Reboot</span><code>{"T":600}</code></button>
+          <button type="button" class="is-danger" data-cmd='{"T":604}'><span>Erase saved settings</span><code>{"T":604}</code></button>
+        </section>
+      </div>
+    </section>
+  </main>
 
-    var last_forwardButton;   // 1
-    var last_backwardButton;  // 2
-    var last_fbNewer;
+  <script>
+    const $ = (id) => document.getElementById(id);
 
-    var last_leftButton;      // 1
-    var last_rightButton;     // 2
-    var last_lrNewer;
+    // track speeds [left, right] per direction, scaled by the selected rate
+    const DRIVE = {
+      stop: [0, 0],
+      f: [0.5, 0.5],
+      b: [-0.5, -0.5],
+      l: [-0.5, 0.5],
+      r: [0.5, -0.5],
+      fl: [0.3, 0.5],
+      fr: [0.5, 0.3],
+      bl: [-0.3, -0.5],
+      br: [-0.5, -0.3],
+    };
 
-    var speed_rate  = 1; // 1:fast 0.6:middle 0.3:slow
-    var left_speed  = 0;
-    var right_speed = 0;
-    var send_heartbeat = 0;
+    // the firmware stops the motors when no command arrives for 3 s
+    const HEARTBEAT_MS = 1500;
+    const LOW_VOLTAGE = 11.06;
+    const GAUGE_MAX = 1; // m/s at a full gauge
 
-    var io4_status = 0;
-    var io5_status = 0;
+    let rate = 1;
+    let direction = "stop";
 
-    var read_X = 0;
-    var read_Y = 0;
+    // the robot's web server handles one connection at a time, and waits up to 5 s on a
+    // connection that hasn't sent its request yet, so requests go out one at a time
+    let queue = Promise.resolve();
+    let pending = 0;
 
-    var steady_status = 0;
-    var steady_bias   = 0;
-
-    getDevInfo();
-    ledCtrl(0);
-    setInterval(function() {
-        getDevInfo();
-    }, 2510);
-
-    setInterval(function() {
-        heartBeat();
-    }, 1500);
-
-    setInterval(function() {
-        infoUpdate();
-    }, 1000);
-
-    function cmdFill(rawInfo, fillInfo) {
-        document.getElementById(rawInfo).value = document.getElementById(fillInfo).innerHTML;
+    async function request(cmd, timeout) {
+      const url = "js?json=" + encodeURIComponent(JSON.stringify(cmd));
+      const res = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(timeout) });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.text();
     }
 
-    function jsonSend() {
-        send_heartbeat = 0;
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-              document.getElementById("fbInfo").innerHTML =
-              this.responseText;
-            }
-        };
-        xhttp.open("GET", "js?json="+document.getElementById('jsonData').value, true);
-        xhttp.send();
+    function send(cmd, timeout = 2000) {
+      pending++;
+      const result = queue.then(() => request(cmd, timeout));
+      queue = result.catch(() => {}).finally(() => pending--);
+      return result;
     }
 
-    function infoUpdate() {
-        var jsonCmd = {
-            "T": 130
-        }
-        var jsonString = JSON.stringify(jsonCmd);
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                var jsonResponse = JSON.parse(this.responseText);
-                document.getElementById("V").innerHTML = jsonResponse.v.toFixed(2)/100;
-                if (jsonResponse.v<11.06) {
-                    document.getElementById("V").classList.remove("num-color");
-                    document.getElementById("V").classList.add("num-color-red");
-                }else{
-                    document.getElementById("V").classList.remove("num-color-red");
-                    document.getElementById("V").classList.add("num-color");
-                }
+    // driving
 
-                // Display IMU orientation data
-                document.getElementById("r").innerHTML = jsonResponse.r.toFixed(2);
-                document.getElementById("p").innerHTML = jsonResponse.p.toFixed(2);
-                document.getElementById("y").innerHTML = jsonResponse.y.toFixed(2);
-                document.getElementById("mZ").innerHTML = speed_rate;
-
-                // Display motor speeds
-                document.getElementById("mX").innerHTML = jsonResponse.L.toFixed(2);
-                document.getElementById("mY").innerHTML = jsonResponse.R.toFixed(2);
-                document.getElementById("mXn").innerHTML = "LEFT";
-                document.getElementById("mYn").innerHTML = "RIGHT";
-            }
-        };
-        xhttp.open("GET", "js?json=" + jsonString, true);
-        xhttp.send();
+    function sendDrive() {
+      const [l, r] = DRIVE[direction];
+      const round = (n) => Math.round(n * rate * 100) / 100;
+      send({ T: 1, L: round(l), R: round(r) }).catch(() => {});
     }
 
-    function getDevInfo() {
-        var jsonCmd = {
-            "T": 405
-        }
-        var jsonString = JSON.stringify(jsonCmd);
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                var jsonResponse = JSON.parse(this.responseText);
-
-                document.getElementById("IP").innerHTML = jsonResponse.ip;
-                document.getElementById("MAC").innerHTML = jsonResponse.mac;
-                document.getElementById("RSSI").innerHTML = jsonResponse.rssi;
-            }
-        };
-        xhttp.open("GET", "js?json=" + jsonString, true);
-        xhttp.send();
-    }
-
-    function changeSpeed(inputSpd) {
-        speed_rate = inputSpd;
-    }
-
-    function heartBeat() {
-        if (send_heartbeat == 1) {
-            var jsonCmd = {
-                "T":1,
-                "L":left_speed*speed_rate,
-                "R":right_speed*speed_rate
-            }
-            var jsonString = JSON.stringify(jsonCmd);
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "js?json=" + jsonString, true);
-            xhr.send();
-        }
-    }
-
-    function motionButton(spdL, spdR){
-        left_speed  = spdL;
-        right_speed = spdR;
-        send_heartbeat = 1;
-        var jsonCmd = {
-            "T":1,
-            "L":spdL*speed_rate,
-            "R":spdR*speed_rate
-        }
-        var jsonString = JSON.stringify(jsonCmd);
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "js?json=" + jsonString, true);
-        xhr.send();
-    }
-
-    function ledCtrl(inputCmd){
-        if (inputCmd == 0) {
-            io4_status = 0;
-            io5_status = 0;
-        }
-        else if (inputCmd == 1) {
-            if (io4_status == 0) {
-                io4_status = 255;
-            }
-            else {
-                io4_status = 0;
-            }
-        }
-        else if (inputCmd == 2) {
-            if (io5_status == 0) {
-                io5_status = 255;
-            }
-            else {
-                io5_status = 0;
-            }
-        }
-        var jsonCmd = {
-            "T":132,
-            "IO4":io4_status,
-            "IO5":io5_status
-        }
-        var jsonString = JSON.stringify(jsonCmd);
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "js?json=" + jsonString, true);
-        xhr.send();
-    }
-
-    function cmdProcess(){
-        if (forwardButton == 0 && backwardButton == 0 && leftButton == 0 && rightButton == 0) {
-            motionButton(0, 0);
-        }
-        else if (forwardButton == 1 && backwardButton == 0 && leftButton == 0 && rightButton == 0){
-            motionButton(0.5, 0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 0 && rightButton == 0){
-            motionButton(0.5, 0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 0 && rightButton == 0){
-            motionButton(-0.5, -0.5);
-        }else if (forwardButton == 0 && backwardButton == 1 && leftButton == 0 && rightButton == 0){
-            motionButton(-0.5, -0.5);
-        }
-        else if (forwardButton == 0 && backwardButton == 0 && leftButton == 1 && rightButton == 0){
-            motionButton(-0.5, 0.5);
-        }else if (forwardButton == 0 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 1){
-            motionButton(-0.5, 0.5);
-        }else if (forwardButton == 0 && backwardButton == 0 && leftButton == 0 && rightButton == 1){
-            motionButton(0.5, -0.5);
-        }else if (forwardButton == 0 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 2){
-            motionButton(0.5, -0.5);
-        }
-        else if (forwardButton == 1 && backwardButton == 0 && leftButton == 1 && rightButton == 0){
-            motionButton(0.3, 0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 1 && rightButton == 0){
-            motionButton(0.3, 0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 1){
-            motionButton(0.3, 0.5);
-        }else if (forwardButton == 1 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 1){
-            motionButton(0.3, 0.5);
-        }
-        else if (forwardButton == 1 && backwardButton == 0 && leftButton == 0 && rightButton == 1){
-            motionButton(0.5, 0.3);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 0 && rightButton == 1){
-            motionButton(0.5, 0.3);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 2){
-            motionButton(0.5, 0.3);
-        }else if (forwardButton == 1 && backwardButton == 0 && leftButton == 1 && rightButton == 1 && lrNewer == 2){
-            motionButton(0.5, 0.3);
-        }
-        else if (forwardButton == 0 && backwardButton == 1 && leftButton == 1 && rightButton == 0){
-            motionButton(-0.3, -0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 1 && rightButton == 0){
-            motionButton(-0.3, -0.5);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 1 && rightButton == 1 && lrNewer == 1){
-            motionButton(-0.3, -0.5);
-        }else if (forwardButton == 0 && backwardButton == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 1){
-            motionButton(-0.3, -0.5);
-        }
-        else if (forwardButton == 0 && backwardButton == 1 && leftButton == 0 && rightButton == 1){
-            motionButton(-0.5, -0.3);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 0 && rightButton == 1){
-            motionButton(-0.5, -0.3);
-        }else if (forwardButton == 1 && backwardButton == 1 && fbNewer == 2 && leftButton == 1 && rightButton == 1 && lrNewer == 2){
-            motionButton(-0.5, -0.3);
-        }else if (forwardButton == 0 && backwardButton == 1 && leftButton == 1 && rightButton == 1 && lrNewer == 2){
-            motionButton(-0.5, -0.3);
-        }
-    }
-
-    document.onkeydown = function (event) {
-        var e = event || window.event || arguments.callee.caller.arguments[0];
-        if (e && e.keyCode == 65) {
-            // alert ("A down");
-            leftButton = 1;
-            lrNewer = 1;
-        }else if (e && e.keyCode == 87) {
-            // alert ("W down");
-            forwardButton = 1;
-            fbNewer = 1;
-        }else if (e && e.keyCode == 83) {
-            // alert ("S down");
-            backwardButton = 1;
-            fbNewer = 2;
-        }else if (e && e.keyCode == 68) {
-            // alert ("D down");
-            rightButton = 1;
-            lrNewer = 2;
-        }
-        else if (e && e.keyCode == 13) {
-            // alert ("Enter down");
-            jsonSend();
-        }
-        else if (e && e.keyCode == 37) {
-            // alert ("left down");
-            leftButton = 1;
-            lrNewer = 1;
-        }else if (e && e.keyCode == 38) {
-            // alert ("up down");
-            forwardButton = 1;
-            fbNewer = 1;
-        }else if (e && e.keyCode == 40) {
-            // alert ("down down");
-            backwardButton = 1;
-            fbNewer = 2;
-        }else if (e && e.keyCode == 39) {
-            // alert ("right down");
-            rightButton = 1;
-            lrNewer = 2;
-        }
-
-        if(forwardButton != last_forwardButton || backwardButton != last_backwardButton || fbNewer != last_fbNewer || leftButton != last_leftButton || last_rightButton != rightButton || lrNewer != last_fbNewer) {
-            cmdProcess();
-            last_forwardButton = forwardButton;
-            last_backwardButton = backwardButton;
-            last_fbNewer = fbNewer;
-
-            last_leftButton = leftButton;
-            last_rightButton = rightButton;
-            last_lrNewer = lrNewer;
-        }
-    }
-
-    document.onkeyup = function (event) {
-        var e = event || window.event || arguments.callee.caller.arguments[0];
-        if (e && e.keyCode == 65) {
-            // alert ("A up");
-            leftButton = 0;
-        }else if (e && e.keyCode == 87) {
-            // alert ("W up");
-            forwardButton = 0;
-        }else if (e && e.keyCode == 83) {
-            // alert ("S up");
-            backwardButton = 0;
-        }else if (e && e.keyCode == 68) {
-            // alert ("D up");
-            rightButton = 0;
-        }
-        else if (e && e.keyCode == 37) {
-            // alert ("left up");
-            leftButton = 0;
-        }else if (e && e.keyCode == 38) {
-            // alert ("up up");
-            forwardButton = 0;
-        }else if (e && e.keyCode == 40) {
-            // alert ("down up");
-            backwardButton = 0;
-        }else if (e && e.keyCode == 39) {
-            // alert ("right up");
-            rightButton = 0;
-        }
-
-        cmdProcess();
-
-        last_forwardButton = forwardButton;
-        last_backwardButton = backwardButton;
-        last_fbNewer = fbNewer;
-
-        last_leftButton = leftButton;
-        last_rightButton = rightButton;
-        last_lrNewer = lrNewer;
-    }
-
-    // prevent arrow keys from scrolling
-    document.addEventListener("keydown", function (e) {
-      if([37,38,39,40].indexOf(e.keyCode) > -1){
-        e.preventDefault();
+    function drive(dir) {
+      if (dir === direction && dir === "stop") return;
+      direction = dir;
+      for (const b of $("pad").querySelectorAll("[data-dir]")) {
+        b.classList.toggle("is-active", b.dataset.dir === dir && dir !== "stop");
       }
-    }, false);
-</script>
+      sendDrive();
+    }
+
+    setInterval(() => { if (direction !== "stop") sendDrive(); }, HEARTBEAT_MS);
+
+    const pad = $("pad");
+    pad.addEventListener("pointerdown", (e) => {
+      const b = e.target.closest("[data-dir]");
+      if (!b) return;
+      e.preventDefault();
+      b.setPointerCapture(e.pointerId);
+      drive(b.dataset.dir);
+    });
+    for (const type of ["pointerup", "pointercancel"]) {
+      pad.addEventListener(type, () => drive("stop"));
+    }
+    pad.addEventListener("contextmenu", (e) => e.preventDefault());
+
+    $("rate").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-rate]");
+      if (!b) return;
+      rate = Number(b.dataset.rate);
+      for (const other of $("rate").children) other.setAttribute("aria-pressed", other === b);
+      if (direction !== "stop") sendDrive();
+    });
+
+    // keyboard: the most recent of opposing keys wins, so W then S drives backwards
+    const KEYS = {
+      KeyW: "f", ArrowUp: "f",
+      KeyS: "b", ArrowDown: "b",
+      KeyA: "l", ArrowLeft: "l",
+      KeyD: "r", ArrowRight: "r",
+    };
+    let held = [];
+
+    function keyDrive() {
+      const latest = (a, b) => held.filter((k) => k === a || k === b).pop() || "";
+      drive(latest("f", "b") + latest("l", "r") || "stop");
+    }
+
+    document.addEventListener("keydown", (e) => {
+      const key = KEYS[e.code];
+      if (!key || e.target.closest("input")) return;
+      e.preventDefault();
+      if (e.repeat) return;
+      held = held.filter((k) => k !== key).concat(key);
+      keyDrive();
+    });
+
+    document.addEventListener("keyup", (e) => {
+      const key = KEYS[e.code];
+      if (!key) return;
+      held = held.filter((k) => k !== key);
+      keyDrive();
+    });
+
+    // stop when the page loses focus, so a missed key-up can't leave the robot driving
+    function halt() { held = []; drive("stop"); }
+    window.addEventListener("blur", halt);
+    document.addEventListener("visibilitychange", () => { if (document.hidden) halt(); });
+
+    // telemetry
+
+    const deg = (rad) => (rad * 180 / Math.PI).toFixed(1) + "°";
+
+    function setLink(online, text) {
+      const link = $("link");
+      link.classList.toggle("is-online", online);
+      link.classList.toggle("is-offline", !online);
+      link.textContent = text;
+    }
+
+    function setGauge(id, speed) {
+      const gauge = $(id);
+      gauge.classList.toggle("is-reverse", speed < 0);
+      gauge.style.setProperty("--v", Math.min(Math.abs(speed) / GAUGE_MAX, 1));
+    }
+
+    // polls skip a beat while other requests are queued, so commands go out first
+    function poll(cmd, interval, render, fail = () => {}) {
+      const tick = async () => {
+        if (pending) return;
+        try {
+          render(JSON.parse(await send(cmd)));
+        } catch {
+          fail();
+        }
+      };
+      tick();
+      setInterval(tick, interval);
+    }
+
+    let address = location.hostname;
+
+    poll({ T: 130 }, 1000, (s) => {
+      setLink(true, address);
+      const volts = s.v / 100;
+      $("voltage").textContent = volts.toFixed(2) + " V";
+      $("voltage").classList.toggle("is-low", volts < LOW_VOLTAGE);
+      $("speed-l").textContent = s.L.toFixed(2);
+      $("speed-r").textContent = s.R.toFixed(2);
+      setGauge("gauge-l", s.L);
+      setGauge("gauge-r", s.R);
+      $("roll").textContent = deg(s.r);
+      $("pitch").textContent = deg(s.p);
+      $("yaw").textContent = deg(s.y);
+    }, () => setLink(false, "Not responding"));
+
+    poll({ T: 405 }, 2500, (w) => {
+      if (w.ip) address = w.ip;
+      $("rssi").textContent = w.rssi + " dBm";
+    });
+
+    // switch both LED outputs off on load
+    send({ T: 132, IO4: 0, IO5: 0 }).catch(() => {});
+
+    // commands
+
+    $("presets").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-cmd]");
+      if (!b) return;
+      $("cmd").value = b.dataset.cmd;
+      $("cmd").focus();
+    });
+
+    $("send").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const out = $("response");
+      let cmd;
+      try {
+        cmd = JSON.parse($("cmd").value);
+      } catch (err) {
+        out.className = "is-error";
+        out.textContent = "That isn't valid JSON: " + err.message;
+        return;
+      }
+      out.className = "";
+      out.textContent = "Sending…";
+      try {
+        const text = await send(cmd, 5000);
+        try {
+          out.textContent = JSON.stringify(JSON.parse(text), null, 2);
+        } catch {
+          out.textContent = text || "Sent. The robot returned no data.";
+        }
+      } catch (err) {
+        out.className = "is-error";
+        out.textContent = "The robot didn't respond (" + err.message + "). Check that this device is on the robot's network.";
+      }
+    });
+  </script>
 </body>
 </html>
