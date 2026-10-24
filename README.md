@@ -83,31 +83,17 @@ For development and testing of this repository:
 
 ## Usage
 
-This repository provides a [Makefile](./Makefile)-based workflow.
+This repository provides a [Taskfile](./Taskfile.yml)-based workflow.
 
-Running `make` without commands will print out the following help information:
 
 ```text
-🧭 PATHFINDER
-
-Target           Description                                     Usage
-lint-arduino     lint Arduino code using arduino-lint            `make lint-arduino`
-lint-cpp         lint C++ code using cpplint and clang-format    `make lint-cpp`
-lint-yaml        lint YAML files                                 `make lint-yaml`
-attach           attach Arduino Board using arduino-cli          `make attach`
-clean            clean Arduino cache using arduino-cli           `make clean`
-compile          compile Arduino Sketch using arduino-cli        `make compile`
-upload           upload binary artifact using arduino-cli        `make upload`
-monitor          monitor binary output using arduino-cli         `make monitor`
-install-cores    install Arduino Board Core using arduino-cli    `make install-cores`
-install-libs     install Arduino libraries using arduino-cli     `make install-libs`
-list-libs        list Arduino libraries using arduino-cli        `make list-libs`
-docs             create docs using doxygen                       `make docs`
-docs-get-theme   retrieve Doxygen theme using git                `make docs-get-theme`
-help             display a list of Make Targets                  `make help`
-_listincludes    list all included Makefiles and *.mk files      `make _listincludes`
-_selfcheck       lint Makefile                                   `make _selfcheck`
 ```
+
+`task compile` installs the platforms and libraries pinned in [sketch.yml](./sketch.yml).
+The web UI is served from LittleFS: edit [data/index.html](./data/index.html), then run `task upload-fs`.
+This writes the whole `data/` directory, so it also replaces `wifiConfig.json` on the board.
+
+`attach`, `upload`, `upload-fs` and `monitor` use the first `/dev/cu.usbserial-*` port; override it with `PORT=/dev/cu.usbserial-XXXX`.
 
 ## Notes
 
