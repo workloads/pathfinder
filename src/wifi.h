@@ -457,8 +457,8 @@ String deviceStatusFeedback() {
 	apiResponse[0]["name"] = "Pathfinder";
 	apiResponse[0]["uptime"] = 1234;
 
-	apiResponse[0]["versions"]["api"]  = "0.1.0";
-	apiResponse[0]["versions"]["app"] = "0.10.0";
+	apiResponse[0]["versions"]["api"]  = PATHFINDER_API_VERSION;
+	apiResponse[0]["versions"]["app"] = PATHFINDER_VERSION;
 
 	// Create an empty string to serialize the JSON response to
 	String jsonResponse = "";
