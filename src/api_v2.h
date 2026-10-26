@@ -2,9 +2,6 @@
 #include "modles.h"
 #include <vector>
 
-const unsigned long AUTO_STOP_DELAY = 3000;
-unsigned long lastCommandTime = 0;
-
 std::vector<step> movementSteps;
 
 

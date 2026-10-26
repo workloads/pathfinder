@@ -1,3 +1,19 @@
+// shared by the v1 and v2 movement APIs
+const unsigned long AUTO_STOP_DELAY = 3000;
+unsigned long lastCommandTime = 0;
+
+String checkPlanSchema(JsonArray steps)
+{
+  for (String step : steps)
+  {
+    if (step.indexOf("angle") == -1 || step.indexOf("distance") == -1  || step.indexOf("direction") == -1 )
+    {
+      return "Invalid movement plan schema, it needs to contain angle, distance and direction";
+    }
+  }
+  return "valid";
+}
+
 #if API_V1
 String jsonAPIHandler(String stringInput)
 {
@@ -347,8 +363,6 @@ String apiStopDevice()
   return "OK";
 }
 
-const unsigned long AUTO_STOP_DELAY = 3000;
-unsigned long lastCommandTime = 0;
 
 void planStepToCommand(String movementPlanStep)
 {
@@ -583,15 +597,3 @@ String apiMovementPlanHandler(String jsonInput, int &statusCode)
 }
 
 #endif
-
-String checkPlanSchema(JsonArray steps)
-{
-  for (String step : steps)
-  {
-    if (step.indexOf("angle") == -1 || step.indexOf("distance") == -1  || step.indexOf("direction") == -1 )
-    {
-      return "Invalid movement plan schema, it needs to contain angle, distance and direction";
-    }
-  }
-  return "valid";
-}
