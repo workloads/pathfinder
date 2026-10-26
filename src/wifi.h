@@ -671,5 +671,7 @@ String getWifiStatusString() {
 void initWifi() {
 	initHostname();
 	loadWifiConfig();
+	// keep the radio awake; the default modem sleep delays replies by up to a few seconds.
+	WiFi.setSleep(false);
 	wifiModeOnBoot();
 }

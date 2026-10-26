@@ -77,7 +77,9 @@ void webCtrlServer() {
   });
 
   server.on("/v1/movement-plan", HTTP_POST, []() {
-    server.send(200, "text/plain", apiMovementPlanHandler(server.arg("plain")));
+    int statusCode;
+    String result = apiMovementPlanHandler(server.arg("plain"), statusCode);
+    server.send(statusCode, "text/plain", result);
  });
 
 

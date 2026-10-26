@@ -558,21 +558,32 @@ String checkPlanSchema(JsonArray steps)
   return "valid";
 }
 
-String apiMovementPlanHandler(String jsonInput)
+// runs a movement plan; `statusCode` is set to 400 when the plan is rejected
+String apiMovementPlanHandler(String jsonInput, int &statusCode)
 {
   JsonDocument input;
+  statusCode = 400;
 
   // parse the JSON file using ArduinoJson.
-  deserializeJson(input, jsonInput);
+  DeserializationError error = deserializeJson(input, jsonInput);
+  if (error)
+  {
+    return "Invalid movement plan, it needs to be JSON: " + String(error.c_str());
+  }
   Serial.println("Received a movement plan"); //, String(input["name"]));
                                               //    Serial.println(input);
   // for (int i = 0; i < input["steps"].size(); i++) {
   JsonArray steps = input["steps"].as<JsonArray>();
+  if (steps.size() == 0)
+  {
+    return "Invalid movement plan, it needs at least one step";
+  }
   String checkResult = checkPlanSchema(steps);
   if (checkResult != "valid")
   {
     return checkResult;
   }
+  statusCode = 200;
   for (String i : steps)
   {
     Serial.println("Step");

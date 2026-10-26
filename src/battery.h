@@ -37,11 +37,11 @@ String batteryStatusFeedback() {
   apiResponse.clear();
 
   // Populate current API response
-  apiResponse["shuntVoltage"]["unit"] = "mv";
+  apiResponse["shuntVoltage"]["unit"] = "mV";
   apiResponse["shuntVoltage"]["value"] = shuntVoltage_mV;
 
-  apiResponse["busVoltage"]["unit"] = "mv";
-  apiResponse["busVoltage"]["value"] = 2;
+  apiResponse["busVoltage"]["unit"] = "V";
+  apiResponse["busVoltage"]["value"] = busVoltage_V;
 
   apiResponse["current"]["unit"] = "mA";
   apiResponse["current"]["value"] = ina219.getCurrent_mA();
@@ -49,7 +49,7 @@ String batteryStatusFeedback() {
   apiResponse["power"]["unit"] = "mW";
   apiResponse["power"]["value"] = ina219.getBusPower();
 
-  apiResponse["loadVoltage"]["unit"] = "mv";
+  apiResponse["loadVoltage"]["unit"] = "V";
   apiResponse["loadVoltage"]["value"] = busVoltage_V + (shuntVoltage_mV / 1000);
 
   apiResponse["ina219Overflow"] = ina219.getOverflow();

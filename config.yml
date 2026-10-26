@@ -8,13 +8,6 @@ board_manager:
       # ⚠️ If this value is updated, it MUST be updated project-wide
       "https://espressif.github.io/arduino-esp32/package_esp32_index.json"
 
-directories:
-  data: ".arduino/data"
-  downloads: ".arduino/downloads"
-
-  # ⚠️ If this value is updated, it MUST be updated project-wide
-  user: ".arduino/user"
-
 library:
   enable_unsafe_install: false
 

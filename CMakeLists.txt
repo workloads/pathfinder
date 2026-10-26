@@ -20,11 +20,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # set common paths
 # see https://cmake.org/cmake/help/v3.30/command/set.html
 # ⚠️ If this value is updated, it MUST be updated project-wide
-set(ARDUINO_BASE_PATH .arduino)
-
-# see https://cmake.org/cmake/help/v3.30/command/set.html
-set(ARDUINO_DATA_PATH ${ARDUINO_BASE_PATH}/data/packages)
-set(ARDUINO_LIBS_PATH ${ARDUINO_BASE_PATH}/user/libraries)
+# (arduino-cli and Arduino IDE default directories)
+set(ARDUINO_DATA_PATH $ENV{HOME}/Library/Arduino15/packages)
+set(ARDUINO_LIBS_PATH $ENV{HOME}/Documents/Arduino/libraries)
 
 # set Arduino library version
 # see https://cmake.org/cmake/help/v3.30/command/set.html
@@ -39,7 +37,11 @@ set(ESP32_LIBRARY_VERSION 3.3.12)
 include_directories(
     ${ARDUINO_LIBS_PATH}
     ${ARDUINO_DATA_PATH}/arduino/hardware/avr/${ARDUINO_LIBRARY_VERSION}/libraries
+    ${ARDUINO_DATA_PATH}/arduino/hardware/avr/${ARDUINO_LIBRARY_VERSION}/cores/arduino
+    ${ARDUINO_DATA_PATH}/arduino/hardware/avr/${ARDUINO_LIBRARY_VERSION}/variants/standard
     ${ARDUINO_DATA_PATH}/esp32/hardware/esp32/${ESP32_LIBRARY_VERSION}/libraries
+    ${ARDUINO_DATA_PATH}/esp32/hardware/esp32/${ESP32_LIBRARY_VERSION}/cores/esp32
+    ${ARDUINO_DATA_PATH}/esp32/hardware/esp32/${ESP32_LIBRARY_VERSION}/variants/esp32
 )
 
 # include all source files in the `src` directory

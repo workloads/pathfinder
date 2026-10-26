@@ -329,7 +329,7 @@
         try {
           out.textContent = JSON.stringify(JSON.parse(text), null, 2);
         } catch {
-          out.textContent = text || "Sent. The robot returned no data.";
+          out.textContent = text || "Sent. This command has no reply.";
         }
       } catch (err) {
         out.className = "is-error";
