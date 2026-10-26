@@ -1,4 +1,4 @@
-
+#if API_V1
 String jsonAPIHandler(String stringInput)
 {
   JsonDocument jsonInput;
@@ -546,17 +546,7 @@ void planStepToCommand(String movementPlanStep)
 // }
 // }
 
-String checkPlanSchema(JsonArray steps)
-{
-  for (String step : steps)
-  {
-    if (step.indexOf("angle") == -1 || step.indexOf("distance") == -1  || step.indexOf("direction") == -1 )
-    {
-      return "Invalid movement plan schema, it needs to contain angle, distance and direction";
-    }
-  }
-  return "valid";
-}
+
 
 // runs a movement plan; `statusCode` is set to 400 when the plan is rejected
 String apiMovementPlanHandler(String jsonInput, int &statusCode)
@@ -590,4 +580,18 @@ String apiMovementPlanHandler(String jsonInput, int &statusCode)
     planStepToCommand(i);
   }
   return "movement plan executed.";
+}
+
+#endif
+
+String checkPlanSchema(JsonArray steps)
+{
+  for (String step : steps)
+  {
+    if (step.indexOf("angle") == -1 || step.indexOf("distance") == -1  || step.indexOf("direction") == -1 )
+    {
+      return "Invalid movement plan schema, it needs to contain angle, distance and direction";
+    }
+  }
+  return "valid";
 }

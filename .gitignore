@@ -5,8 +5,16 @@ cmake-build-debug
 ### Arduino ###
 .theia/
 .arduino/
+libraries/
+tools
 
 ### Project-specific ###
 .doxygen/theme
 docs/
 .task/checksum/build-fs
+
+### vcsode ###
+.vscode/
+
+### python ###
+tests/__pycache__/

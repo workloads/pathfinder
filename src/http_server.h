@@ -35,13 +35,16 @@ void webCtrlServer() {
     jsonCmdReceive.clear();
   });
 
+  server.on("/v1/device/status", []() {
+    server.send(200, "application/json", deviceStatusFeedback());
+  });
+
+  #if API_V1
   server.on("/v1", []() {
     server.send(200, "text/plain", "/v1");
   });
 
-  server.on("/v1/device/status", []() {
-    server.send(200, "application/json", deviceStatusFeedback());
-  });
+  
 
   server.on("/v1/device/battery", []() {
     server.send(200, "application/json", batteryStatusFeedback());
@@ -81,7 +84,18 @@ void webCtrlServer() {
     String result = apiMovementPlanHandler(server.arg("plain"), statusCode);
     server.send(statusCode, "text/plain", result);
  });
-
+ #endif
+ #if API_V2
+ server.on("/v2/movement", HTTP_GET, []() {
+    server.send(200, "text/plain", getSteps());
+  });
+  server.on("/v2/movement", HTTP_POST, []() {
+    server.send(200, "text/plain", apiv2MovementPlanHandler(server.arg("plain")));
+  });
+  server.on("/v2/movement/run", HTTP_POST, []() {
+    server.send(200, "text/plain", runSteps());
+  });
+ #endif
 
   // Start server
   server.begin();
