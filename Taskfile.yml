@@ -9,6 +9,10 @@ vars:
   # path to the Arduino CLI configuration file
   ARDUINO_SKETCH_CONFIG: config.yml
 
+  # Arduino CLI data directory; `--profile` installs the ESP32 core tools in its `internal` folder
+  ARDUINO_DATA_DIR:
+    sh: arduino-cli config get directories.data --config-file config.yml | tr -d "\n"
+
   # path to the (primary) Arduino sketch file
   ARDUINO_SKETCH_FILE: pathfinder.ino
 
@@ -110,7 +114,7 @@ tasks:
     desc: build LittleFS image from `data/` using mklittlefs
     vars:
       MKLITTLEFS:
-        sh: ls .arduino/data/internal/esp32_mklittlefs_*/mklittlefs 2>/dev/null | sort -V | tail -n 1
+        sh: ls "{{.ARDUINO_DATA_DIR}}"/internal/esp32_mklittlefs_*/mklittlefs 2>/dev/null | sort -V | tail -n 1
     preconditions:
       - sh: '[ -n "{{.FS_SIZE}}" ]'
         msg: "No partition table found. Run `task compile` first."
@@ -135,7 +139,7 @@ tasks:
     deps: [build-fs]
     vars:
       ESPTOOL:
-        sh: ls .arduino/data/internal/esp32_esptool_py_*/esptool 2>/dev/null | sort -V | tail -n 1
+        sh: ls "{{.ARDUINO_DATA_DIR}}"/internal/esp32_esptool_py_*/esptool 2>/dev/null | sort -V | tail -n 1
     preconditions: *port
     cmds:
       # see https://docs.espressif.com/projects/esptool/en/latest/esp32/esptool/basic-commands.html#write-binary-data-to-flash-write-flash
